@@ -49,12 +49,17 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="funcionariojLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="funcionarioTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="funcionarioJTextField" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="emailjLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="datajTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="funcionariojLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="categoriaJTextField" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -84,19 +89,24 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="funcionariojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="funcionarioTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="funcionarioJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="emailjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="datajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="categoriaJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="funcionariojLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="datajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="limparjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cadastrarjButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -121,7 +131,7 @@
         <Property name="text" type="java.lang.String" value="Funcionario:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="funcionarioTextField">
+    <Component class="javax.swing.JTextField" name="funcionarioJTextField">
     </Component>
     <Component class="javax.swing.JLabel" name="emailjLabel">
       <Properties>
@@ -141,6 +151,16 @@
     <Component class="javax.swing.JButton" name="cadastrarjButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarjButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="categoriaJTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="funcionariojLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Categoria:"/>
       </Properties>
     </Component>
   </SubComponents>

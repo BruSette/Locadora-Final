@@ -10,7 +10,7 @@ package locadora;
  * @author brunosette
  */
 public class EstoqueFilmesJPanel extends javax.swing.JPanel {
-
+    EstoqueFilmesDAO dao = new EstoqueFilmesDAOImpl();
     /**
      * Creates new form EstoqueFilmesJPanel
      */
@@ -32,11 +32,13 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         telefonejLabel = new javax.swing.JLabel();
         fornecedorjTextField = new javax.swing.JTextField();
         funcionariojLabel = new javax.swing.JLabel();
-        funcionarioTextField = new javax.swing.JTextField();
+        funcionarioJTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
         datajTextField = new javax.swing.JTextField();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
+        categoriaJTextField = new javax.swing.JTextField();
+        funcionariojLabel1 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Estoque Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -56,6 +58,13 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         });
 
         cadastrarjButton.setText("Cadastrar");
+        cadastrarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarjButtonActionPerformed(evt);
+            }
+        });
+
+        funcionariojLabel1.setText("Categoria:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,11 +85,15 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(funcionariojLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(funcionarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(emailjLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(funcionariojLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(categoriaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(limparjButton)
@@ -102,16 +115,20 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(funcionariojLabel)
-                    .addComponent(funcionarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailjLabel)
-                    .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                    .addComponent(categoriaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(funcionariojLabel1))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailjLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
-                .addGap(22, 22, 22))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -119,18 +136,38 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         nomejTextField.setText("");
         datajTextField.setText("");
-        funcionarioTextField.setText("");
+        funcionarioJTextField.setText("");
         datajTextField.setText("");
+        categoriaJTextField.setText("");
+        fornecedorjTextField.setText("");
     }//GEN-LAST:event_limparjButtonActionPerformed
+
+    private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
+        // TODO add your handling code here:
+        EstoqueFilmes estoque = new EstoqueFilmes();
+        estoque.setNomeEstoque(nomejTextField.getText());
+        estoque.setCategoria(categoriaJTextField.getText());
+        Funcionario func = new Funcionario();
+        func.setNome(funcionarioJTextField.getText());
+        estoque.setFuncionario(func);
+        PessoaJuridica fornecedor = new PessoaJuridica();
+        fornecedor.setNome(fornecedorjTextField.getText());
+        estoque.setFornecedor(fornecedor);
+        dao.inserir(estoque);
+        
+        limparjButtonActionPerformed(null);
+    }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
+    private javax.swing.JTextField categoriaJTextField;
     private javax.swing.JTextField datajTextField;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JTextField fornecedorjTextField;
-    private javax.swing.JTextField funcionarioTextField;
+    private javax.swing.JTextField funcionarioJTextField;
     private javax.swing.JLabel funcionariojLabel;
+    private javax.swing.JLabel funcionariojLabel1;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
