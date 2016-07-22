@@ -14,14 +14,16 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
     
     private Funcionario[] funcionarios = new Funcionario[10];
 
-    public void inserir(Funcionario funcionario) {
+    public void inserir(Funcionario funcionario) throws CPFException,UsuarioException {
         boolean achou = false;
         for (int i = 0; i < funcionarios.length; i++) {
             if (funcionarios[i] != null) {
                 if (funcionarios[i].getCpf().equals(funcionario.getCpf())) {
-                    System.out.println("CPF já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new CPFException();
+                }
+                
+                if(funcionarios[i].getUsuario().getUsuario().equals(funcionario.getUsuario().getUsuario())){
+                    throw new UsuarioException();
                 }
             }
         }

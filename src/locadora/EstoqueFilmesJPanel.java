@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -71,7 +73,7 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
@@ -95,16 +97,16 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(categoriaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                        .addGap(84, 84, 84)
                         .addComponent(limparjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cadastrarjButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomejLabel)
                     .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,11 +126,11 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailjLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,9 +155,16 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         PessoaJuridica fornecedor = new PessoaJuridica();
         fornecedor.setNome(fornecedorjTextField.getText());
         estoque.setFornecedor(fornecedor);
-        dao.inserir(estoque);
+        try{
+            dao.inserir(estoque);
+            JOptionPane.showMessageDialog(this, "Cadastrado!");
+            limparjButtonActionPerformed(null);
+        }catch (RegistroException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            nomejTextField.grabFocus();
+        }
         
-        limparjButtonActionPerformed(null);
+        
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
 

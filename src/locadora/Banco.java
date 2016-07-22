@@ -10,8 +10,18 @@ package locadora;
  * @author brunosette
  */
 public class Banco {
+    
     private String nome;
     private Endereco endereco;
+    private PessoaFisica gerente;
+
+    public PessoaFisica getGerente() {
+        return gerente;
+    }
+
+    public void setGerente(PessoaFisica gerente) {
+        this.gerente = gerente;
+    }
 
     public String getNome() {
         return nome;

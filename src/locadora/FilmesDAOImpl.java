@@ -9,35 +9,31 @@ package locadora;
  *
  * @author bruno
  */
-public class FilmesDAOImpl implements FilmesDAO{
+public class FilmesDAOImpl implements FilmesDAO {
 
     Filme[] filmes = new Filme[10];
-    
-    public void inserir(Filme filme) {
-        boolean achou = false;
+
+    public void inserir(Filme filme) throws RegistroException  {
         for (int i = 0; i < filmes.length; i++) {
             if (filmes[i] != null) {
                 if (filmes[i].getNomeFilme().equals(filme.getNomeFilme())) {
-                    System.out.println("Filme já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new RegistroException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < filmes.length; i++) {
-                if (filmes[i] == null) {
-                    filmes[i] = filme;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < filmes.length; i++) {
+            if (filmes[i] == null) {
+                filmes[i] = filme;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
+
     }
 
-    
     public void remover(String nome) {
-       for (int i = 0; i < filmes.length; i++) {
+        for (int i = 0; i < filmes.length; i++) {
             if (filmes[i] != null) {
                 if (filmes[i].getNomeFilme().equals(nome)) {
                     filmes[i] = null;
@@ -47,9 +43,8 @@ public class FilmesDAOImpl implements FilmesDAO{
         }
     }
 
-    
     public void alterar(Filme filme) {
-        
+
     }
 
     public Filme consultar(String nome) {
@@ -63,9 +58,8 @@ public class FilmesDAOImpl implements FilmesDAO{
         return null;
     }
 
-    
     public Filme[] listar() {
         return filmes;
     }
-    
+
 }

@@ -12,30 +12,26 @@ package locadora;
 public class ClienteDAOImpl implements ClienteDAO {
 
     Cliente[] clientes = new Cliente[10];
-    public void inserir(Cliente cliente) {
-        boolean achou = false;
+
+    public void inserir(Cliente cliente) throws CPFException {
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null) {
                 if (clientes[i].getCpf().equals(cliente.getCpf())) {
-                    System.out.println("Cliente já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new CPFException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < clientes.length; i++) {
-                if (clientes[i] == null) {
-                    clientes[i] = cliente;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < clientes.length; i++) {
+            if (clientes[i] == null) {
+                clientes[i] = cliente;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
-    
+
     }
 
-   
     public void remover(String cpf) {
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null) {
@@ -47,12 +43,10 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
 
-    
     public void alterar(Cliente cliente) {
-        
+
     }
 
-   
     public Cliente consultar(String cpf) {
         for (int i = 0; i < clientes.length; i++) {
             if (clientes[i] != null) {
@@ -61,12 +55,11 @@ public class ClienteDAOImpl implements ClienteDAO {
                 }
             }
         }
-       return null;
+        return null;
     }
 
-    
     public Cliente[] listar() {
         return clientes;
     }
-    
+
 }

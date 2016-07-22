@@ -10,7 +10,7 @@ package locadora;
  * @author bruno
  */
 public interface ReservaFilmeDAO {
-    public void inserir(ReservaFilme reserva);
+    public void inserir(ReservaFilme reserva) throws RegistroException;
 
     public void remover(String cpf);
 

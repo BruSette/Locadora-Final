@@ -11,7 +11,7 @@ package locadora;
  */
 public interface UsuarioDAO {
     
-    public void inserir(Usuario usuario);
+    public void inserir(Usuario usuario) throws UsuarioException;
 
     public void remover(String usuario);
 

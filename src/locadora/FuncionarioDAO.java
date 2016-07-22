@@ -10,7 +10,7 @@ package locadora;
  * @author bruno
  */
 public interface FuncionarioDAO {
-    public void inserir(Funcionario funcionario);
+    public void inserir(Funcionario funcionario) throws CPFException,UsuarioException;
 
     public void remover(String cpf);
 

@@ -12,32 +12,27 @@ package locadora;
 public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
 
     DoacaoFilmes doacoes[] = new DoacaoFilmes[10];
-    
-    public void inserir(DoacaoFilmes doacao) {
-        boolean achou = false;
-        for (int i = 0; i < doacoes.length; i++) {
+
+    public void inserir(DoacaoFilmes doacao) throws RegistroException{
+
+        for (int i = 0; i < doacoes.length; i++)  {
             if (doacoes[i] != null) {
                 if (doacoes[i].getEntidade().getNome().equals(doacao.getEntidade().getNome())) {
-                    System.out.println("Doacao já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new RegistroException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < doacoes.length; i++) {
-                if (doacoes[i] == null) {
-                    doacoes[i] = doacao;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < doacoes.length; i++) {
+            if (doacoes[i] == null) {
+                doacoes[i] = doacao;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
-    
-    
+
     }
 
-    
     public void remover(String entidade) {
         for (int i = 0; i < doacoes.length; i++) {
             if (doacoes[i] != null) {
@@ -49,12 +44,10 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
         }
     }
 
-    
     public void alterar(DoacaoFilmes doacao) {
-                
+
     }
 
-    
     public DoacaoFilmes consultar(String entidade) {
         for (int i = 0; i < doacoes.length; i++) {
             if (doacoes[i] != null) {
@@ -66,12 +59,8 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
         return null;
     }
 
-    
     public DoacaoFilmes[] listar() {
         return doacoes;
     }
 
-    
-   
-    
 }

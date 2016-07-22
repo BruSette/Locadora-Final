@@ -12,7 +12,7 @@ import java.util.Date;
  * @author brunosette
  */
 public class Estoque {
-    
+
     private String nomeEstoque;
     private Date dataEntrada;
     private PessoaJuridica fornecedor;
@@ -50,10 +50,9 @@ public class Estoque {
         this.funcionario = funcionario;
     }
 
-	@Override
-	public String toString() {
-		return "Estoque []";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "Estoque []";
+    }
+
 }

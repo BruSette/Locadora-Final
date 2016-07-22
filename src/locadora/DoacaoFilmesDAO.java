@@ -10,7 +10,7 @@ package locadora;
  * @author brunosette
  */
 public interface DoacaoFilmesDAO {
-    public void inserir(DoacaoFilmes doacao);
+    public void inserir(DoacaoFilmes doacao) throws RegistroException;
 
     public void remover(String entidade);
 

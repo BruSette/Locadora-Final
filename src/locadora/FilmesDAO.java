@@ -11,7 +11,7 @@ package locadora;
  */
 public interface FilmesDAO {
     
-    public void inserir(Filme filme);
+    public void inserir(Filme filme) throws RegistroException;
 
     public void remover(String nome);
 

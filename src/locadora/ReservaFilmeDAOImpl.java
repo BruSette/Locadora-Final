@@ -12,31 +12,28 @@ package locadora;
 public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
 
     ReservaFilme reservas[] = new ReservaFilme[10];
-    public void inserir(ReservaFilme reserva) {
-        boolean achou = false;
+
+    public void inserir(ReservaFilme reserva) throws RegistroException {
         for (int i = 0; i < reservas.length; i++) {
             if (reservas[i] != null) {
                 if (reservas[i].getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())) {
-                    System.out.println("Reserva já cadastrada!");
-                    achou = true;
-                    break;
+                    throw new RegistroException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < reservas.length; i++) {
-                if (reservas[i] == null) {
-                    reservas[i] = reserva;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < reservas.length; i++) {
+            if (reservas[i] == null) {
+                reservas[i] = reserva;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
+
     }
 
-    
     public void remover(String nomeFilme) {
-       for (int i = 0; i < reservas.length; i++) {
+        for (int i = 0; i < reservas.length; i++) {
             if (reservas[i] != null) {
                 if (reservas[i].getFilme().getNomeFilme().equals(nomeFilme)) {
                     reservas[i] = null;
@@ -46,12 +43,10 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         }
     }
 
-    
     public void alterar(ReservaFilme reserva) {
-        
+
     }
 
-    
     public ReservaFilme consultar(String nomeFilme) {
         for (int i = 0; i < reservas.length; i++) {
             if (reservas[i] != null) {
@@ -63,9 +58,8 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         return null;
     }
 
-    
     public ReservaFilme[] listar() {
         return reservas;
     }
-    
+
 }

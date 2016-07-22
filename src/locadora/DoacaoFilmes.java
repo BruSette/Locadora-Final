@@ -12,21 +12,22 @@ import java.util.Date;
  * @author brunosette
  */
 public class DoacaoFilmes {
-    private Filme filmes[];
+
+    private Filme filmes;
     private PessoaJuridica entidade;
     private EstoqueFilmes estoque;
     private Date dataDoacao;
     private Funcionario responsavel;
-    
-    public DoacaoFilmes(Funcionario responsavel) {
-		this.responsavel = responsavel;
-	}
 
-	public Filme[] getFilmes() {
+    public DoacaoFilmes(Funcionario responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public Filme getFilmes() {
         return filmes;
     }
 
-    public void setFilmes(Filme[] filmes) {
+    public void setFilmes(Filme filmes) {
         this.filmes = filmes;
     }
 
@@ -54,18 +55,17 @@ public class DoacaoFilmes {
         this.dataDoacao = dataDoacao;
     }
 
-	public Funcionario getResponsavel() {
-		return responsavel;
-	}
+    public Funcionario getResponsavel() {
+        return responsavel;
+    }
 
-	public void setResponsavel(Funcionario responsavel) {
-		this.responsavel = responsavel;
-	}
+    public void setResponsavel(Funcionario responsavel) {
+        this.responsavel = responsavel;
+    }
 
-	@Override
-	public String toString() {
-		return "DoacaoFilmes []";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "DoacaoFilmes []";
+    }
+
 }

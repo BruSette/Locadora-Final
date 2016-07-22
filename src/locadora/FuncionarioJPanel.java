@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -504,9 +506,19 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         
         funcionario.setUsuario(usuario);
         
-        dao.inserir(funcionario);
+        try{
+            dao.inserir(funcionario);
+            limparjButtonActionPerformed(null);
+            JOptionPane.showMessageDialog(this, "Cadastrado!");
+        }catch (CPFException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            cpfjTextField.grabFocus();
+        }catch (UsuarioException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            usuariojTextField.grabFocus();
+        }
         
-        limparjButtonActionPerformed(null);
+        
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
 

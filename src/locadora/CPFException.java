@@ -7,17 +7,12 @@ package locadora;
 
 /**
  *
- * @author brunosette
+ * @author raphael
  */
-public class PagamentoCompra extends Pagamento {
-    
-    double ValorPagar;
-    
-    @Override
-    public String toString() {
-        return "PagamentoCompra []";
+public class CPFException extends Exception {
+
+    public CPFException() {
+        super("CPF já cadastrado!");
     }
-	
-	
-	
+
 }

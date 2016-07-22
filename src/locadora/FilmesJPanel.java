@@ -5,6 +5,10 @@
  */
 package locadora;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -34,9 +38,11 @@ public class FilmesJPanel extends javax.swing.JPanel {
         telefonejLabel = new javax.swing.JLabel();
         generojTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
-        lancamentojTextField = new javax.swing.JTextField();
         limparjButton = new javax.swing.JButton();
         disponiveljRadioButton = new javax.swing.JRadioButton();
+        precojTextField = new javax.swing.JTextField();
+        emailjLabel1 = new javax.swing.JLabel();
+        lancamentojFormattedTextField = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -62,38 +68,48 @@ public class FilmesJPanel extends javax.swing.JPanel {
 
         disponiveljRadioButton.setText("Disponível");
 
+        emailjLabel1.setText("Preço para aluguel:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(119, Short.MAX_VALUE)
                 .addComponent(limparjButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadastrarjButton)
-                .addGap(37, 37, 37))
+                .addGap(62, 62, 62))
             .addGroup(layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(disponiveljRadioButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(telefonejLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(generojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(190, 190, 190)
+                        .addComponent(disponiveljRadioButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(nomejLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(emailjLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lancamentojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                        .addGap(81, 81, 81)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nomejLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(emailjLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(precojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(emailjLabel)
+                                    .addComponent(telefonejLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(generojTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                                    .addComponent(lancamentojFormattedTextField))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomejLabel)
                     .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -104,10 +120,14 @@ public class FilmesJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailjLabel)
-                    .addComponent(lancamentojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lancamentojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailjLabel1)
+                    .addComponent(precojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(disponiveljRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
@@ -119,7 +139,8 @@ public class FilmesJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         nomejTextField.setText("");
         generojTextField.setText("");
-        lancamentojTextField.setText("");
+        lancamentojFormattedTextField.setText("");
+        precojTextField.setText("");
         disponiveljRadioButton.setSelected(false);
         
         
@@ -127,13 +148,43 @@ public class FilmesJPanel extends javax.swing.JPanel {
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
-        Filme filme = new Filme();
-        filme.setNomeFilme(nomejTextField.getText());
-        filme.setGenero(generojTextField.getText());
-        filme.setDisponibilidade(true);
+        Filme novo = new Filme();
+        novo.setNomeFilme(nomejTextField.getText());
+        novo.setGenero(generojTextField.getText());
+        novo.setDisponibilidade(disponiveljRadioButton.isSelected());
         
-        dao.inserir(filme);
-        limparjButtonActionPerformed(null);
+        
+        String sData = (String) lancamentojFormattedTextField.getValue();
+
+        if (sData != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                novo.setLancamento(sdf.parse(sData));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Data Inválida!");
+                lancamentojFormattedTextField.grabFocus();
+                return;
+            }
+        }
+        
+        try {
+            Double preco = Double.parseDouble(precojTextField.getText());
+        }catch(NumberFormatException erro){
+            JOptionPane.showMessageDialog(this, "Erro na conversão do campo preço!");
+            precojTextField.grabFocus();
+            return;
+        }
+        
+        
+        try{
+            dao.inserir(novo);
+            JOptionPane.showMessageDialog(this, "Cadastrado!");
+            limparjButtonActionPerformed(null);
+        }catch(RegistroException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            nomejTextField.grabFocus();
+        }
+       
         
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
@@ -142,11 +193,13 @@ public class FilmesJPanel extends javax.swing.JPanel {
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JRadioButton disponiveljRadioButton;
     private javax.swing.JLabel emailjLabel;
+    private javax.swing.JLabel emailjLabel1;
     private javax.swing.JTextField generojTextField;
-    private javax.swing.JTextField lancamentojTextField;
+    private javax.swing.JFormattedTextField lancamentojFormattedTextField;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
+    private javax.swing.JTextField precojTextField;
     private javax.swing.JLabel telefonejLabel;
     // End of variables declaration//GEN-END:variables
 }

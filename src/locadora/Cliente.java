@@ -9,15 +9,19 @@ package locadora;
  *
  * @author brunosette
  */
-public class Cliente extends PessoaFisica{
+public class Cliente extends PessoaFisica {
+
     private Boolean bloqueado;
     private int limiteFilmes;
 
+    public Cliente(String nome) {
+        this.setNome(nome);
+    }
     public Cliente() {
+       
+    }
 
-	  }
-
-	public Boolean getBloqueado() {
+    public Boolean getBloqueado() {
         return bloqueado;
     }
 
@@ -33,12 +37,9 @@ public class Cliente extends PessoaFisica{
         this.limiteFilmes = limiteFilmes;
     }
 
-
-	@Override
-	public String toString() {
-		return "Cliente []";
-	}
-
-
+    @Override
+    public String toString() {
+        return "Cliente []";
+    }
 
 }

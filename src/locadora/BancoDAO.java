@@ -11,7 +11,7 @@ package locadora;
  */
 public interface BancoDAO {
     
-    public void inserir(Banco banco);
+    public void inserir(Banco banco) throws RegistroException;
 
     public void remover(String nome);
 

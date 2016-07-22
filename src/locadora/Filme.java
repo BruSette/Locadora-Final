@@ -12,16 +12,26 @@ import java.util.Date;
  * @author brunosette
  */
 public class Filme {
+
     private String nomeFilme;
     private Date lancamento;
     private String genero;
     private Boolean disponibilidade;
-    
-    public Filme() {
-		super();
-	}
+    private Double valorAluguel;
 
-	public String getNomeFilme() {
+    public Double getValorAluguel() {
+        return valorAluguel;
+    }
+
+    public void setValorAluguel(Double valorAluguel) {
+        this.valorAluguel = valorAluguel;
+    }
+
+    public Filme() {
+        super();
+    }
+
+    public String getNomeFilme() {
         return nomeFilme;
     }
 
@@ -53,11 +63,9 @@ public class Filme {
         this.disponibilidade = disponibilidade;
     }
 
-	@Override
-	public String toString() {
-		return "Filmes []";
-	}
-    
-    
-    
+    @Override
+    public String toString() {
+        return "Filmes []";
+    }
+
 }

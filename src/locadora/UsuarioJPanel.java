@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -95,7 +97,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -117,9 +119,16 @@ public class UsuarioJPanel extends javax.swing.JPanel {
         usuario.setUsuario(usuariojTextField.getText());
         usuario.setSenha(senhajPasswordField.getText());
         
-        dao.inserir(usuario);
+        try{
+            dao.inserir(usuario);
+            limparjButtonActionPerformed(null);
+            JOptionPane.showMessageDialog(this, "Cadastrado!");
+        }catch (UsuarioException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            usuariojTextField.grabFocus();
+        }
         
-        limparjButtonActionPerformed(null);
+        
         
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 

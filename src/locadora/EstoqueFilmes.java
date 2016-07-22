@@ -11,18 +11,18 @@ package locadora;
  */
 public class EstoqueFilmes extends Estoque {
 
-    private Filme filmes[];
+    private Filme filmes;
     private String categoria;
 
     public EstoqueFilmes() {
-        
+
     }
 
-    public Filme[] getFilmes() {
+    public Filme getFilmes() {
         return filmes;
     }
 
-    public void setFilmes(Filme[] filmes) {
+    public void setFilmes(Filme filmes) {
         this.filmes = filmes;
     }
 

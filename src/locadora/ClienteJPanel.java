@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -261,12 +263,13 @@ public class ClienteJPanel extends javax.swing.JPanel {
                     .addComponent(cpfjLabel)
                     .addComponent(cpfjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nascimentojLabel)
-                    .addComponent(nascimentojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(numerojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(estadojLabel1)))
+                        .addComponent(estadojLabel1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nascimentojLabel)
+                        .addComponent(nascimentojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nacionalidadejLabel)
@@ -338,8 +341,15 @@ public class ClienteJPanel extends javax.swing.JPanel {
         end.setRua(ruajTextField.getText());
         
         cliente.setEndereco(end);
-        dao.inserir(cliente);
-        limparjButtonActionPerformed(null);
+        try{
+            dao.inserir(cliente);
+            limparjButtonActionPerformed(null);
+            JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
+        }catch (CPFException erro){
+            JOptionPane.showMessageDialog(this,erro.getMessage());
+            cpfjTextField.grabFocus();
+        }
+        
         
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 

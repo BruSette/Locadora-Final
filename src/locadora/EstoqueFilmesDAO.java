@@ -10,7 +10,7 @@ package locadora;
  * @author brunosette
  */
 public interface EstoqueFilmesDAO {
-    public void inserir(EstoqueFilmes estoque);
+    public void inserir(EstoqueFilmes estoque) throws RegistroException;
 
     public void remover(String nomeEstoque);
 

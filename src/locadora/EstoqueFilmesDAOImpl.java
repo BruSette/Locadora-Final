@@ -13,26 +13,22 @@ public class EstoqueFilmesDAOImpl implements EstoqueFilmesDAO {
 
     EstoqueFilmes estoques[] = new EstoqueFilmes[10];
 
-    public void inserir(EstoqueFilmes estoque) {
-        boolean achou = false;
+    public void inserir(EstoqueFilmes estoque) throws RegistroException {
         for (int i = 0; i < estoques.length; i++) {
             if (estoques[i] != null) {
                 if (estoques[i].getNomeEstoque().equals(estoque.getNomeEstoque())) {
-                    System.out.println("Estoque já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new RegistroException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < estoques.length; i++) {
-                if (estoques[i] == null) {
-                    estoques[i] = estoque;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+        for (int i = 0; i < estoques.length; i++) {
+            if (estoques[i] == null) {
+                estoques[i] = estoque;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
+
     }
 
     public void remover(String nomeEstoque) {

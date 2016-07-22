@@ -13,26 +13,24 @@ public class BancoDAOImpl implements BancoDAO {
 
     private Banco[] bancos = new Banco[10];
 
-    public void inserir(Banco banco) {
+    public void inserir(Banco banco) throws RegistroException {
         boolean achou = false;
         for (int i = 0; i < bancos.length; i++) {
             if (bancos[i] != null) {
                 if (bancos[i].getNome().equals(banco.getNome())) {
-                    System.out.println("Banco já cadastrado!");
-                    achou = true;
-                    break;
+                    throw new RegistroException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < bancos.length; i++) {
-                if (bancos[i] == null) {
-                    bancos[i] = banco;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < bancos.length; i++) {
+            if (bancos[i] == null) {
+                bancos[i] = banco;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
+
     }
 
     public void remover(String nome) {
@@ -47,7 +45,7 @@ public class BancoDAOImpl implements BancoDAO {
     }
 
     public void alterar(Banco banco) {
-        
+
     }
 
     public Banco consultar(String nome) {
@@ -58,7 +56,7 @@ public class BancoDAOImpl implements BancoDAO {
                 }
             }
         }
-       return null;
+        return null;
     }
 
     public Banco[] listar() {

@@ -12,30 +12,26 @@ package locadora;
 public class UsuarioDAOImpl implements UsuarioDAO {
 
     Usuario usuarios[] = new Usuario[10];
-    
-    public void inserir(Usuario usuario) {
-         boolean achou = false;
+
+    public void inserir(Usuario usuario) throws UsuarioException {
         for (int i = 0; i < usuarios.length; i++) {
             if (usuarios[i] != null) {
                 if (usuarios[i].getUsuario().equals(usuario.getUsuario())) {
-                    System.out.println("Usuario já cadastrada!");
-                    achou = true;
-                    break;
+                   throw new UsuarioException();
                 }
             }
         }
-        if (!achou) {
-            for (int i = 0; i < usuarios.length; i++) {
-                if (usuarios[i] == null) {
-                    usuarios[i] = usuario;
-                    System.out.println("Inserido com Sucesso!");
-                    break;
-                }
+
+        for (int i = 0; i < usuarios.length; i++) {
+            if (usuarios[i] == null) {
+                usuarios[i] = usuario;
+                System.out.println("Inserido com Sucesso!");
+                break;
             }
         }
+
     }
 
-    
     public void remover(String usuario) {
         for (int i = 0; i < usuarios.length; i++) {
             if (usuarios[i] != null) {
@@ -47,14 +43,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
     }
 
-    
     public void alterar(Usuario usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     public Usuario consultar(String usuario) {
-      for (int i = 0; i < usuarios.length; i++) {
+        for (int i = 0; i < usuarios.length; i++) {
             if (usuarios[i] != null) {
                 if (usuarios[i].getUsuario().equals(usuario)) {
                     return usuarios[i];
@@ -64,9 +58,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return null;
     }
 
-    
     public Usuario[] listar() {
-       return usuarios;
+        return usuarios;
     }
-    
+
 }

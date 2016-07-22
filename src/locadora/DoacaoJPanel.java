@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author brunosette
@@ -143,9 +145,15 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         doacao.setEstoque(estoque);
         
         
-        dao.inserir(doacao);
+        try{
+            dao.inserir(doacao);
+            JOptionPane.showMessageDialog(this, "Cadastrado!");
+            limparjButtonActionPerformed(null);
+        }catch (RegistroException erro){
+            JOptionPane.showMessageDialog(this, erro.getMessage());
+            entidadejTextField.grabFocus();
+        }
         
-        limparjButtonActionPerformed(null);
         
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 

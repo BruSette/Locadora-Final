@@ -11,7 +11,7 @@ package locadora;
  */
 public interface ClienteDAO {
     
-    public void inserir(Cliente cliente);
+    public void inserir(Cliente cliente) throws CPFException;
 
     public void remover(String cpf);
 
