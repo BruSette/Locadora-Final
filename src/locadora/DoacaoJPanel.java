@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class DoacaoJPanel extends javax.swing.JPanel {
 
-    DoacaoFilmesDAO dao = new DoacaoFilmesDAOImpl();
+    DoacaoFilmesDAO dao =FabricaDAO.CriarDoacaoFilmesDAO();
     /**
      * Creates new form DoacaoJPanel
      */

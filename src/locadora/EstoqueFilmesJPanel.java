@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class EstoqueFilmesJPanel extends javax.swing.JPanel {
-    EstoqueFilmesDAO dao = new EstoqueFilmesDAOImpl();
+    EstoqueFilmesDAO dao = FabricaDAO.CriarEstoqueFilmesDAO();
     /**
      * Creates new form EstoqueFilmesJPanel
      */
@@ -36,11 +38,11 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         funcionariojLabel = new javax.swing.JLabel();
         funcionarioJTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
-        datajTextField = new javax.swing.JTextField();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
         categoriaJTextField = new javax.swing.JTextField();
         funcionariojLabel1 = new javax.swing.JLabel();
+        datajFormattedTextField = new javax.swing.JFormattedTextField();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Estoque Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -68,40 +70,47 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
 
         funcionariojLabel1.setText("Categoria:");
 
+        try {
+            datajFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(telefonejLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fornecedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(nomejLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(funcionariojLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(emailjLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(funcionariojLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(categoriaJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
+                        .addGap(47, 47, 47)
                         .addComponent(limparjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadastrarjButton)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(cadastrarjButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(telefonejLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fornecedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nomejLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(funcionariojLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(funcionariojLabel1)
+                                    .addComponent(emailjLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(datajFormattedTextField)
+                                    .addComponent(categoriaJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,22 +133,22 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
                     .addComponent(funcionariojLabel1))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailjLabel))
+                    .addComponent(emailjLabel)
+                    .addComponent(datajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
         nomejTextField.setText("");
-        datajTextField.setText("");
+        datajFormattedTextField.setText("");
         funcionarioJTextField.setText("");
-        datajTextField.setText("");
+        datajFormattedTextField.setText("");
         categoriaJTextField.setText("");
         fornecedorjTextField.setText("");
     }//GEN-LAST:event_limparjButtonActionPerformed
@@ -155,6 +164,21 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
         PessoaJuridica fornecedor = new PessoaJuridica();
         fornecedor.setNome(fornecedorjTextField.getText());
         estoque.setFornecedor(fornecedor);
+        
+        String sData = (String) datajFormattedTextField.getValue();
+
+        if (sData != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                estoque.setDataEntrada(sdf.parse(sData));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Data Inválida!");
+                datajFormattedTextField.grabFocus();
+                return;
+            }
+        }
+        
+        
         try{
             dao.inserir(estoque);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
@@ -171,7 +195,7 @@ public class EstoqueFilmesJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JTextField categoriaJTextField;
-    private javax.swing.JTextField datajTextField;
+    private javax.swing.JFormattedTextField datajFormattedTextField;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JTextField fornecedorjTextField;
     private javax.swing.JTextField funcionarioJTextField;

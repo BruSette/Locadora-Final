@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class UsuarioJPanel extends javax.swing.JPanel {
-    UsuarioDAO dao = new UsuarioDAOImpl();
+    UsuarioDAO dao = FabricaDAO.CriarUsuarioDAO();
     /**
      * Creates new form UsuarioJPanel
      */

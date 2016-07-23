@@ -14,7 +14,17 @@ public class Banco {
     private String nome;
     private Endereco endereco;
     private PessoaFisica gerente;
+    private String telefone;
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    
     public PessoaFisica getGerente() {
         return gerente;
     }
