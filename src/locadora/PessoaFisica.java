@@ -17,6 +17,15 @@ public class PessoaFisica extends Pessoa {
     protected String cpf;
     protected Date dataNascimento;
     protected String nacionalidade;
+    private String sexo;
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
     
     
