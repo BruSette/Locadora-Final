@@ -24,7 +24,6 @@ public class BancoJPanel extends javax.swing.JPanel {
     private boolean editar = false;
     private int linhaSelecionada;
     
-    
     /**
      * Creates new form BancoJPanel
      */

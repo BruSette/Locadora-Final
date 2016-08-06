@@ -10,10 +10,10 @@ import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.dao.map.*;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
+import br.ufmt.ic.locadora.tablemodel.ClienteTableModel;
 import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +22,9 @@ import javax.swing.JOptionPane;
  */
 public class ClienteJPanel extends javax.swing.JPanel {
     ClienteDAO dao = FabricaDAO.CriarClienteDAO();
+    private ClienteTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
     /**
      * Creates new form clienteJPanel
      */
@@ -76,7 +79,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
         limitefilmesjFormattedTextField = new javax.swing.JFormattedTextField();
         editarjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        clientejTable = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -200,8 +203,8 @@ public class ClienteJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(TableModel);
-        jScrollPane1.setViewportView(jTable1);
+        clientejTable.setModel(tableModel);
+        jScrollPane1.setViewportView(clientejTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -492,9 +495,9 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (bancojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = bancojTable.getSelectedRow();
-            Banco selecionado = tableModel.getBanco(linhaSelecionada);
+        if (clientejTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = clientejTable.getSelectedRow();
+            Cliente selecionado = tableModel.getCliente(linhaSelecionada);
 
             nomejTextField.setText(selecionado.getNome());
             telefonejFormattedTextField.setText(selecionado.getTelefone());
@@ -522,6 +525,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel cepjLabel;
     private javax.swing.JLabel cidadejLabel;
     private javax.swing.JTextField cidadejTextField;
+    private javax.swing.JTable clientejTable;
     private javax.swing.JLabel complementojLabel;
     private javax.swing.JTextField complementojTextField;
     private javax.swing.JFormattedTextField cpfjFormattedTextField;
@@ -534,7 +538,6 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel estadojLabel2;
     private javax.swing.JTextField estadojTextField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JFormattedTextField limitefilmesjFormattedTextField;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nacionalidadejLabel;
