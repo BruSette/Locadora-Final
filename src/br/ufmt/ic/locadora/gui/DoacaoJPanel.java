@@ -7,9 +7,8 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.entidade.EstoqueFilmes;
 import br.ufmt.ic.locadora.entidade.PessoaJuridica;
-import br.ufmt.ic.locadora.dao.vetor.FabricaDAO;
+import br.ufmt.ic.locadora.dao.map.FabricaDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
@@ -41,8 +40,6 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         nomejLabel = new javax.swing.JLabel();
         telefonejLabel = new javax.swing.JLabel();
         entidadejTextField = new javax.swing.JTextField();
-        estoquejTextField = new javax.swing.JTextField();
-        celularjLabel = new javax.swing.JLabel();
         emailjLabel = new javax.swing.JLabel();
         funcionariojTextField = new javax.swing.JTextField();
         limparjButton = new javax.swing.JButton();
@@ -53,8 +50,6 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         nomejLabel.setText("Filme:");
 
         telefonejLabel.setText("Entidade:");
-
-        celularjLabel.setText("Estoque:");
 
         emailjLabel.setText("Funcionario:");
 
@@ -76,14 +71,8 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(limparjButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cadastrarjButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(telefonejLabel)
@@ -92,16 +81,21 @@ public class DoacaoJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomejLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(celularjLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(estoquejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(emailjLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(funcionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(46, 46, 46))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(limparjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cadastrarjButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(emailjLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(funcionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,15 +108,11 @@ public class DoacaoJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(telefonejLabel)
                     .addComponent(entidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(celularjLabel)
-                    .addComponent(estoquejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailjLabel)
                     .addComponent(funcionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(limparjButton)
                     .addComponent(cadastrarjButton))
@@ -134,7 +124,6 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         filmejTextField.setText("");
         entidadejTextField.setText("");
-        estoquejTextField.setText("");
         funcionariojTextField.setText("");
 
     }//GEN-LAST:event_limparjButtonActionPerformed
@@ -147,9 +136,6 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         PessoaJuridica entidade = new PessoaJuridica();
         entidade.setNome(entidadejTextField.getText());
         doacao.setEntidade(entidade);
-        EstoqueFilmes estoque = new EstoqueFilmes();
-        estoque.setNomeEstoque(estoquejTextField.getText());
-        doacao.setEstoque(estoque);
         
         
         try{
@@ -167,10 +153,8 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
-    private javax.swing.JLabel celularjLabel;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JTextField entidadejTextField;
-    private javax.swing.JTextField estoquejTextField;
     private javax.swing.JTextField filmejTextField;
     private javax.swing.JTextField funcionariojTextField;
     private javax.swing.JButton limparjButton;

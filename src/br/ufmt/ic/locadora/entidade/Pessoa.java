@@ -9,7 +9,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class Pessoa {
+public abstract class Pessoa {
 
 	private String nome;
 	private String telefone;

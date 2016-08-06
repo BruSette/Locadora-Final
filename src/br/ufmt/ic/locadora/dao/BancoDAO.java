@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
+import java.util.Map;
 
 /**
  *
@@ -22,6 +23,6 @@ public interface BancoDAO {
 
     public Banco consultar(String nome);
 
-    public Banco[] listar();
+    public Map<String, Banco> listar();
     
 }

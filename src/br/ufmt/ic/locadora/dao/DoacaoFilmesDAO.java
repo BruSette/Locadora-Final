@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
 import br.ufmt.ic.locadora.exception.RegistroException;
+import java.util.Set;
 
 /**
  *
@@ -15,11 +16,11 @@ import br.ufmt.ic.locadora.exception.RegistroException;
 public interface DoacaoFilmesDAO {
     public void inserir(DoacaoFilmes doacao) throws RegistroException;
 
-    public void remover(String entidade);
+    public void remover(DoacaoFilmes doacao);
 
     public void alterar(DoacaoFilmes doacao);
 
-    public DoacaoFilmes consultar(String entidade);
+    public DoacaoFilmes consultar(DoacaoFilmes doacao);
 
-    public DoacaoFilmes[] listar();
+    public Set<DoacaoFilmes> listar();
 }

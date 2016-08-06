@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package locadora;
+package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Filme;
+import java.util.Map;
 
 /**
  *
@@ -22,6 +23,6 @@ public interface FilmesDAO {
 
     public Filme consultar(String nome);
 
-    public Filme[] listar();
+    public Map<String, Filme> listar();
     
 }

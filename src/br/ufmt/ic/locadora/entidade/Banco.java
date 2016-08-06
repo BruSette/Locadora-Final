@@ -28,7 +28,7 @@ public class Banco {
     public PessoaFisica getGerente() {
         return gerente;
     }
-
+    
     public void setGerente(PessoaFisica gerente) {
         this.gerente = gerente;
     }

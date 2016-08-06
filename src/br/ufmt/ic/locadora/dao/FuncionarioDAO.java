@@ -5,9 +5,11 @@
  */
 package br.ufmt.ic.locadora.dao;
 
+import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.exception.UsuarioException;
+import java.util.Map;
 
 /**
  *
@@ -22,5 +24,5 @@ public interface FuncionarioDAO {
 
     public Funcionario consultar(String cpf);
 
-    public Funcionario[] listar();
+    public Map<String, Funcionario> listar();
 }

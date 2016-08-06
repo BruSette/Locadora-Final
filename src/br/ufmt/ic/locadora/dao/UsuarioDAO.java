@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.UsuarioException;
+import java.util.Map;
 
 /**
  *
@@ -22,5 +23,5 @@ public interface UsuarioDAO {
 
     public Usuario consultar(String usuario);
 
-    public Usuario[] listar();
+    public Map<String, Usuario> listar();
 }

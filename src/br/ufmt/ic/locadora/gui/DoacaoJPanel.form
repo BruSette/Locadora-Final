@@ -32,15 +32,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-              <Component id="limparjButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="cadastrarjButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="telefonejLabel" min="-2" max="-2" attributes="0"/>
@@ -52,18 +45,25 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="filmejTextField" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="celularjLabel" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                      <Component id="limparjButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="estoquejTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Component id="cadastrarjButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="emailjLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="funcionariojTextField" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,17 +80,12 @@
                   <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="entidadejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="estoquejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="emailjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="funcionariojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="limparjButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cadastrarjButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -114,13 +109,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="entidadejTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="estoquejTextField">
-    </Component>
-    <Component class="javax.swing.JLabel" name="celularjLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Estoque:"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="emailjLabel">
       <Properties>

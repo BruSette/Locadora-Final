@@ -166,7 +166,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void estoquejMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estoquejMenuItemActionPerformed
         // TODO add your handling code here:
-        setConteudo(new EstoqueFilmesJPanel());
+        setConteudo(new EntradaFilmesJPanel());
     }//GEN-LAST:event_estoquejMenuItemActionPerformed
 
     private void filmesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filmesjMenuItemActionPerformed

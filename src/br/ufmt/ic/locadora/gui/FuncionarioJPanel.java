@@ -10,7 +10,7 @@ import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.dao.vetor.FabricaDAO;
+import br.ufmt.ic.locadora.dao.map.FabricaDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

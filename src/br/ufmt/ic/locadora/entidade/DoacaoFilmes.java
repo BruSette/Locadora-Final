@@ -5,10 +5,7 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.entidade.EstoqueFilmes;
-import br.ufmt.ic.locadora.entidade.PessoaJuridica;
-import br.ufmt.ic.locadora.entidade.Filme;
+
 import java.util.Date;
 
 /**
@@ -19,7 +16,6 @@ public class DoacaoFilmes {
 
     private Filme filmes;
     private PessoaJuridica entidade;
-    private EstoqueFilmes estoque;
     private Date dataDoacao;
     private Funcionario responsavel;
 
@@ -41,14 +37,6 @@ public class DoacaoFilmes {
 
     public void setEntidade(PessoaJuridica entidade) {
         this.entidade = entidade;
-    }
-
-    public EstoqueFilmes getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(EstoqueFilmes estoque) {
-        this.estoque = estoque;
     }
 
     public Date getDataDoacao() {

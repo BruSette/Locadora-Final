@@ -18,6 +18,44 @@ public class Filme {
     private String genero;
     private Boolean disponibilidade;
     private Double valorAluguel;
+    private int quantidade;
+    private PessoaJuridica fornecedor;
+    private Funcionario funcionario;
+    private Date datalancamento;
+
+    public Date getDatalancamento() {
+        return datalancamento;
+    }
+
+    public void setDatalancamento(Date datalancamento) {
+        this.datalancamento = datalancamento;
+    }
+    
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    
+    public PessoaJuridica getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(PessoaJuridica fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
 
     public Double getValorAluguel() {
         return valorAluguel;

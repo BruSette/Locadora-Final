@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.vetor;
+package br.ufmt.ic.locadora.dao.map;
 
 import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
-import br.ufmt.ic.locadora.dao.EstoqueFilmesDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
-import locadora.EstoqueFilmesDAOImpl;
-import locadora.FilmesDAO;
+import br.ufmt.ic.locadora.dao.FilmesDAO;
 
 /**
  *
@@ -30,10 +28,6 @@ public class FabricaDAO {
     
     public static DoacaoFilmesDAO CriarDoacaoFilmesDAO(){
         return new DoacaoFilmesDAOImpl();
-    }
-    
-    public static EstoqueFilmesDAO CriarEstoqueFilmesDAO(){
-        return new EstoqueFilmesDAOImpl();
     }
     
     public static FilmesDAO CriarFilmesDAO(){

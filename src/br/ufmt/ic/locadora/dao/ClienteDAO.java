@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Cliente;
+import java.util.Map;
 
 /**
  *
@@ -22,5 +23,5 @@ public interface ClienteDAO {
 
     public Cliente consultar(String cpf);
 
-    public Cliente[] listar();
+    public Map<String, Cliente> listar();
 }
