@@ -23,6 +23,7 @@ public class FilmesDAOImpl implements FilmesDAO {
 
     public void inserir(Filme filme) throws RegistroException {
 
+        
         if (filmes.containsKey(filme.getNomeFilme())) {
             throw new RegistroException();
         }

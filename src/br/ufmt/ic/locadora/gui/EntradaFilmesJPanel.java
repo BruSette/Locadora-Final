@@ -52,7 +52,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         funcionariojLabel2 = new javax.swing.JLabel();
         quantidadejFormattedTextField = new javax.swing.JFormattedTextField();
 
-        setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Estoque Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Entrada de Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
         nomejLabel.setText("Nome:");
 
@@ -86,7 +86,11 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
         funcionariojLabel2.setText("Quantidade:");
 
-        quantidadejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        try {
+            quantidadejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,7 +125,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
                             .addComponent(datajFormattedTextField)
                             .addComponent(generoJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                             .addComponent(quantidadejFormattedTextField))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +160,8 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
                     .addComponent(cadastrarjButton))
                 .addGap(21, 21, 21))
         );
+
+        getAccessibleContext().setAccessibleName("Entrada de Filmes");
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
@@ -174,6 +180,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Filme estoque = new Filme();
         estoque.setGenero(generoJTextField.getText());
+        estoque.setNomeFilme(nomejTextField.getText());
         Funcionario func = new Funcionario();
         func.setNome(funcionarioJTextField.getText());
         estoque.setFuncionario(func);
@@ -182,6 +189,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         estoque.setFornecedor(fornecedor);
         
         String sData = (String) datajFormattedTextField.getValue();
+        
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

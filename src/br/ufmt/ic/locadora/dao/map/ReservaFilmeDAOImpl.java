@@ -24,6 +24,7 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         for (ReservaFilme reservalist : reservas) {
             if (reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())) {
                 if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
+                    System.out.println("Deu erro!");
                     throw new RegistroException();
                 }
             }
@@ -37,6 +38,7 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         if (reserva.getCliente().getNome().equals("")) {
             throw new RegistroException("Nome do cliente invalido");
         }
+        reservas.add(reserva);
 
     }
 
