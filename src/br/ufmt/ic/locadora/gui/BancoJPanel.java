@@ -12,7 +12,6 @@ import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.dao.map.*;
 import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.tablemodel.BancoTableModel;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
