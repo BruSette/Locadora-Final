@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package locadora;
+package br.ufmt.ic.locadora.dao;
 
+import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import br.ufmt.ic.locadora.entidade.Filme;
 
 /**
  *
- * @author bruno
+ * @author brunosette
  */
-public interface FilmesDAO {
+public interface BancoDAO {
     
-    public void inserir(Filme filme) throws RegistroException;
+    public void inserir(Banco banco) throws RegistroException;
 
     public void remover(String nome);
 
-    public void alterar(Filme filme);
+    public void alterar(Banco banco);
 
-    public Filme consultar(String nome);
+    public Banco consultar(String nome);
 
-    public Filme[] listar();
+    public Banco[] listar();
     
 }

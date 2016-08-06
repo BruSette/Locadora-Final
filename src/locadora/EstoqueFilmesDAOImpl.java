@@ -5,6 +5,10 @@
  */
 package locadora;
 
+import br.ufmt.ic.locadora.exception.RegistroException;
+import br.ufmt.ic.locadora.entidade.EstoqueFilmes;
+import br.ufmt.ic.locadora.dao.EstoqueFilmesDAO;
+
 /**
  *
  * @author brunosette
@@ -23,6 +27,11 @@ public class EstoqueFilmesDAOImpl implements EstoqueFilmesDAO {
         }
         for (int i = 0; i < estoques.length; i++) {
             if (estoques[i] == null) {
+                
+                if (estoque.getNomeEstoque().equals("")){
+                    throw new RegistroException("Estoque invalido");
+                }
+                
                 estoques[i] = estoque;
                 System.out.println("Inserido com Sucesso!");
                 break;

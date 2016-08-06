@@ -5,6 +5,8 @@
  */
 package locadora;
 
+import br.ufmt.ic.locadora.gui.PrincipalJFrame;
+
 /**
  *
  * @author brunosette
