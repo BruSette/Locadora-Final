@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.map;
+package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.dao.ClienteDAO;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Cliente;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class ClienteDAOImpl implements ClienteDAO {
         if(cliente.getCpf().equals("   .   .   -  ")){
             throw new CPFException("Erro no CPF");
         }
+        
         
         clientes.put(cliente.getCpf(), cliente);
         

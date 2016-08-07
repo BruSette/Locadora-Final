@@ -8,6 +8,7 @@ package br.ufmt.ic.locadora.tablemodel;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
@@ -19,8 +20,8 @@ public class UsuarioTableModel extends AbstractTableModel {
     private List<Usuario> usuarios;
     private String[] header = new String[]{"Nome", "Senha"};
 
-    public UsuarioTableModel(Set<Usuario> set) {
-        usuarios = new ArrayList<>(set);
+    public UsuarioTableModel(Map<String ,Usuario> map) {
+        usuarios = new ArrayList<>(map.values());
     }
 
     @Override

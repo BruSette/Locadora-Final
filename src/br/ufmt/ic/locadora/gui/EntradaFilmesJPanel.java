@@ -10,7 +10,8 @@ import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.dao.map.FabricaDAO;
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import br.ufmt.ic.locadora.tablemodel.EntradaFilmesTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -21,10 +22,14 @@ import javax.swing.JOptionPane;
  */
 public class EntradaFilmesJPanel extends javax.swing.JPanel {
     FilmesDAO dao = FabricaDAO.CriarFilmesDAO();
+    private EntradaFilmesTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
     /**
      * Creates new form EstoqueFilmesJPanel
      */
     public EntradaFilmesJPanel() {
+        tableModel = new EntradaFilmesTableModel(dao.listar());
         initComponents();
     }
 
@@ -52,7 +57,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         funcionariojLabel2 = new javax.swing.JLabel();
         quantidadejFormattedTextField = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bancojTable = new javax.swing.JTable();
+        entradafilmesjTable = new javax.swing.JTable();
         editarjButton = new javax.swing.JButton();
         editarjButton1 = new javax.swing.JButton();
 
@@ -90,14 +95,10 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
         funcionariojLabel2.setText("Quantidade:");
 
-        try {
-            quantidadejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#######")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        quantidadejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        bancojTable.setModel(tableModel);
-        jScrollPane1.setViewportView(bancojTable);
+        entradafilmesjTable.setModel(tableModel);
+        jScrollPane1.setViewportView(entradafilmesjTable);
 
         editarjButton.setText("Editar");
         editarjButton.addActionListener(new java.awt.event.ActionListener() {
@@ -232,10 +233,21 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         PessoaJuridica fornecedor = new PessoaJuridica();
         fornecedor.setNome(fornecedorjTextField.getText());
         estoque.setFornecedor(fornecedor);
+        Integer quant;
         
+        try{
+            quant = Integer.parseInt(quantidadejFormattedTextField.getText());
+        }catch (NumberFormatException erro){
+            JOptionPane.showMessageDialog(this, "Quantidade inválida");
+            quantidadejFormattedTextField.grabFocus();
+            return;
+        }
+        
+        
+        estoque.setQuantidade(quant);
         String sData = (String) datajFormattedTextField.getValue();
         
-
+        
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -252,6 +264,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             dao.inserir(estoque);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
             limparjButtonActionPerformed(null);
+            tableModel.adicionar(estoque);
         }catch (RegistroException erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
@@ -263,19 +276,12 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (bancojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = bancojTable.getSelectedRow();
-            Banco selecionado = tableModel.getBanco(linhaSelecionada);
-
-            nomejTextField.setText(selecionado.getNome());
-            telefonejFormattedTextField.setText(selecionado.getTelefone());
-            cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
-            ruajTextField.setText(selecionado.getEndereco().getRua());
-            bairrojTextField.setText(selecionado.getEndereco().getBairro());
-            estadojTextField.setText(selecionado.getEndereco().getEstado());
-            cidadejTextField.setText(selecionado.getEndereco().getCidade());
-            numerojTextField.setText(selecionado.getEndereco().getNumero());
-            complementojTextField.setText(selecionado.getEndereco().getComplemento());
+        if (entradafilmesjTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = entradafilmesjTable.getSelectedRow();
+            Filme selecionado = tableModel.getFilme(linhaSelecionada);
+            
+            
+            
             editar = true;
         }else{
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
@@ -288,12 +294,12 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JFormattedTextField datajFormattedTextField;
     private javax.swing.JButton editarjButton;
     private javax.swing.JButton editarjButton1;
     private javax.swing.JLabel emailjLabel;
+    private javax.swing.JTable entradafilmesjTable;
     private javax.swing.JTextField fornecedorjTextField;
     private javax.swing.JTextField funcionarioJTextField;
     private javax.swing.JLabel funcionariojLabel;

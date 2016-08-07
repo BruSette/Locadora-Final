@@ -10,8 +10,9 @@ import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.dao.map.FabricaDAO;
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
 import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
+import br.ufmt.ic.locadora.tablemodel.ReservaFilmeTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -23,10 +24,14 @@ import javax.swing.JOptionPane;
 public class ReservafilmeJPanel extends javax.swing.JPanel {
 
     ReservaFilmeDAO dao = FabricaDAO.CriarReservaFilmeDAO();
+    private ReservaFilmeTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
     /**
      * Creates new form reservafilmeJPanel
      */
     public ReservafilmeJPanel() {
+        tableModel = new ReservaFilmeTableModel(dao.listar());
         initComponents();
     }
 
@@ -53,7 +58,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         dataemprestimojFormattedTextField = new javax.swing.JFormattedTextField();
         editarjButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bancojTable = new javax.swing.JTable();
+        reservaFilmejTable = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Reservar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18)))); // NOI18N
 
@@ -100,8 +105,8 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             }
         });
 
-        bancojTable.setModel(tableModel);
-        jScrollPane1.setViewportView(bancojTable);
+        reservaFilmejTable.setModel(tableModel);
+        jScrollPane1.setViewportView(reservaFilmejTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -233,6 +238,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             dao.inserir(reserva);
             limparjButtonActionPerformed(null);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
+            tableModel.adicionar(reserva);
         }catch (RegistroException erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
             filmejTextField.grabFocus();
@@ -245,11 +251,21 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
+        
+        if (reservaFilmejTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = reservaFilmejTable.getSelectedRow();
+            ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
+            
+            
+            
+            editar = true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JFormattedTextField datadevolucaojFormattedTextField;
     private javax.swing.JFormattedTextField dataemprestimojFormattedTextField;
@@ -263,6 +279,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JTextField nomejTextField;
+    private javax.swing.JTable reservaFilmejTable;
     private javax.swing.JLabel telefonejLabel;
     // End of variables declaration//GEN-END:variables
 }

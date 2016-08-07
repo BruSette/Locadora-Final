@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import br.ufmt.ic.locadora.entidade.Filme;
+import java.util.Map;
 
 /**
  *
@@ -18,8 +19,8 @@ public class FilmesTableModel extends AbstractTableModel {
     private List<Filme> filmes;
     private String[] header = new String[]{"Nome", "Genero", "Lançamento","Disponibilidade"};
 
-    public FilmesTableModel(List<Filme> list) {
-        filmes = new ArrayList<>(list);
+    public FilmesTableModel(Map<String, Filme> map) {
+        filmes= new ArrayList<>(map.values());
     }
 
     @Override
@@ -69,7 +70,7 @@ public class FilmesTableModel extends AbstractTableModel {
         fireTableRowsUpdated(index, index);
     }
 
-    public Filme getFilmes(int index) {
+    public Filme getFilme(int index) {
         return filmes.get(index);
     }
 

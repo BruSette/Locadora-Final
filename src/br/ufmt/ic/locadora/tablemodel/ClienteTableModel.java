@@ -61,6 +61,20 @@ public class ClienteTableModel extends AbstractTableModel {
         return valor;
     }
     
+    public void adicionar(Cliente cliente) {
+        System.out.println("Passou!");
+        clientes.add(cliente);
+        int ultima = clientes.size() - 1;
+        fireTableRowsInserted(ultima, ultima);
+    }
+
+    public void alterar(int index, Cliente cliente) {
+        clientes.set(index, cliente);
+        fireTableRowsUpdated(index, index);
+    }
+
+    
+    
     public Cliente getCliente(int index) {
         return clientes.get(index);
     }

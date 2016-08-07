@@ -5,11 +5,11 @@
  */
 package br.ufmt.ic.locadora.gui;
 
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.PessoaFisica;
 import br.ufmt.ic.locadora.entidade.Banco;
-import br.ufmt.ic.locadora.dao.map.*;
 import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.tablemodel.BancoTableModel;
 import javax.swing.JOptionPane;

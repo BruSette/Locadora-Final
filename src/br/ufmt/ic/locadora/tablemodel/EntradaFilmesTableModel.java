@@ -8,6 +8,7 @@ package br.ufmt.ic.locadora.tablemodel;
 import br.ufmt.ic.locadora.entidade.Filme;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
@@ -19,8 +20,8 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
     private List<Filme> filmes;
     private String[] header = new String[]{"Nome", "Genero", "Quantidade","Fornecedor"};
 
-    public EntradaFilmesTableModel(List<Filme> list) {
-        filmes = new ArrayList<>(list);
+    public EntradaFilmesTableModel(Map<String, Filme> map) {
+        filmes= new ArrayList<>(map.values());
     }
 
     @Override
@@ -70,7 +71,7 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
         fireTableRowsUpdated(index, index);
     }
 
-    public Filme getFilmes(int index) {
+    public Filme getFilme(int index) {
         return filmes.get(index);
     }
 }

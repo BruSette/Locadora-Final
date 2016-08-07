@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 import br.ufmt.ic.locadora.entidade.Funcionario;
+import java.util.Map;
 
 /**
  *
@@ -20,9 +21,11 @@ public class FuncionarioTableModel extends AbstractTableModel {
     private List<Funcionario> funcionarios;
     private String[] header = new String[]{"CPF", "Nome", "Telefone"};
 
-    public FuncionarioTableModel(Set<Funcionario> set) {
-        funcionarios = new ArrayList<>(set);
+    public FuncionarioTableModel(Map<String , Funcionario> map) {
+        funcionarios = new ArrayList<>(map.values());
     }
+    
+    
 
     @Override
     public int getRowCount() {

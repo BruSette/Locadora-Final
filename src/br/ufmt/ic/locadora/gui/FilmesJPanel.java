@@ -7,11 +7,12 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.dao.map.FabricaDAO;
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.FilmesDAO;
+import br.ufmt.ic.locadora.tablemodel.FilmesTableModel;
 
 /**
  *
@@ -20,10 +21,16 @@ import br.ufmt.ic.locadora.dao.FilmesDAO;
 public class FilmesJPanel extends javax.swing.JPanel {
 
     FilmesDAO dao = FabricaDAO.CriarFilmesDAO();
+    private FilmesTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
+    
+    
     /**
      * Creates new form FilmesJPanel
      */
     public FilmesJPanel() {
+        tableModel = new FilmesTableModel(dao.listar());
         initComponents();
     }
 
@@ -49,7 +56,7 @@ public class FilmesJPanel extends javax.swing.JPanel {
         lancamentojFormattedTextField = new javax.swing.JFormattedTextField();
         editarjButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bancojTable = new javax.swing.JTable();
+        filmejTable = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -90,8 +97,8 @@ public class FilmesJPanel extends javax.swing.JPanel {
             }
         });
 
-        bancojTable.setModel(tableModel);
-        jScrollPane1.setViewportView(bancojTable);
+        filmejTable.setModel(tableModel);
+        jScrollPane1.setViewportView(filmejTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -204,6 +211,7 @@ public class FilmesJPanel extends javax.swing.JPanel {
             dao.inserir(novo);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
             limparjButtonActionPerformed(null);
+            tableModel.adicionar(novo);
         }catch(RegistroException erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
@@ -214,16 +222,28 @@ public class FilmesJPanel extends javax.swing.JPanel {
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
+        
+        if (filmejTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = filmejTable.getSelectedRow();
+            Filme selecionado = tableModel.getFilme(linhaSelecionada);
+
+            
+            editar = true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+        
+        
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JRadioButton disponiveljRadioButton;
     private javax.swing.JButton editarjButton1;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JLabel emailjLabel1;
+    private javax.swing.JTable filmejTable;
     private javax.swing.JTextField generojTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JFormattedTextField lancamentojFormattedTextField;

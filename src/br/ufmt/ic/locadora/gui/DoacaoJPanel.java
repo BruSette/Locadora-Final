@@ -8,10 +8,12 @@ package br.ufmt.ic.locadora.gui;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.PessoaJuridica;
-import br.ufmt.ic.locadora.dao.map.FabricaDAO;
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
+import br.ufmt.ic.locadora.entidade.Filme;
+import br.ufmt.ic.locadora.tablemodel.DoacaoFilmesTableModel;
 
 /**
  *
@@ -20,10 +22,15 @@ import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
 public class DoacaoJPanel extends javax.swing.JPanel {
 
     DoacaoFilmesDAO dao =FabricaDAO.CriarDoacaoFilmesDAO();
+    private DoacaoFilmesTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
     /**
      * Creates new form DoacaoJPanel
      */
     public DoacaoJPanel() {
+        tableModel = new DoacaoFilmesTableModel(dao.listar());
+        
         initComponents();
     }
 
@@ -46,7 +53,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         cadastrarjButton = new javax.swing.JButton();
         editarjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bancojTable = new javax.swing.JTable();
+        doacaojTable = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Doações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -77,8 +84,8 @@ public class DoacaoJPanel extends javax.swing.JPanel {
             }
         });
 
-        bancojTable.setModel(tableModel);
-        jScrollPane1.setViewportView(bancojTable);
+        doacaojTable.setModel(tableModel);
+        jScrollPane1.setViewportView(doacaojTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,18 +153,27 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
+        DoacaoFilmes doacao = new DoacaoFilmes();
         Funcionario func = new Funcionario();
         func.setNome(funcionariojTextField.getText());
-        DoacaoFilmes doacao = new DoacaoFilmes(func);
+        doacao.setResponsavel(func);
+        
+       
+        
         PessoaJuridica entidade = new PessoaJuridica();
         entidade.setNome(entidadejTextField.getText());
         doacao.setEntidade(entidade);
         
         
+        Filme filme = new Filme();
+        filme.setNomeFilme(filmejTextField.getText());
+        doacao.setFilme(filme);
+        
         try{
             dao.inserir(doacao);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
             limparjButtonActionPerformed(null);
+            tableModel.adicionar(doacao);
         }catch (RegistroException erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
             entidadejTextField.grabFocus();
@@ -169,19 +185,11 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (bancojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = bancojTable.getSelectedRow();
-            Banco selecionado = tableModel.getBanco(linhaSelecionada);
-
-            nomejTextField.setText(selecionado.getNome());
-            telefonejFormattedTextField.setText(selecionado.getTelefone());
-            cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
-            ruajTextField.setText(selecionado.getEndereco().getRua());
-            bairrojTextField.setText(selecionado.getEndereco().getBairro());
-            estadojTextField.setText(selecionado.getEndereco().getEstado());
-            cidadejTextField.setText(selecionado.getEndereco().getCidade());
-            numerojTextField.setText(selecionado.getEndereco().getNumero());
-            complementojTextField.setText(selecionado.getEndereco().getComplemento());
+        if (doacaojTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = doacaojTable.getSelectedRow();
+            DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
+            
+            
             editar = true;
         }else{
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
@@ -190,8 +198,8 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
+    private javax.swing.JTable doacaojTable;
     private javax.swing.JButton editarjButton;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JTextField entidadejTextField;

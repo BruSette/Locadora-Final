@@ -8,6 +8,7 @@ package br.ufmt.ic.locadora.tablemodel;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
@@ -19,8 +20,8 @@ public class ReservaFilmeTableModel extends AbstractTableModel {
     private List<ReservaFilme> reservas;
     private String[] header = new String[]{"Cliente", "NomeFilme", "Reserva"};
 
-    public ReservaFilmeTableModel(Set<ReservaFilme> set) {
-        reservas = new ArrayList<>(set);
+    public ReservaFilmeTableModel(List<ReservaFilme> list) {
+        reservas = new ArrayList<>();
     }
 
     @Override

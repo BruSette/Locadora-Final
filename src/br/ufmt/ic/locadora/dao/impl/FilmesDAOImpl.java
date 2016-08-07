@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.map;
+package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.entidade.Filme;
 import br.ufmt.ic.locadora.dao.FilmesDAO;

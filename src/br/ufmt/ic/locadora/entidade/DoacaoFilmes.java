@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class DoacaoFilmes {
 
-    private Filme filmes;
+    private Filme filme;
     private PessoaJuridica entidade;
     private Date dataDoacao;
     private Funcionario responsavel;
@@ -22,13 +22,16 @@ public class DoacaoFilmes {
     public DoacaoFilmes(Funcionario responsavel) {
         this.responsavel = responsavel;
     }
-
-    public Filme getFilmes() {
-        return filmes;
+    public DoacaoFilmes() {
+        
     }
 
-    public void setFilmes(Filme filmes) {
-        this.filmes = filmes;
+    public Filme getFilme() {
+        return filme;
+    }
+
+    public void setFilme(Filme filme) {
+        this.filme = filme;
     }
 
     public PessoaJuridica getEntidade() {

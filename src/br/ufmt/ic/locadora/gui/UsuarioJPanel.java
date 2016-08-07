@@ -7,8 +7,9 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.dao.map.FabricaDAO;
+import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
+import br.ufmt.ic.locadora.tablemodel.UsuarioTableModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,10 +18,14 @@ import javax.swing.JOptionPane;
  */
 public class UsuarioJPanel extends javax.swing.JPanel {
     UsuarioDAO dao = FabricaDAO.CriarUsuarioDAO();
+    private UsuarioTableModel tableModel;
+    private boolean editar = false;
+    private int linhaSelecionada;
     /**
      * Creates new form UsuarioJPanel
      */
     public UsuarioJPanel() {
+        tableModel = new UsuarioTableModel(dao.listar());
         initComponents();
     }
 
@@ -40,7 +45,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
         usuariojTextField = new javax.swing.JTextField();
         nacionalidadejLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bancojTable = new javax.swing.JTable();
+        usuariojTable = new javax.swing.JTable();
         editarjButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
@@ -69,8 +74,8 @@ public class UsuarioJPanel extends javax.swing.JPanel {
 
         nacionalidadejLabel4.setText("Usuário:");
 
-        bancojTable.setModel(tableModel);
-        jScrollPane1.setViewportView(bancojTable);
+        usuariojTable.setModel(tableModel);
+        jScrollPane1.setViewportView(usuariojTable);
 
         editarjButton1.setText("Editar");
         editarjButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +151,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
             dao.inserir(usuario);
             limparjButtonActionPerformed(null);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
+            tableModel.adicionar(usuario);
         }catch (UsuarioException erro){
             JOptionPane.showMessageDialog(this, erro.getMessage());
             usuariojTextField.grabFocus();
@@ -157,11 +163,20 @@ public class UsuarioJPanel extends javax.swing.JPanel {
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
+        if (usuariojTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = usuariojTable.getSelectedRow();
+            Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
+            
+            
+            
+            editar = true;
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JButton editarjButton1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -169,6 +184,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel nacionalidadejLabel4;
     private javax.swing.JLabel nacionalidadejLabel5;
     private javax.swing.JPasswordField senhajPasswordField;
+    private javax.swing.JTable usuariojTable;
     private javax.swing.JTextField usuariojTextField;
     // End of variables declaration//GEN-END:variables
 }
