@@ -50,7 +50,7 @@ public class FilmesTableModel extends AbstractTableModel {
                 valor = selecionado.getGenero();
                 break;
             case 2:
-                valor = String.valueOf(selecionado.getLancamento());
+                valor = String.valueOf(selecionado.getDatalancamento());
                 break;
             case 3:
                 valor = Boolean.toString(selecionado.getDisponibilidade());

@@ -21,16 +21,17 @@ import br.ufmt.ic.locadora.tablemodel.DoacaoFilmesTableModel;
  */
 public class DoacaoJPanel extends javax.swing.JPanel {
 
-    DoacaoFilmesDAO dao =FabricaDAO.CriarDoacaoFilmesDAO();
+    DoacaoFilmesDAO dao = FabricaDAO.CriarDoacaoFilmesDAO();
     private DoacaoFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+
     /**
      * Creates new form DoacaoJPanel
      */
     public DoacaoJPanel() {
         tableModel = new DoacaoFilmesTableModel(dao.listar());
-        
+
         initComponents();
     }
 
@@ -148,6 +149,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         filmejTextField.setText("");
         entidadejTextField.setText("");
         funcionariojTextField.setText("");
+        editar = false;
 
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -157,29 +159,32 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         Funcionario func = new Funcionario();
         func.setNome(funcionariojTextField.getText());
         doacao.setResponsavel(func);
-        
-       
-        
+
         PessoaJuridica entidade = new PessoaJuridica();
         entidade.setNome(entidadejTextField.getText());
         doacao.setEntidade(entidade);
-        
-        
+
         Filme filme = new Filme();
         filme.setNomeFilme(filmejTextField.getText());
         doacao.setFilme(filme);
-        
-        try{
-            dao.inserir(doacao);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
+
+        try {
+            if (editar) {
+                dao.alterar(doacao);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada,doacao);
+            } else {
+                dao.inserir(doacao);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                tableModel.adicionar(doacao);
+            }
             limparjButtonActionPerformed(null);
-            tableModel.adicionar(doacao);
-        }catch (RegistroException erro){
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             entidadejTextField.grabFocus();
         }
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
@@ -188,10 +193,13 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         if (doacaojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-            
-            
+
+            filmejTextField.setText(selecionado.getFilme().getNomeFilme());
+            entidadejTextField.setText(selecionado.getEntidade().getNome());
+            funcionariojTextField.setText(selecionado.getResponsavel().getNome());
+
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButtonActionPerformed

@@ -22,10 +22,12 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class ClienteJPanel extends javax.swing.JPanel {
+
     ClienteDAO dao = FabricaDAO.CriarClienteDAO();
     private ClienteTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+
     /**
      * Creates new form clienteJPanel
      */
@@ -85,7 +87,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
-        cadastrarjButton.setText("Cadastrar");
+        cadastrarjButton.setText("Salvar");
         cadastrarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarjButtonActionPerformed(evt);
@@ -213,8 +215,17 @@ public class ClienteJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(nacionalidadejLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(sexojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(estadojLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(limitefilmesjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
@@ -250,18 +261,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
                                             .addComponent(nomejLabel)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(estadojLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(limitefilmesjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(nacionalidadejLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(sexojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(20, 20, 20)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -404,7 +404,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
-        
+
         nomejTextField.setText("");
         telefonejFormattedTextField.setText("");
         celularjFormattedTextField.setText("");
@@ -420,6 +420,8 @@ public class ClienteJPanel extends javax.swing.JPanel {
         cidadejTextField.setText("");
         estadojTextField.setText("");
         numerojTextField.setText("");
+        cpfjFormattedTextField.setEditable(true);
+        editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
@@ -431,33 +433,28 @@ public class ClienteJPanel extends javax.swing.JPanel {
         cliente.setCpf(cpfjFormattedTextField.getText());
         cliente.setEmail(emailjTextField.getText());
         cliente.setNacionalidade(nacionalidadejTextField.getText());
-        
-        if (nomejTextField.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"Nome de Cliente inválido");
+
+        if (nomejTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nome de Cliente inválido");
             nomejTextField.grabFocus();
-            return ;
+            return;
         }
         cliente.setNome(nomejTextField.getText());
-        
-        
-        
-        
+
         cliente.setRg(rgjTextField.getText());
         cliente.setTelefone(telefonejFormattedTextField.getText());
         cliente.setSexo(sexojComboBox.getSelectedItem().toString());
-        
+
         Integer limite;
-        try{
+        try {
             limite = Integer.parseInt(limitefilmesjFormattedTextField.getText());
             cliente.setLimiteFilmes(limite);
-        }catch (NumberFormatException erro){
+        } catch (NumberFormatException erro) {
             JOptionPane.showMessageDialog(this, "Limite Inválido!");
             limitefilmesjFormattedTextField.grabFocus();
             return;
         }
-        
-        
-        
+
         String sData = (String) nascimentojFormattedTextField.getValue();
 
         if (sData != null) {
@@ -470,9 +467,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-       
-        
+
         Endereco end = new Endereco();
         end.setBairro(bairrojTextField.getText());
         end.setCep(cepjFormattedTextField.getText());
@@ -482,19 +477,24 @@ public class ClienteJPanel extends javax.swing.JPanel {
         end.setNumero(numerojTextField.getText());
         end.setRua(ruajTextField.getText());
         cliente.setEndereco(end);
-        
-        try{
-            dao.inserir(cliente);
+
+        try {
+            if (editar) {
+                dao.alterar(cliente);
+                JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
+                tableModel.alterar(linhaSelecionada, cliente);
+            } else {
+                dao.inserir(cliente);
+                JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
+                tableModel.adicionar(cliente);
+            }
             limparjButtonActionPerformed(null);
-            JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!");
-            tableModel.adicionar(cliente);
-        }catch (CPFException erro){
-            JOptionPane.showMessageDialog(this,erro.getMessage());
+        } catch (CPFException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void telefonejFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonejFormattedTextFieldActionPerformed
@@ -518,6 +518,20 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
             nomejTextField.setText(selecionado.getNome());
             telefonejFormattedTextField.setText(selecionado.getTelefone());
+            celularjFormattedTextField.setText(selecionado.getCelular());
+            emailjTextField.setText(selecionado.getEmail());
+            rgjTextField.setText(selecionado.getRg());
+            cpfjFormattedTextField.setText(selecionado.getCpf());
+            
+            try{
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
+            }catch (NullPointerException erro){
+                
+            }
+
+            limitefilmesjFormattedTextField.setText(String.valueOf(selecionado.getLimiteFilmes()));
+            nacionalidadejTextField.setText(selecionado.getNacionalidade());
             cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
             ruajTextField.setText(selecionado.getEndereco().getRua());
             bairrojTextField.setText(selecionado.getEndereco().getBairro());
@@ -525,8 +539,9 @@ public class ClienteJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
+            cpfjFormattedTextField.setEditable(false);
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButtonActionPerformed

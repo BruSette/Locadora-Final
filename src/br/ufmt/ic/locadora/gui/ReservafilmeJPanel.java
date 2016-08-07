@@ -27,6 +27,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
     private ReservaFilmeTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+
     /**
      * Creates new form reservafilmeJPanel
      */
@@ -192,13 +193,29 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         funcionarioTextField.setText("");
         filmejTextField.setText("");
         dataemprestimojFormattedTextField.setText("");
+        editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
         ReservaFilme reserva = new ReservaFilme();
-        
+
         Filme filme = new Filme();
+        
+        if(filmejTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Nome do filme inválido!");
+            filmejTextField.grabFocus();
+            return;
+        }
+        
+        if(nomejTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Nome do cliente inválido!");
+            nomejTextField.grabFocus();
+            return;
+        }
+        
+        
+        
         filme.setNomeFilme(filmejTextField.getText());
         reserva.setFilme(filme);
         Cliente cliente = new Cliente();
@@ -207,7 +224,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome(funcionarioTextField.getText());
         reserva.setFuncionario(funcionario);
-        
+
         String sData = (String) datadevolucaojFormattedTextField.getValue();
 
         if (sData != null) {
@@ -220,9 +237,9 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
+
         sData = (String) dataemprestimojFormattedTextField.getValue();
-        
+
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -233,33 +250,46 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        try{
-            dao.inserir(reserva);
+
+        try {
+            if (editar) {
+                dao.alterar(reserva);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada, reserva);
+            } else {
+                dao.inserir(reserva);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                tableModel.adicionar(reserva);
+            }
             limparjButtonActionPerformed(null);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
-            tableModel.adicionar(reserva);
-        }catch (RegistroException erro){
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             filmejTextField.grabFocus();
         }
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         if (reservaFilmejTable.getSelectedRowCount() == 1) {
             linhaSelecionada = reservaFilmejTable.getSelectedRow();
             ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-            
-            
-            
+
+            nomejTextField.setText(selecionado.getCliente().getNome());
+            filmejTextField.setText(selecionado.getFilme().getNomeFilme());
+            funcionarioTextField.setText(selecionado.getFuncionario().getNome());
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                dataemprestimojFormattedTextField.setText(sdf.format(selecionado.getDataReserva()));
+                datadevolucaojFormattedTextField.setText(sdf.format(selecionado.getDataDevolucao()));
+            }catch (NullPointerException erro){
+                
+            }
+
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButton1ActionPerformed

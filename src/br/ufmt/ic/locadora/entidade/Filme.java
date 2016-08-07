@@ -14,7 +14,6 @@ import java.util.Date;
 public class Filme {
 
     private String nomeFilme;
-    private Date lancamento;
     private String genero;
     private Boolean disponibilidade;
     private Double valorAluguel;
@@ -75,14 +74,6 @@ public class Filme {
 
     public void setNomeFilme(String nomeFilme) {
         this.nomeFilme = nomeFilme;
-    }
-
-    public Date getLancamento() {
-        return lancamento;
-    }
-
-    public void setLancamento(Date lancamento) {
-        this.lancamento = lancamento;
     }
 
     public String getGenero() {

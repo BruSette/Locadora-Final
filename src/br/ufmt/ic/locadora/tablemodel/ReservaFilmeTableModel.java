@@ -6,6 +6,7 @@
 package br.ufmt.ic.locadora.tablemodel;
 
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ReservaFilmeTableModel extends AbstractTableModel {
     private List<ReservaFilme> reservas;
-    private String[] header = new String[]{"Cliente", "NomeFilme", "Reserva"};
+    private String[] header = new String[]{"Cliente", "NomeFilme", "Data Reserva"};
 
     public ReservaFilmeTableModel(List<ReservaFilme> list) {
         reservas = new ArrayList<>();
@@ -51,7 +52,13 @@ public class ReservaFilmeTableModel extends AbstractTableModel {
                 valor = selecionado.getFilme().getNomeFilme();
                 break;
             case 2:
-                valor = String.valueOf(selecionado.getDataReserva());
+                try{
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    valor = sdf.format(selecionado.getDataReserva());
+                }catch (NullPointerException erro){
+                    valor = "";
+                }
+                
                 break;
         }
         return valor;

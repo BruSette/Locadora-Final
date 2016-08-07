@@ -23,12 +23,12 @@ import br.ufmt.ic.locadora.tablemodel.FuncionarioTableModel;
  * @author brunosette
  */
 public class FuncionarioJPanel extends javax.swing.JPanel {
+
     FuncionarioDAO dao = FabricaDAO.CriarFuncionarioDAO();
     private FuncionarioTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
-    
-    
+
     /**
      * Creates new form clienteJPanel
      */
@@ -485,7 +485,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
-        
+
         nomejTextField.setText("");
         telefonejFormattedTextField.setText("");
         celularjFormattedTextField.setText("");
@@ -508,7 +508,8 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         usuariojTextField.setText("");
         senhajPasswordField.setText("");
         numerojTextField.setText("");
-        
+        editar = false;
+
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cargojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargojTextFieldActionPerformed
@@ -533,7 +534,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
-        
+
         Funcionario funcionario = new Funcionario();
         funcionario.setNome(nomejTextField.getText());
         funcionario.setTelefone(telefonejFormattedTextField.getText());
@@ -545,7 +546,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         funcionario.setCargo(cargojTextField.getText());
         funcionario.setSexo(sexojComboBox.getSelectedItem().toString());
         System.out.println(sexojComboBox.getSelectedItem().toString());
-        
+
         String sData = (String) nascimentojFormattedTextField.getValue();
 
         if (sData != null) {
@@ -558,9 +559,9 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
+
         sData = (String) dataadmissjFormattedTextField.getValue();
-        
+
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -571,14 +572,13 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        
+
         ContaBancaria conta = new ContaBancaria(bancojTextField.getText());
         conta.setAgencia(agenciajTextField.getText());
         conta.setContaNumero(ccjTextField.getText());
-        
+
         funcionario.setConta(conta);
-        
+
         Endereco end = new Endereco();
         end.setBairro(bairrojTextField.getText());
         end.setCep(cepjFormattedTextField.getText());
@@ -589,27 +589,33 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         end.setRua(ruajTextField.getText());
 
         funcionario.setEndereco(end);
-        
+
         Usuario usuario = new Usuario();
         usuario.setUsuario(usuariojTextField.getText());
         usuario.setSenha(senhajPasswordField.getText());
-        
+
         funcionario.setUsuario(usuario);
-        
-        try{
-            dao.inserir(funcionario);
+
+        try {
+            if (editar) {
+                dao.alterar(funcionario);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada,funcionario);
+            } else {
+                dao.inserir(funcionario);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                tableModel.adicionar(funcionario);
+            }
             limparjButtonActionPerformed(null);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
-            tableModel.adicionar(funcionario);
-        }catch (CPFException erro){
+        } catch (CPFException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
-        }catch (UsuarioException erro){
+        } catch (UsuarioException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             usuariojTextField.grabFocus();
         }
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
@@ -617,11 +623,32 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         if (funcionariojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = funcionariojTable.getSelectedRow();
             Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
-            
-            
-            
+
+            nomejTextField.setText(selecionado.getNome());
+            telefonejFormattedTextField.setText(selecionado.getTelefone());
+            celularjFormattedTextField.setText(selecionado.getCelular());
+            emailjTextField.setText(selecionado.getEmail());
+            rgjTextField.setText(selecionado.getRg());
+            cpfjFormattedTextField.setText(selecionado.getCpf());
+            nacionalidadejTextField.setText(selecionado.getNacionalidade());
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
+
+            cargojTextField.setText(selecionado.getCargo());
+            dataadmissjFormattedTextField.setText(sdf.format(selecionado.getDataAdmiss()));
+            usuariojTextField.setText(selecionado.getUsuario().getUsuario());
+
+            cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
+            ruajTextField.setText(selecionado.getEndereco().getRua());
+            bairrojTextField.setText(selecionado.getEndereco().getBairro());
+            estadojTextField.setText(selecionado.getEndereco().getEstado());
+            cidadejTextField.setText(selecionado.getEndereco().getCidade());
+            numerojTextField.setText(selecionado.getEndereco().getNumero());
+            complementojTextField.setText(selecionado.getEndereco().getComplemento());
+
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButton1ActionPerformed

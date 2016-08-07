@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class UsuarioJPanel extends javax.swing.JPanel {
+
     UsuarioDAO dao = FabricaDAO.CriarUsuarioDAO();
     private UsuarioTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+
     /**
      * Creates new form UsuarioJPanel
      */
@@ -133,7 +135,8 @@ public class UsuarioJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         usuariojTextField.setText("");
         senhajPasswordField.setText("");
-        
+        editar = false;
+
 
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -146,19 +149,24 @@ public class UsuarioJPanel extends javax.swing.JPanel {
         Usuario usuario = new Usuario();
         usuario.setUsuario(usuariojTextField.getText());
         usuario.setSenha(senhajPasswordField.getText());
-        
-        try{
-            dao.inserir(usuario);
+
+        try {
+            if (editar) {
+                dao.alterar(usuario);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada,usuario);
+            } else {
+                dao.inserir(usuario);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                tableModel.adicionar(usuario);
+            }
             limparjButtonActionPerformed(null);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
-            tableModel.adicionar(usuario);
-        }catch (UsuarioException erro){
+        } catch (UsuarioException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             usuariojTextField.grabFocus();
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
@@ -166,11 +174,11 @@ public class UsuarioJPanel extends javax.swing.JPanel {
         if (usuariojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = usuariojTable.getSelectedRow();
             Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
-            
-            
-            
+
+            usuariojTextField.setText(selecionado.getUsuario());
+
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButton1ActionPerformed

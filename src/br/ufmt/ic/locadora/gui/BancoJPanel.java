@@ -264,6 +264,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         numerojTextField.setText("");
         gerentejTextField.setText("");
         telefonejFormattedTextField.setText("");
+        nomejTextField.setEnabled(true);
         editar = false;
             
 
@@ -329,6 +330,7 @@ public class BancoJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
+            nomejTextField.setEnabled(false);
             editar = true;
         }else{
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

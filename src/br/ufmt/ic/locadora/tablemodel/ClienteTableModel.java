@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
 public class ClienteTableModel extends AbstractTableModel {
 
     private List<Cliente> clientes;
-    private String[] header = new String[]{"Nome", "Telefone", "LimiteFilmes", "Bloqueado"};
+    private String[] header = new String[]{"Nome", "Telefone", "LimiteFilmes", "Bloqueado","CPF"};
     
     public ClienteTableModel(Map<String, Cliente> map) {
         clientes = new ArrayList<>(map.values());
@@ -55,7 +55,14 @@ public class ClienteTableModel extends AbstractTableModel {
                 valor = Integer.toString(selecionado.getLimiteFilmes());
                 break;
             case 3:
-                valor = Boolean.toString(selecionado.getBloqueado());
+                if(selecionado.getBloqueado()){
+                    valor = "Sim";
+                }else{
+                    valor = "Não";
+                }
+                break;
+            case 4:
+                valor = selecionado.getCpf();
                 break;
         }
         return valor;

@@ -24,8 +24,7 @@ public class FilmesJPanel extends javax.swing.JPanel {
     private FilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
-    
-    
+
     /**
      * Creates new form FilmesJPanel
      */
@@ -173,8 +172,9 @@ public class FilmesJPanel extends javax.swing.JPanel {
         lancamentojFormattedTextField.setText("");
         precojTextField.setText("");
         disponiveljRadioButton.setSelected(false);
-        
-        
+        editar = false;
+
+
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
@@ -183,57 +183,64 @@ public class FilmesJPanel extends javax.swing.JPanel {
         novo.setNomeFilme(nomejTextField.getText());
         novo.setGenero(generojTextField.getText());
         novo.setDisponibilidade(disponiveljRadioButton.isSelected());
-        
-        
+
         String sData = (String) lancamentojFormattedTextField.getValue();
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                novo.setLancamento(sdf.parse(sData));
+                novo.setDatalancamento(sdf.parse(sData));
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Data Inválida!");
                 lancamentojFormattedTextField.grabFocus();
                 return;
             }
         }
-        
+
         try {
             Double preco = Double.parseDouble(precojTextField.getText());
-        }catch(NumberFormatException erro){
+        } catch (NumberFormatException erro) {
             JOptionPane.showMessageDialog(this, "Erro na conversão do campo preço!");
             precojTextField.grabFocus();
             return;
         }
-        
-        
-        try{
-            dao.inserir(novo);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
+
+        try {
+            if (editar) {
+                dao.alterar(novo);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada,novo);
+            } else {
+                dao.inserir(novo);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                tableModel.adicionar(novo);
+            }
             limparjButtonActionPerformed(null);
-            tableModel.adicionar(novo);
-        }catch(RegistroException erro){
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
         }
-       
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         if (filmejTable.getSelectedRowCount() == 1) {
             linhaSelecionada = filmejTable.getSelectedRow();
             Filme selecionado = tableModel.getFilme(linhaSelecionada);
+            nomejTextField.setText(selecionado.getNomeFilme());
+            generojTextField.setText(selecionado.getGenero());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            lancamentojFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
 
-            
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
-        
-        
+
+
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
 

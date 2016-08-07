@@ -220,6 +220,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         fornecedorjTextField.setText("");
         generoJTextField.setText("");
         quantidadejFormattedTextField.setText("");
+        editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
@@ -280,7 +281,18 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
             Filme selecionado = tableModel.getFilme(linhaSelecionada);
             
+            nomejTextField.setText(selecionado.getNomeFilme());
+            fornecedorjTextField.setText(selecionado.getFornecedor().getNome());
+            funcionarioJTextField.setText(selecionado.getFuncionario().getNome());
+            generoJTextField.setText(selecionado.getGenero());
+            try{
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                datajFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
+            }catch(NullPointerException erro){
+                
+            }
             
+            quantidadejFormattedTextField.setText(String.valueOf(selecionado.getQuantidade()));
             
             editar = true;
         }else{

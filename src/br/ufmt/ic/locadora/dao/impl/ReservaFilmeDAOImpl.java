@@ -24,20 +24,12 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         for (ReservaFilme reservalist : reservas) {
             if (reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())) {
                 if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
-                    System.out.println("Deu erro!");
                     throw new RegistroException();
                 }
             }
 
         }   
 
-        if (reserva.getFilme().getNomeFilme().equals("")) {
-            throw new RegistroException("Nome do filme invalido");
-        }
-
-        if (reserva.getCliente().getNome().equals("")) {
-            throw new RegistroException("Nome do cliente invalido");
-        }
         reservas.add(reserva);
 
     }
@@ -45,20 +37,24 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
     public void remover(ReservaFilme reserva) {
         for (ReservaFilme reservalist : reservas) {
             if(reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())){
-                if(reservalist.getCliente().getCpf().equals(reserva.getCliente().getCpf())){
+                if(reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())){
                     reservas.remove(reservalist);
                 }
             }
         }
     }
 
-    public void alterar(ReservaFilme reserva) {
+    public void alterar(ReservaFilme reserva) throws RegistroException {
         for (ReservaFilme reservalist : reservas) {
             if(reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())){
-                if(reservalist.getCliente().getCpf().equals(reserva.getCliente().getCpf())){
+                if(reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())){
                     reservas.remove(reservalist);
                     reservas.add(reserva);
+                }else{
+                  throw new RegistroException("Não é possivel alterar os valores chaves!");
                 }
+            }else{
+                throw new RegistroException("Não é possivel alterar os valores chaves!");
             }
         }
     }
