@@ -23,6 +23,7 @@ public class BancoJPanel extends javax.swing.JPanel {
     private BancoTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+    private Banco chave;
     
     /**
      * Creates new form BancoJPanel
@@ -264,7 +265,6 @@ public class BancoJPanel extends javax.swing.JPanel {
         numerojTextField.setText("");
         gerentejTextField.setText("");
         telefonejFormattedTextField.setText("");
-        nomejTextField.setEnabled(true);
         editar = false;
             
 
@@ -293,7 +293,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         
         try{
              if (editar) {
-                dao.alterar(novo);
+                dao.alterar(novo,chave);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -322,6 +322,7 @@ public class BancoJPanel extends javax.swing.JPanel {
             Banco selecionado = tableModel.getBanco(linhaSelecionada);
 
             nomejTextField.setText(selecionado.getNome());
+            gerentejTextField.setText(selecionado.getGerente().getNome());
             telefonejFormattedTextField.setText(selecionado.getTelefone());
             cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
             ruajTextField.setText(selecionado.getEndereco().getRua());
@@ -330,7 +331,7 @@ public class BancoJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            nomejTextField.setEnabled(false);
+            chave = selecionado;
             editar = true;
         }else{
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

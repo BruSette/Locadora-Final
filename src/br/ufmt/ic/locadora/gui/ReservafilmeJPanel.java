@@ -27,6 +27,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
     private ReservaFilmeTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+    private ReservaFilme chave;
 
     /**
      * Creates new form reservafilmeJPanel
@@ -253,7 +254,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(reserva);
+                dao.alterar(reserva,chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, reserva);
             } else {
@@ -280,14 +281,18 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             nomejTextField.setText(selecionado.getCliente().getNome());
             filmejTextField.setText(selecionado.getFilme().getNomeFilme());
             funcionarioTextField.setText(selecionado.getFuncionario().getNome());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 dataemprestimojFormattedTextField.setText(sdf.format(selecionado.getDataReserva()));
+                
+            }catch (NullPointerException erro){   
+            }
+            try{
                 datadevolucaojFormattedTextField.setText(sdf.format(selecionado.getDataDevolucao()));
             }catch (NullPointerException erro){
                 
             }
-
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

@@ -44,18 +44,13 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         }
     }
 
-    public void alterar(ReservaFilme reserva) throws RegistroException {
-        for (ReservaFilme reservalist : reservas) {
-            if(reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())){
-                if(reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())){
-                    reservas.remove(reservalist);
-                    reservas.add(reserva);
-                }else{
-                  throw new RegistroException("Não é possivel alterar os valores chaves!");
-                }
-            }else{
-                throw new RegistroException("Não é possivel alterar os valores chaves!");
-            }
+    public void alterar(ReservaFilme reserva, ReservaFilme chave) throws RegistroException {
+        this.remover(chave);
+        try{
+            this.inserir(reserva);
+        }catch(RegistroException erro){
+            this.inserir(chave);
+            throw new RegistroException();
         }
     }
 

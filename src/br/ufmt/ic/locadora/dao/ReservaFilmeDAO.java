@@ -18,7 +18,7 @@ public interface ReservaFilmeDAO {
 
     public void remover(ReservaFilme reserva);
 
-    public void alterar(ReservaFilme reserva) throws RegistroException ;
+    public void alterar(ReservaFilme reserva,ReservaFilme chave ) throws RegistroException;
 
     public List<ReservaFilme> consultar(String nomeFilme);
 

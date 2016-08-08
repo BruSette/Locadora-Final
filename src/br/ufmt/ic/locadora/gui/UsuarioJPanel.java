@@ -22,7 +22,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
     private UsuarioTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
-
+    private Usuario chave;
     /**
      * Creates new form UsuarioJPanel
      */
@@ -152,7 +152,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(usuario);
+                dao.alterar(usuario,chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada,usuario);
             } else {
@@ -176,7 +176,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
             Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
 
             usuariojTextField.setText(selecionado.getUsuario());
-
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

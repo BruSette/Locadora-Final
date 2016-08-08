@@ -8,6 +8,7 @@ package br.ufmt.ic.locadora.dao.impl;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.CPFException;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +29,26 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         if (usuario.getUsuario().equals("") || usuario.getSenha().equals("")) {
             throw new UsuarioException("Usuario ou senha invalidos!");
         }
+        
+        usuarios.put(usuario.getUsuario(), usuario);
+        
+        
     }
 
     public void remover(String usuario) {
+        System.out.println("Removeu " + usuario);
         usuarios.remove(usuario);   
     }
 
-    public void alterar(Usuario usuario) {
-        usuarios.put(usuario.getUsuario(), usuario); 
+    public void alterar(Usuario usuario, Usuario chave) throws UsuarioException {
+        this.remover(chave.getUsuario());
+        try{
+            this.inserir(usuario);
+        }catch (UsuarioException erro){
+            this.inserir(chave);
+            throw new UsuarioException();
+            
+        }
     }
 
     public Usuario consultar(String usuario) {

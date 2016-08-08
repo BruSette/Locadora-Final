@@ -19,7 +19,7 @@ public interface FilmesDAO {
 
     public void remover(String nome);
 
-    public void alterar(Filme filme);
+    public void alterar(Filme filme, Filme chave) throws RegistroException;
 
     public Filme consultar(String nome);
 

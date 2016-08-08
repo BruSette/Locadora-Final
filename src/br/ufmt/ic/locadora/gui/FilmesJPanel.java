@@ -24,6 +24,7 @@ public class FilmesJPanel extends javax.swing.JPanel {
     private FilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+    private Filme chave;
 
     /**
      * Creates new form FilmesJPanel
@@ -207,7 +208,7 @@ public class FilmesJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(novo);
+                dao.alterar(novo,chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada,novo);
             } else {
@@ -233,8 +234,13 @@ public class FilmesJPanel extends javax.swing.JPanel {
             nomejTextField.setText(selecionado.getNomeFilme());
             generojTextField.setText(selecionado.getGenero());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            lancamentojFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
-
+            
+            try{
+                lancamentojFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
+            }catch (NullPointerException erro){
+                
+            }
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

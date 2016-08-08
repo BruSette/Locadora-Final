@@ -28,6 +28,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
     private FuncionarioTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+    private Funcionario chave;
 
     /**
      * Creates new form clienteJPanel
@@ -598,7 +599,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(funcionario);
+                dao.alterar(funcionario,chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada,funcionario);
             } else {
@@ -631,12 +632,20 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
             rgjTextField.setText(selecionado.getRg());
             cpfjFormattedTextField.setText(selecionado.getCpf());
             nacionalidadejTextField.setText(selecionado.getNacionalidade());
-
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
-
+            
+            try{
+                nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
+            }catch (NullPointerException erro){
+                
+            }
+            try{
+                dataadmissjFormattedTextField.setText(sdf.format(selecionado.getDataAdmiss()));
+            }catch (NullPointerException erro){
+                
+            }
+            
             cargojTextField.setText(selecionado.getCargo());
-            dataadmissjFormattedTextField.setText(sdf.format(selecionado.getDataAdmiss()));
             usuariojTextField.setText(selecionado.getUsuario().getUsuario());
 
             cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
@@ -646,7 +655,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

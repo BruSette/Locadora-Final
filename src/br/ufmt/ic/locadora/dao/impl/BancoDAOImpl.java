@@ -39,8 +39,15 @@ public class BancoDAOImpl implements BancoDAO {
         bancos.remove(nome);
     }
 
-    public void alterar(Banco banco) {
-       bancos.put(banco.getNome(), banco);
+    public void alterar(Banco banco, Banco chave) throws RegistroException {
+       bancos.remove(chave.getNome());
+       try{
+           this.inserir(banco);
+       }catch (RegistroException erro){
+           this.inserir(chave);
+           throw new RegistroException();
+       }
+       
     }
 
     public Banco consultar(String nome) {

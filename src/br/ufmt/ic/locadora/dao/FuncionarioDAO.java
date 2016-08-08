@@ -20,7 +20,7 @@ public interface FuncionarioDAO {
 
     public void remover(String cpf);
 
-    public void alterar(Funcionario funcionario);
+    public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException;
 
     public Funcionario consultar(String cpf);
 

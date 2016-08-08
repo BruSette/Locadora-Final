@@ -26,7 +26,7 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
     private List<DoacaoFilmes> doacoes = new ArrayList<DoacaoFilmes>();
 
     public void inserir(DoacaoFilmes doacao) throws RegistroException {
-        
+
         for (DoacaoFilmes doacaolist : doacoes) {
             if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
                 if (doacaolist.getEntidade().getNome().equals(doacao.getEntidade().getNome())) {
@@ -35,43 +35,27 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
                 }
             }
 
-        }   
-
-        if (doacao.getFilme().getNomeFilme().equals("")) {
-            throw new RegistroException("Nome do filme invalido");
         }
 
-        if (doacao.getEntidade().getNome().equals("")) {
-            throw new RegistroException("Nome do cliente invalido");
-        }
         doacoes.add(doacao);
 
     }
 
     public void remover(DoacaoFilmes doacao) {
-         for (DoacaoFilmes doacaolist : doacoes) {
-            if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
-                if (doacaolist.getEntidade().getNome().equals(doacaolist.getEntidade().getNome())) {
-                   doacoes.remove(doacao);
-                }
-            }
-
-        }   
-        
-        
-        
-    }
-
-    public void alterar(DoacaoFilmes doacao) {
         for (DoacaoFilmes doacaolist : doacoes) {
             if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
                 if (doacaolist.getEntidade().getNome().equals(doacaolist.getEntidade().getNome())) {
-                   doacoes.remove(doacaolist);
-                   doacoes.add(doacao);
+                    doacoes.remove(doacao);
                 }
             }
 
-        }   
+        }
+    }
+
+    public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException {
+        doacoes.remove(chave);
+        this.inserir(doacao);
+
     }
 
     public DoacaoFilmes consultar(DoacaoFilmes doacao) {

@@ -18,31 +18,36 @@ import java.util.Map;
 public class ClienteDAOImpl implements ClienteDAO {
 
     private Map<String, Cliente> clientes = new HashMap<String, Cliente>();
-        
 
     public void inserir(Cliente cliente) throws CPFException {
-        
+
         if (clientes.containsKey(cliente.getCpf())) {
             throw new CPFException();
         }
-        
-        if(cliente.getCpf().equals("   .   .   -  ")){
+
+        if (cliente.getCpf().equals("   .   .   -  ")) {
             throw new CPFException("Erro no CPF");
         }
-        
+
         clientes.put(cliente.getCpf(), cliente);
-        
 
     }
 
     public void remover(String cpf) {
         clientes.remove(cpf);
+        System.out.println("Removeu " + cpf);
     }
 
-    public void alterar(Cliente cliente) {
-        clientes.put(cliente.getCpf(), cliente);
+    public void alterar(Cliente cliente, Cliente chave) throws CPFException {
+        this.remover(chave.getCpf());
+        try{
+            this.inserir(cliente);
+        }catch (CPFException erro){
+            this.inserir(chave);
+            throw new CPFException();
+        }
     }
-    
+
     public Cliente consultar(String cpf) {
         return clientes.get(cpf);
     }

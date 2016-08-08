@@ -6,6 +6,7 @@
 package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
+import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.Usuario;
@@ -22,16 +23,16 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
     private Map<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
     private Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
+    private UsuarioDAO daousuario = FabricaDAO.CriarUsuarioDAO();
 
     public void inserir(Funcionario funcionario) throws CPFException, UsuarioException {
 
         if (funcionarios.containsKey(funcionario.getCpf())) {
             throw new CPFException();
         }
-
-        if (usuarios.containsKey(funcionario.getUsuario().getUsuario())) {
-            throw new UsuarioException();
-        }
+        
+        daousuario.inserir(funcionario.getUsuario());
+        
         if (funcionario.getCpf().equals("   .   .   -  ")) {
             throw new CPFException("Erro no CPF");
         }
@@ -47,15 +48,25 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
     }
 
     public void remover(String cpf) {
+        this.daousuario.remover(funcionarios.get(cpf).getUsuario().getUsuario());
         funcionarios.remove(cpf);
     }
 
-    public void alterar(Funcionario funcionario) {
-
+    public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException {
+        this.remover(chave.getCpf());
+        try{
+            this.inserir(funcionario);
+        }catch (CPFException erro){
+            this.inserir(chave);
+            throw new CPFException();
+        }catch (UsuarioException erro){
+            this.inserir(chave);
+            throw new UsuarioException();
+        }
     }
 
     public Funcionario consultar(String cpf) {
-        return null;
+        return funcionarios.get(cpf);
     }
 
     public Map<String, Funcionario> listar() {

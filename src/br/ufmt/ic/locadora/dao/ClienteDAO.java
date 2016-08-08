@@ -19,7 +19,7 @@ public interface ClienteDAO {
 
     public void remover(String cpf);
 
-    public void alterar(Cliente cliente);
+    public void alterar(Cliente cliente, Cliente chave) throws CPFException;
 
     public Cliente consultar(String cpf);
 

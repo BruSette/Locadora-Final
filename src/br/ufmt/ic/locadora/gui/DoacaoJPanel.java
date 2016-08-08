@@ -25,7 +25,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     private DoacaoFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
-
+    private DoacaoFilmes chave;
     /**
      * Creates new form DoacaoJPanel
      */
@@ -170,7 +170,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(doacao);
+                dao.alterar(doacao,chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada,doacao);
             } else {
@@ -197,7 +197,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
             filmejTextField.setText(selecionado.getFilme().getNomeFilme());
             entidadejTextField.setText(selecionado.getEntidade().getNome());
             funcionariojTextField.setText(selecionado.getResponsavel().getNome());
-
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

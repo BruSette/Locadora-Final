@@ -6,6 +6,7 @@
 package br.ufmt.ic.locadora.tablemodel;
 
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +55,12 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
                 valor = selecionado.getEntidade().getNome();
                 break;
             case 3:
-                valor = String.valueOf(selecionado.getDataDoacao());
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                try{
+                    valor = sdf.format(selecionado.getDataDoacao());
+                }catch (NullPointerException erro) {
+                    valor = "Sem data";
+                }
                 break;
         }
         return valor;

@@ -19,7 +19,7 @@ public interface BancoDAO {
 
     public void remover(String nome);
 
-    public void alterar(Banco banco);
+    public void alterar(Banco banco, Banco chave) throws RegistroException;
 
     public Banco consultar(String nome);
 

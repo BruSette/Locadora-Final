@@ -27,6 +27,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private ClienteTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+    private Cliente chave;
 
     /**
      * Creates new form clienteJPanel
@@ -420,7 +421,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
         cidadejTextField.setText("");
         estadojTextField.setText("");
         numerojTextField.setText("");
-        cpfjFormattedTextField.setEditable(true);
+        limitefilmesjFormattedTextField.setText("");
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -480,7 +481,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(cliente);
+                dao.alterar(cliente,chave);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, cliente);
             } else {
@@ -539,7 +540,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            cpfjFormattedTextField.setEditable(false);
+            chave = selecionado;
             editar = true;
         } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");

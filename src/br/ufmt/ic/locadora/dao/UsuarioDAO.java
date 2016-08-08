@@ -19,7 +19,7 @@ public interface UsuarioDAO {
 
     public void remover(String usuario);
 
-    public void alterar(Usuario usuario);
+    public void alterar(Usuario usuario, Usuario chave) throws UsuarioException;
 
     public Usuario consultar(String usuario);
 

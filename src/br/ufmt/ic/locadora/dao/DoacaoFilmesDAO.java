@@ -19,7 +19,7 @@ public interface DoacaoFilmesDAO {
 
     public void remover(DoacaoFilmes doacao);
 
-    public void alterar(DoacaoFilmes doacao);
+    public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException;
 
     public DoacaoFilmes consultar(DoacaoFilmes doacao);
 

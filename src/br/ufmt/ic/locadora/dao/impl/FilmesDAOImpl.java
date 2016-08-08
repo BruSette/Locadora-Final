@@ -23,7 +23,6 @@ public class FilmesDAOImpl implements FilmesDAO {
 
     public void inserir(Filme filme) throws RegistroException {
 
-        
         if (filmes.containsKey(filme.getNomeFilme())) {
             throw new RegistroException();
         }
@@ -41,8 +40,15 @@ public class FilmesDAOImpl implements FilmesDAO {
     }
 
     @Override
-    public void alterar(Filme filme) {
-         filmes.put(filme.getNomeFilme(), filme);
+    public void alterar(Filme filme, Filme chave) throws RegistroException {
+        filmes.remove(chave.getNomeFilme());
+        try{
+            this.inserir(filme);
+        }catch (RegistroException erro){
+            this.inserir(chave);
+            throw new RegistroException();
+        }
+
     }
 
     public Filme consultar(String filme) {
