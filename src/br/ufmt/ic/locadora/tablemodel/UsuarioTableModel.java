@@ -66,6 +66,12 @@ public class UsuarioTableModel extends AbstractTableModel {
         fireTableRowsUpdated(index, index);
     }
 
+    public void remover(int index, Usuario usuario){
+        usuarios.remove(usuario);
+        int ultima = usuarios.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
+    
     public Usuario getUsuario(int index) {
         return usuarios.get(index);
     }

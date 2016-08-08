@@ -70,6 +70,12 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
         filmes.set(index, filme);
         fireTableRowsUpdated(index, index);
     }
+    
+    public void remover(int index, Filme filme){
+        filmes.remove(filme);
+        int ultima = filmes.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
 
     public Filme getFilme(int index) {
         return filmes.get(index);

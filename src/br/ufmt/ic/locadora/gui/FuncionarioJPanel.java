@@ -98,6 +98,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         editarjButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         funcionariojTable = new javax.swing.JTable();
+        excluirjButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Funcionario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -251,6 +252,13 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         funcionariojTable.setModel(tableModel);
         jScrollPane1.setViewportView(funcionariojTable);
 
+        excluirjButton.setText("Excluir");
+        excluirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -287,7 +295,9 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
                                     .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(247, 247, 247)
-                                .addComponent(editarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(editarjButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
                             .addComponent(nascimentojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -448,13 +458,16 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
                             .addComponent(nomejLabel)
                             .addComponent(editarjButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telefonejLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(celularjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(celularjLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(telefonejLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(celularjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(celularjLabel)))
+                            .addComponent(excluirjButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(emailjLabel)
@@ -662,6 +675,21 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
+    private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
+        // TODO add your handling code here:
+
+        if (funcionariojTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = funcionariojTable.getSelectedRow();
+            Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
+            dao.remover(selecionado.getCpf());
+            tableModel.remover(linhaSelecionada, selecionado);
+            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+    }//GEN-LAST:event_excluirjButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField agenciajTextField;
@@ -687,6 +715,7 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField emailjTextField;
     private javax.swing.JLabel estadojLabel;
     private javax.swing.JTextField estadojTextField;
+    private javax.swing.JButton excluirjButton;
     private javax.swing.JTable funcionariojTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;

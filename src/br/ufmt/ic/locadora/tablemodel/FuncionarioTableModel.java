@@ -7,7 +7,6 @@ package br.ufmt.ic.locadora.tablemodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import java.util.Map;
@@ -69,6 +68,12 @@ public class FuncionarioTableModel extends AbstractTableModel {
     public void alterar(int index, Funcionario funcionario) {
         funcionarios.set(index, funcionario);
         fireTableRowsUpdated(index, index);
+    }
+    
+    public void remover(int index, Funcionario funcionario){
+        funcionarios.remove(funcionario);
+        int ultima = funcionarios.size() -1;
+        fireTableRowsInserted(ultima, ultima);
     }
 
     public Funcionario getFuncionario(int index) {

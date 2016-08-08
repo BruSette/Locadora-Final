@@ -79,7 +79,12 @@ public class ClienteTableModel extends AbstractTableModel {
         clientes.set(index, cliente);
         fireTableRowsUpdated(index, index);
     }
-
+    
+    public void remover(int index, Cliente cliente){
+        clientes.remove(cliente);
+        int ultima = clientes.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
     
     
     public Cliente getCliente(int index) {

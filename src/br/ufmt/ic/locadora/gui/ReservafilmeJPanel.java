@@ -61,6 +61,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         editarjButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         reservaFilmejTable = new javax.swing.JTable();
+        excluirjButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Reservar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18)))); // NOI18N
 
@@ -110,6 +111,13 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         reservaFilmejTable.setModel(tableModel);
         jScrollPane1.setViewportView(reservaFilmejTable);
 
+        excluirjButton.setText("Excluir");
+        excluirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,7 +150,9 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dataemprestimojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(editarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addComponent(limparjButton)
@@ -165,7 +175,8 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(telefonejLabel)
-                            .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(excluirjButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(funcionariojLabel)
@@ -299,6 +310,21 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
+    private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
+        // TODO add your handling code here:
+
+        if (reservaFilmejTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = reservaFilmejTable.getSelectedRow();
+            ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
+            dao.remover(selecionado);
+            tableModel.remover(linhaSelecionada, selecionado);
+            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+    }//GEN-LAST:event_excluirjButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
@@ -307,6 +333,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
     private javax.swing.JButton editarjButton1;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JLabel emailjLabel1;
+    private javax.swing.JButton excluirjButton;
     private javax.swing.JTextField filmejTextField;
     private javax.swing.JTextField funcionarioTextField;
     private javax.swing.JLabel funcionariojLabel;

@@ -85,6 +85,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
         editarjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         clientejTable = new javax.swing.JTable();
+        excluirjButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -207,14 +208,21 @@ public class ClienteJPanel extends javax.swing.JPanel {
         clientejTable.setModel(tableModel);
         jScrollPane1.setViewportView(clientejTable);
 
+        excluirjButton.setText("Excluir");
+        excluirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(nacionalidadejLabel1)
@@ -305,10 +313,12 @@ public class ClienteJPanel extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cadastrarjButton)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editarjButton)
+                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,7 +399,10 @@ public class ClienteJPanel extends javax.swing.JPanel {
                             .addComponent(sexojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editarjButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editarjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(excluirjButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -547,6 +560,22 @@ public class ClienteJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editarjButtonActionPerformed
 
+    private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
+        // TODO add your handling code here:
+        if (clientejTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = clientejTable.getSelectedRow();
+            Cliente selecionado = tableModel.getCliente(linhaSelecionada);
+            dao.remover(selecionado.getNome());
+            tableModel.remover(linhaSelecionada, selecionado);
+            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+        
+        
+    }//GEN-LAST:event_excluirjButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bairrojLabel;
@@ -570,6 +599,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel estadojLabel1;
     private javax.swing.JLabel estadojLabel2;
     private javax.swing.JTextField estadojTextField;
+    private javax.swing.JButton excluirjButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JFormattedTextField limitefilmesjFormattedTextField;
     private javax.swing.JButton limparjButton;

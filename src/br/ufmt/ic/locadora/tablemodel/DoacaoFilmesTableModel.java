@@ -77,6 +77,13 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
         doacoes.set(index, doacao);
         fireTableRowsUpdated(index, index);
     }
+    
+    public void remover(int index, DoacaoFilmes doacao){
+        doacoes.remove(doacao);
+        int ultima = doacoes.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
+    
 
     public DoacaoFilmes getDoacao(int index) {
         return doacoes.get(index);

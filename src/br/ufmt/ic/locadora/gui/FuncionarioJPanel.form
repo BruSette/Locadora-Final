@@ -72,7 +72,10 @@
                                   <Component id="nomejTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
-                              <Component id="editarjButton1" min="-2" pref="84" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="excluirjButton" pref="0" max="32767" attributes="0"/>
+                                  <Component id="editarjButton1" pref="84" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="nascimentojFormattedTextField" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
@@ -287,14 +290,19 @@
                           <Component id="editarjButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="telefonejFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="celularjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="telefonejFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="celularjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="excluirjButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -594,5 +602,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="excluirjButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirjButtonActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

@@ -70,7 +70,14 @@ public class BancoTableModel extends AbstractTableModel {
         bancos.set(index, banco);
         fireTableRowsUpdated(index, index);
     }
-
+    
+    public void remover(int index, Banco banco){
+        bancos.remove(banco);
+        int ultima = bancos.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
+    
+    
     public Banco getBanco(int index) {
         return bancos.get(index);
     }

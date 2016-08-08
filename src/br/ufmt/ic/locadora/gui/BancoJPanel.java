@@ -19,12 +19,13 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class BancoJPanel extends javax.swing.JPanel {
+
     private BancoDAO dao = FabricaDAO.CriarBancoDAO();
     private BancoTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
     private Banco chave;
-    
+
     /**
      * Creates new form BancoJPanel
      */
@@ -67,6 +68,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         bancojTable = new javax.swing.JTable();
         editarjButton = new javax.swing.JButton();
+        escluirjButton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Banco", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -91,7 +93,7 @@ public class BancoJPanel extends javax.swing.JPanel {
             }
         });
 
-        cadastrarjButton.setText("Cadastrar");
+        cadastrarjButton.setText("Salvar");
         cadastrarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastrarjButtonActionPerformed(evt);
@@ -128,6 +130,13 @@ public class BancoJPanel extends javax.swing.JPanel {
         editarjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarjButtonActionPerformed(evt);
+            }
+        });
+
+        escluirjButton.setText("Excluir");
+        escluirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                escluirjButtonActionPerformed(evt);
             }
         });
 
@@ -188,11 +197,13 @@ public class BancoJPanel extends javax.swing.JPanel {
                                     .addComponent(cidadejLabel)
                                     .addGap(18, 18, 18)
                                     .addComponent(cidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -246,7 +257,10 @@ public class BancoJPanel extends javax.swing.JPanel {
                     .addComponent(cadastrarjButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editarjButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editarjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(escluirjButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(159, 159, 159))
         );
@@ -266,7 +280,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         gerentejTextField.setText("");
         telefonejFormattedTextField.setText("");
         editar = false;
-            
+
 
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -275,7 +289,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         Banco novo = new Banco();
         novo.setNome(nomejTextField.getText());
         novo.setTelefone(telefonejFormattedTextField.getText());
-        
+
         Endereco end = new Endereco();
         end.setBairro(bairrojTextField.getText());
         end.setCep(cepjFormattedTextField.getText());
@@ -285,15 +299,14 @@ public class BancoJPanel extends javax.swing.JPanel {
         end.setNumero(numerojTextField.getText());
         end.setRua(ruajTextField.getText());
         novo.setEndereco(end);
-        
+
         PessoaFisica gerente = new PessoaFisica();
         gerente.setNome(gerentejTextField.getText());
         novo.setGerente(gerente);
-        
-        
-        try{
-             if (editar) {
-                dao.alterar(novo,chave);
+
+        try {
+            if (editar) {
+                dao.alterar(novo, chave);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -302,12 +315,12 @@ public class BancoJPanel extends javax.swing.JPanel {
                 tableModel.adicionar(novo);
             }
             limparjButtonActionPerformed(null);
-        }catch (RegistroException erro){
-            JOptionPane.showMessageDialog(this,erro.getMessage());
+        } catch (RegistroException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
         }
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void telefonejFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonejFormattedTextFieldActionPerformed
@@ -333,10 +346,26 @@ public class BancoJPanel extends javax.swing.JPanel {
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
             chave = selecionado;
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButtonActionPerformed
+
+    private void escluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escluirjButtonActionPerformed
+        // TODO add your handling code here:
+        if (bancojTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = bancojTable.getSelectedRow();
+            Banco selecionado = tableModel.getBanco(linhaSelecionada);
+            dao.remover(selecionado.getNome());
+            tableModel.remover(linhaSelecionada, selecionado);
+            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+
+
+    }//GEN-LAST:event_escluirjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -352,6 +381,7 @@ public class BancoJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel complementojLabel1;
     private javax.swing.JTextField complementojTextField;
     private javax.swing.JButton editarjButton;
+    private javax.swing.JButton escluirjButton;
     private javax.swing.JLabel estadojLabel;
     private javax.swing.JTextField estadojTextField;
     private javax.swing.JTextField gerentejTextField;

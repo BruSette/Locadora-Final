@@ -74,6 +74,12 @@ public class ReservaFilmeTableModel extends AbstractTableModel {
         reservas.set(index, reserva);
         fireTableRowsUpdated(index, index);
     }
+    
+    public void remover(int index, ReservaFilme reserva){
+        reservas.remove(reserva);
+        int ultima = reservas.size() -1;
+        fireTableRowsInserted(ultima, ultima);
+    }
 
     public ReservaFilme getReservaFilme(int index) {
         return reservas.get(index);
