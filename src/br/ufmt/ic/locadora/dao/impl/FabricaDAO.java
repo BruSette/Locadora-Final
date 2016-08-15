@@ -18,32 +18,62 @@ import br.ufmt.ic.locadora.dao.FilmesDAO;
  * @author brunosette
  */
 public class FabricaDAO {
-    public static BancoDAO CriarBancoDAO(){
-        return new BancoDAOImpl();
+
+    private static BancoDAO bancodao;
+    private static ClienteDAO clientedao;
+    private static DoacaoFilmesDAO doacaofilmesdao;
+    private static FilmesDAO filmesdao;
+    private static FuncionarioDAO funcionariodao;
+    private static ReservaFilmeDAO reservafilmedao;
+    private static UsuarioDAO usuariodao;
+
+    public static BancoDAO CriarBancoDAO() {
+        if (bancodao == null) {
+            bancodao = new BancoDAOImpl();
+        }
+        return bancodao;
     }
-    
-    public static ClienteDAO CriarClienteDAO(){
-        return new ClienteDAOImpl();
+
+    public static ClienteDAO CriarClienteDAO() {
+        if (clientedao == null){
+            clientedao =new ClienteDAOImpl();
+        }
+        return clientedao;
     }
-    
-    public static DoacaoFilmesDAO CriarDoacaoFilmesDAO(){
-        return new DoacaoFilmesDAOImpl();
+
+    public static DoacaoFilmesDAO CriarDoacaoFilmesDAO() {
+        if (doacaofilmesdao == null){
+            doacaofilmesdao = new DoacaoFilmesDAOImpl();
+        }
+        return doacaofilmesdao;
     }
-    
-    public static FilmesDAO CriarFilmesDAO(){
-        return new FilmesDAOImpl();
+
+    public static FilmesDAO CriarFilmesDAO() {
+        if (filmesdao == null){
+            filmesdao =  new FilmesDAOImpl();
+        }
+        return filmesdao;
     }
-    
-    public static FuncionarioDAO CriarFuncionarioDAO(){
-        return new FuncionarioDAOImpl();
+
+    public static FuncionarioDAO CriarFuncionarioDAO() {
+        if (funcionariodao == null){
+            funcionariodao =  new FuncionarioDAOImpl();
+        }
+        return funcionariodao;
     }
-    
-    public static ReservaFilmeDAO CriarReservaFilmeDAO(){
-        return new ReservaFilmeDAOImpl();
+
+    public static ReservaFilmeDAO CriarReservaFilmeDAO() {
+        if (reservafilmedao == null){
+            reservafilmedao = new ReservaFilmeDAOImpl();
+        }
+        return reservafilmedao;
     }
-    
-    public static UsuarioDAO CriarUsuarioDAO(){
-        return new UsuarioDAOImpl();
+
+    public static UsuarioDAO CriarUsuarioDAO() {
+        if(usuariodao == null){
+            usuariodao =  new UsuarioDAOImpl();
+        }
+        return usuariodao;
     }
-    
+
 }
