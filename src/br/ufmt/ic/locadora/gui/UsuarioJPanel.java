@@ -23,6 +23,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
     private boolean editar = false;
     private int linhaSelecionada;
     private Usuario chave;
+
     /**
      * Creates new form UsuarioJPanel
      */
@@ -163,9 +164,9 @@ public class UsuarioJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(usuario,chave);
+                dao.alterar(usuario, chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
-                tableModel.alterar(linhaSelecionada,usuario);
+                tableModel.alterar(linhaSelecionada, usuario);
             } else {
                 dao.inserir(usuario);
                 JOptionPane.showMessageDialog(this, "Cadastrado!");
@@ -197,15 +198,17 @@ public class UsuarioJPanel extends javax.swing.JPanel {
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (usuariojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = usuariojTable.getSelectedRow();
-            Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
-            dao.remover(selecionado.getUsuario());
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (usuariojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(usuariojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = usuariojTable.getSelectedRow();
+                Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
+                dao.remover(selecionado.getUsuario());
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 

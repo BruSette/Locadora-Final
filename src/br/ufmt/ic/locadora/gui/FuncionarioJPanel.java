@@ -612,9 +612,9 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(funcionario,chave);
+                dao.alterar(funcionario, chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
-                tableModel.alterar(linhaSelecionada,funcionario);
+                tableModel.alterar(linhaSelecionada, funcionario);
             } else {
                 dao.inserir(funcionario);
                 JOptionPane.showMessageDialog(this, "Cadastrado!");
@@ -646,18 +646,18 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
             cpfjFormattedTextField.setText(selecionado.getCpf());
             nacionalidadejTextField.setText(selecionado.getNacionalidade());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            
-            try{
+
+            try {
                 nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
-            }catch (NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
-            try{
+            try {
                 dataadmissjFormattedTextField.setText(sdf.format(selecionado.getDataAdmiss()));
-            }catch (NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
-            
+
             cargojTextField.setText(selecionado.getCargo());
             usuariojTextField.setText(selecionado.getUsuario().getUsuario());
 
@@ -678,15 +678,17 @@ public class FuncionarioJPanel extends javax.swing.JPanel {
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (funcionariojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = funcionariojTable.getSelectedRow();
-            Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
-            dao.remover(selecionado.getCpf());
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (funcionariojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(funcionariojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = funcionariojTable.getSelectedRow();
+                Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
+                dao.remover(selecionado.getCpf());
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 

@@ -26,6 +26,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     private boolean editar = false;
     private int linhaSelecionada;
     private DoacaoFilmes chave;
+
     /**
      * Creates new form DoacaoJPanel
      */
@@ -181,9 +182,9 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(doacao,chave);
+                dao.alterar(doacao, chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
-                tableModel.alterar(linhaSelecionada,doacao);
+                tableModel.alterar(linhaSelecionada, doacao);
             } else {
                 dao.inserir(doacao);
                 JOptionPane.showMessageDialog(this, "Cadastrado!");
@@ -217,15 +218,17 @@ public class DoacaoJPanel extends javax.swing.JPanel {
 
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
-        if (doacaojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = doacaojTable.getSelectedRow();
-            DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-            dao.remover(selecionado);
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (doacaojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(doacaojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = doacaojTable.getSelectedRow();
+                DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
+                dao.remover(selecionado);
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 

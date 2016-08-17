@@ -213,21 +213,19 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         ReservaFilme reserva = new ReservaFilme();
 
         Filme filme = new Filme();
-        
-        if(filmejTextField.getText().equals("")){
+
+        if (filmejTextField.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Nome do filme inválido!");
             filmejTextField.grabFocus();
             return;
         }
-        
-        if(nomejTextField.getText().equals("")){
+
+        if (nomejTextField.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Nome do cliente inválido!");
             nomejTextField.grabFocus();
             return;
         }
-        
-        
-        
+
         filme.setNomeFilme(filmejTextField.getText());
         reserva.setFilme(filme);
         Cliente cliente = new Cliente();
@@ -265,7 +263,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(reserva,chave);
+                dao.alterar(reserva, chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, reserva);
             } else {
@@ -295,13 +293,13 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 dataemprestimojFormattedTextField.setText(sdf.format(selecionado.getDataReserva()));
-                
-            }catch (NullPointerException erro){   
+
+            } catch (NullPointerException erro) {
             }
-            try{
+            try {
                 datadevolucaojFormattedTextField.setText(sdf.format(selecionado.getDataDevolucao()));
-            }catch (NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
             chave = selecionado;
             editar = true;
@@ -313,15 +311,17 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
 
-        if (reservaFilmejTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = reservaFilmejTable.getSelectedRow();
-            ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-            dao.remover(selecionado);
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (reservaFilmejTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(reservaFilmejTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = reservaFilmejTable.getSelectedRow();
+                ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
+                dao.remover(selecionado);
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 

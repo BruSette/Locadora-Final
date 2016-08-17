@@ -353,15 +353,17 @@ public class BancoJPanel extends javax.swing.JPanel {
 
     private void escluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escluirjButtonActionPerformed
         // TODO add your handling code here:
-        if (bancojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = bancojTable.getSelectedRow();
-            Banco selecionado = tableModel.getBanco(linhaSelecionada);
-            dao.remover(selecionado.getNome());
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (bancojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(bancojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = bancojTable.getSelectedRow();
+                Banco selecionado = tableModel.getBanco(linhaSelecionada);
+                dao.remover(selecionado.getNome());
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
 
 

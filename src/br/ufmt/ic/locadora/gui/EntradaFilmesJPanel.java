@@ -21,10 +21,12 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class EntradaFilmesJPanel extends javax.swing.JPanel {
+
     FilmesDAO dao = FabricaDAO.CriarFilmesDAO();
     private EntradaFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
+
     /**
      * Creates new form EstoqueFilmesJPanel
      */
@@ -248,20 +250,18 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         fornecedor.setNome(fornecedorjTextField.getText());
         estoque.setFornecedor(fornecedor);
         Integer quant;
-        
-        try{
+
+        try {
             quant = Integer.parseInt(quantidadejFormattedTextField.getText());
-        }catch (NumberFormatException erro){
+        } catch (NumberFormatException erro) {
             JOptionPane.showMessageDialog(this, "Quantidade inválida");
             quantidadejFormattedTextField.grabFocus();
             return;
         }
-        
-        
+
         estoque.setQuantidade(quant);
         String sData = (String) datajFormattedTextField.getValue();
-        
-        
+
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -272,19 +272,18 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
                 return;
             }
         }
-        
-        
-        try{
+
+        try {
             dao.inserir(estoque);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
             limparjButtonActionPerformed(null);
             tableModel.adicionar(estoque);
-        }catch (RegistroException erro){
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
         }
-        
-        
+
+
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
@@ -293,22 +292,22 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         if (entradafilmesjTable.getSelectedRowCount() == 1) {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
             Filme selecionado = tableModel.getFilme(linhaSelecionada);
-            
+
             nomejTextField.setText(selecionado.getNomeFilme());
             fornecedorjTextField.setText(selecionado.getFornecedor().getNome());
             funcionarioJTextField.setText(selecionado.getFuncionario().getNome());
             generoJTextField.setText(selecionado.getGenero());
-            try{
+            try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 datajFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
-            }catch(NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
-            
+
             quantidadejFormattedTextField.setText(String.valueOf(selecionado.getQuantidade()));
-            
+
             editar = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButtonActionPerformed
@@ -319,16 +318,18 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
-        
-        if (entradafilmesjTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = entradafilmesjTable.getSelectedRow();
-            Filme selecionado = tableModel.getFilme(linhaSelecionada);
-            dao.remover(selecionado.getNomeFilme());
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
 
+        if (entradafilmesjTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(entradafilmesjTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = entradafilmesjTable.getSelectedRow();
+                Filme selecionado = tableModel.getFilme(linhaSelecionada);
+                dao.remover(selecionado.getNomeFilme());
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 

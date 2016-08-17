@@ -494,7 +494,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(cliente,chave);
+                dao.alterar(cliente, chave);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, cliente);
             } else {
@@ -536,12 +536,12 @@ public class ClienteJPanel extends javax.swing.JPanel {
             emailjTextField.setText(selecionado.getEmail());
             rgjTextField.setText(selecionado.getRg());
             cpfjFormattedTextField.setText(selecionado.getCpf());
-            
-            try{
+
+            try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 nascimentojFormattedTextField.setText(sdf.format(selecionado.getDataNascimento()));
-            }catch (NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
 
             limitefilmesjFormattedTextField.setText(String.valueOf(selecionado.getLimiteFilmes()));
@@ -562,18 +562,20 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
-        if (clientejTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = clientejTable.getSelectedRow();
-            Cliente selecionado = tableModel.getCliente(linhaSelecionada);
-            dao.remover(selecionado.getNome());
-            tableModel.remover(linhaSelecionada, selecionado);
-            JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-
+        if (clientejTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(clientejTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = clientejTable.getSelectedRow();
+                Cliente selecionado = tableModel.getCliente(linhaSelecionada);
+                dao.remover(selecionado.getNome());
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
-        
-        
+
+
     }//GEN-LAST:event_excluirjButtonActionPerformed
 
 
