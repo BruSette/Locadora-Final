@@ -46,6 +46,7 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
             if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
                 if (doacaolist.getEntidade().getNome().equals(doacaolist.getEntidade().getNome())) {
                     doacoes.remove(doacao);
+                    return;
                 }
             }
 
@@ -54,7 +55,14 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
 
     public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException {
         doacoes.remove(chave);
-        this.inserir(doacao);
+        
+        try{
+            this.inserir(doacao);
+        }catch(RegistroException erro){
+            this.inserir(chave);
+            throw new RegistroException();
+        }
+        
 
     }
 

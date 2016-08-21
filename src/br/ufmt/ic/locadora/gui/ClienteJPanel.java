@@ -5,14 +5,12 @@
  */
 package br.ufmt.ic.locadora.gui;
 
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
-import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.ClienteTableModel;
-import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -469,7 +467,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
             return;
         }
 
-        String sData = (String) nascimentojFormattedTextField.getValue();
+        String sData = (String) nascimentojFormattedTextField.getText();
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

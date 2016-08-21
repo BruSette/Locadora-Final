@@ -59,8 +59,8 @@ public class DoacaoFilmes {
     }
 
     @Override
-    public String toString() {
-        return "DoacaoFilmes []";
+    public String toString(){
+        return getEntidade().toString() + getFilme().getNomeFilme();
     }
 
 }

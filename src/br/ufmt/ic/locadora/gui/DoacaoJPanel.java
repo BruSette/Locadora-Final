@@ -8,7 +8,7 @@ package br.ufmt.ic.locadora.gui;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.PessoaJuridica;
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;

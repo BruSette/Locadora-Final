@@ -5,12 +5,11 @@
  */
 package br.ufmt.ic.locadora.dao.impl;
 
-
 import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,44 +17,52 @@ import java.util.Map;
  */
 public class BancoDAOImpl implements BancoDAO {
 
-    private Map<String, Banco> bancos = new HashMap<String, Banco>();
+    private List<Banco> bancos = new ArrayList<Banco>();
 
     public void inserir(Banco banco) throws RegistroException {
         
-        if (bancos.containsKey(banco.getNome())) {
-            System.out.println("Registro já cadastrado!");
-            throw new RegistroException();
+       for (Banco bancolist : bancos) {
+            if (bancolist.getNome().equals(banco.getNome())) {
+                if (bancolist.getCod().equals(banco.getCod())) {
+                    throw new RegistroException();
+                }
+            }
+
         }
-        
-        if (banco.getNome().equals("")){
-            throw new RegistroException("Banco inválido!");
-        }
-        
-        bancos.put(banco.getNome(), banco);
+
+        bancos.add(banco);
         
     }
 
-    public void remover(String nome) {
-        bancos.remove(nome);
+    public int remover(Banco banco) {
+        for (Banco bancolist : bancos) {
+            if (bancolist.getNome().equals(banco.getNome())) {
+                if (bancolist.getCod().equals(banco.getCod())) {
+                    bancos.remove(banco);
+                    return 1;
+                }
+            }
+        }
+        return 0;
     }
 
     public void alterar(Banco banco, Banco chave) throws RegistroException {
-       bancos.remove(chave.getNome());
-       try{
-           this.inserir(banco);
-       }catch (RegistroException erro){
-           this.inserir(chave);
-           throw new RegistroException();
+       if(remover(chave) == 1){
+           try{
+            this.inserir(banco);
+        }catch(RegistroException erro){
+            this.inserir(chave);
+            throw new RegistroException();
+        }
        }
        
     }
 
     public Banco consultar(String nome) {
-        return bancos.get(nome);
+        return null;
     }
 
-    public Map<String, Banco> listar() {
+    public List<Banco> listar() {
         return bancos;
     }
-
 }

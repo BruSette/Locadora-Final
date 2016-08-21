@@ -10,43 +10,28 @@ package br.ufmt.ic.locadora.entidade;
  * @author brunosette
  */
 public class Banco {
-    
     private String nome;
-    private Endereco endereco;
-    private PessoaFisica gerente;
-    private String telefone;
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    
-    public PessoaFisica getGerente() {
-        return gerente;
-    }
-    
-    public void setGerente(PessoaFisica gerente) {
-        this.gerente = gerente;
-    }
+    private String cod;
 
     public String getNome() {
         return nome;
     }
+
+    public void setNome(String nomeBanco) {
+        this.nome = nomeBanco;
+    }
+
+    public String getCod() {
+        return cod;
+    }
+
+    public void setCod(String codBanco) {
+        this.cod = codBanco;
+    }
     
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String toString(){
+        return getNome() + getCod();
     }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+    
     
 }

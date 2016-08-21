@@ -37,15 +37,23 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         emprestimojMenuItem = new javax.swing.JMenuItem();
         funcionariojMenu = new javax.swing.JMenu();
         funcionariojMenuItem = new javax.swing.JMenuItem();
+        pontojMenuItem = new javax.swing.JMenuItem();
+        tipocargojMenuItem = new javax.swing.JMenuItem();
+        FornecedorjMenu = new javax.swing.JMenu();
+        fornecedorjMenuItem = new javax.swing.JMenuItem();
         estoquejMenu = new javax.swing.JMenu();
         estoquejMenuItem = new javax.swing.JMenuItem();
         filmesjMenu = new javax.swing.JMenu();
+        exemplarjMenuItem = new javax.swing.JMenuItem();
         filmesjMenuItem = new javax.swing.JMenuItem();
         doacaojMenuItem = new javax.swing.JMenuItem();
         usuariosjMenu = new javax.swing.JMenu();
         usuariosjMenuItem = new javax.swing.JMenuItem();
         BancojMenu = new javax.swing.JMenu();
         BancojMenuItem = new javax.swing.JMenuItem();
+        agenciajMenuItem = new javax.swing.JMenuItem();
+        AmbientejMenu = new javax.swing.JMenu();
+        ambientejMenuItem = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -82,7 +90,35 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         });
         funcionariojMenu.add(funcionariojMenuItem);
 
+        pontojMenuItem.setText("Ponto");
+        pontojMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pontojMenuItemActionPerformed(evt);
+            }
+        });
+        funcionariojMenu.add(pontojMenuItem);
+
+        tipocargojMenuItem.setText("Tipo Cargo");
+        tipocargojMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipocargojMenuItemActionPerformed(evt);
+            }
+        });
+        funcionariojMenu.add(tipocargojMenuItem);
+
         jMenuBar1.add(funcionariojMenu);
+
+        FornecedorjMenu.setText("Fornecedor");
+
+        fornecedorjMenuItem.setText("Fornecedor");
+        fornecedorjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorjMenuItemActionPerformed(evt);
+            }
+        });
+        FornecedorjMenu.add(fornecedorjMenuItem);
+
+        jMenuBar1.add(FornecedorjMenu);
 
         estoquejMenu.setText("Estoque");
 
@@ -97,6 +133,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jMenuBar1.add(estoquejMenu);
 
         filmesjMenu.setText("Filmes");
+
+        exemplarjMenuItem.setText("Exemplar");
+        exemplarjMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exemplarjMenuItemActionPerformed(evt);
+            }
+        });
+        filmesjMenu.add(exemplarjMenuItem);
 
         filmesjMenuItem.setText("Filmes");
         filmesjMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +174,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BancojMenu.setText("Banco");
 
-        BancojMenuItem.setText("Banco");
+        BancojMenuItem.setText("Agencia");
         BancojMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BancojMenuItemActionPerformed(evt);
@@ -138,7 +182,27 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         });
         BancojMenu.add(BancojMenuItem);
 
+        agenciajMenuItem.setText("Banco");
+        agenciajMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agenciajMenuItemActionPerformed(evt);
+            }
+        });
+        BancojMenu.add(agenciajMenuItem);
+
         jMenuBar1.add(BancojMenu);
+
+        AmbientejMenu.setText("Ambiente");
+
+        ambientejMenuItem.setText("Ambiente");
+        ambientejMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ambientejMenuItemActionPerformed(evt);
+            }
+        });
+        AmbientejMenu.add(ambientejMenuItem);
+
+        jMenuBar1.add(AmbientejMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -182,7 +246,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void BancojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BancojMenuItemActionPerformed
         // TODO add your handling code here:
-        setConteudo(new BancoJPanel());
+        setConteudo(new AgenciaJPanel());
     }//GEN-LAST:event_BancojMenuItemActionPerformed
 
     private void doacaojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doacaojMenuItemActionPerformed
@@ -201,6 +265,36 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         setConteudo(new ClienteJPanel());
     }//GEN-LAST:event_clientejMenuItemActionPerformed
+
+    private void pontojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pontojMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new PontoJPanel());
+    }//GEN-LAST:event_pontojMenuItemActionPerformed
+
+    private void agenciajMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agenciajMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new BancoJPanel());
+    }//GEN-LAST:event_agenciajMenuItemActionPerformed
+
+    private void tipocargojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipocargojMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new TipoCargoJPanel());
+    }//GEN-LAST:event_tipocargojMenuItemActionPerformed
+
+    private void ambientejMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambientejMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new AmbienteJPanel());
+    }//GEN-LAST:event_ambientejMenuItemActionPerformed
+
+    private void exemplarjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exemplarjMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new ExemplarJPanel());
+    }//GEN-LAST:event_exemplarjMenuItemActionPerformed
+
+    private void fornecedorjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorjMenuItemActionPerformed
+        // TODO add your handling code here:
+         setConteudo(new FornecedorJPanel());
+    }//GEN-LAST:event_fornecedorjMenuItemActionPerformed
 
     
     private void setConteudo(JPanel tela){
@@ -247,21 +341,29 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu AmbientejMenu;
     private javax.swing.JMenu BancojMenu;
     private javax.swing.JMenuItem BancojMenuItem;
+    private javax.swing.JMenu FornecedorjMenu;
+    private javax.swing.JMenuItem agenciajMenuItem;
+    private javax.swing.JMenuItem ambientejMenuItem;
     private javax.swing.JMenu clientejMenu;
     private javax.swing.JMenuItem clientejMenuItem;
     private javax.swing.JMenuItem doacaojMenuItem;
     private javax.swing.JMenuItem emprestimojMenuItem;
     private javax.swing.JMenu estoquejMenu;
     private javax.swing.JMenuItem estoquejMenuItem;
+    private javax.swing.JMenuItem exemplarjMenuItem;
     private javax.swing.JMenu filmesjMenu;
     private javax.swing.JMenuItem filmesjMenuItem;
+    private javax.swing.JMenuItem fornecedorjMenuItem;
     private javax.swing.JMenu funcionariojMenu;
     private javax.swing.JMenuItem funcionariojMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem pontojMenuItem;
     private javax.swing.JPanel principaljPanel;
+    private javax.swing.JMenuItem tipocargojMenuItem;
     private javax.swing.JMenu usuariosjMenu;
     private javax.swing.JMenuItem usuariosjMenuItem;
     // End of variables declaration//GEN-END:variables

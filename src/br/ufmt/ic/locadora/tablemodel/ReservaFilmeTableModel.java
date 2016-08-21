@@ -21,8 +21,8 @@ public class ReservaFilmeTableModel extends AbstractTableModel {
     private List<ReservaFilme> reservas;
     private String[] header = new String[]{"Cliente", "NomeFilme", "Data Reserva"};
 
-    public ReservaFilmeTableModel(List<ReservaFilme> list) {
-        reservas = new ArrayList<>();
+    public ReservaFilmeTableModel(List<ReservaFilme> List) {
+        reservas = new ArrayList<>(List);
     }
 
     @Override

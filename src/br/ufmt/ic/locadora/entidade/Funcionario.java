@@ -11,12 +11,12 @@ import java.util.Date;
  *
  * @author brunosette
  */
-public class Funcionario extends PessoaFisica{
+public class Funcionario extends PessoaFisica {
+
     private Date dataAdmiss;
     private Date dataDemiss;
     private String cargo;
     private Usuario usuario;
-    private ContaBancaria conta;
 
     public Usuario getUsuario() {
         return usuario;
@@ -50,21 +50,9 @@ public class Funcionario extends PessoaFisica{
         this.cargo = cargo;
     }
 
-    
-
-    public ContaBancaria getConta() {
-        return conta;
+    @Override
+    public String toString() {
+        return getNome() + getCpf();
     }
 
-    public void setConta(ContaBancaria conta) {
-        this.conta = conta;
-    }
-
-	@Override
-	public String toString() {
-		return "Funcionario []";
-	}
-    
-    
-    
 }

@@ -30,4 +30,8 @@ public class Usuario {
         this.senha = senha;
     }
     
+    public String toString(){
+        return getUsuario();
+    }
+    
 }

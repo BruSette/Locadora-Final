@@ -22,7 +22,7 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
     private String[] header = new String[]{"NomeFilme", "Doador", "Entidade", "Data"};
 
     public DoacaoFilmesTableModel(List<DoacaoFilmes> List) {
-        doacoes = new ArrayList<>();
+        doacoes = new ArrayList<>(List);
     }
 
     @Override

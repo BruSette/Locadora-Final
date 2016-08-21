@@ -8,20 +8,19 @@ package br.ufmt.ic.locadora.tablemodel;
 import br.ufmt.ic.locadora.entidade.Banco;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author bruno
+ * @author brunosette
  */
 public class BancoTableModel extends AbstractTableModel {
-    
     private List<Banco> bancos;
-    private String[] header = new String[]{"Nome", "Telefone", "Gerente"};
+    private String[] header = new String[]{"Nome", "Cod"};
 
-    public BancoTableModel(Map<String, Banco> map) {
-        bancos = new ArrayList<>(map.values());
+    public BancoTableModel(List<Banco> List) {
+        bancos = new ArrayList<>(List);
+       
     }
        
     @Override
@@ -49,18 +48,15 @@ public class BancoTableModel extends AbstractTableModel {
                 valor = selecionado.getNome();
                 break;
             case 1:
-                valor = selecionado.getTelefone();
+                valor = selecionado.getCod();
                 break;
-            case 2:
-                valor = selecionado.getGerente().getNome();
-                break;
+            
         }
         return valor;
     }
     
     
     public void adicionar(Banco banco) {
-        System.out.println("Passou!");
         bancos.add(banco);
         int ultima = bancos.size() - 1;
         fireTableRowsInserted(ultima, ultima);

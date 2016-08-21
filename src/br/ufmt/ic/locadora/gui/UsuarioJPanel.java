@@ -7,7 +7,7 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.tablemodel.UsuarioTableModel;
 import javax.swing.JOptionPane;

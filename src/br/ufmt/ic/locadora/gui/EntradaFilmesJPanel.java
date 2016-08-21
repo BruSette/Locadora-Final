@@ -10,7 +10,7 @@ import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.tablemodel.EntradaFilmesTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -260,7 +260,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         }
 
         estoque.setQuantidade(quant);
-        String sData = (String) datajFormattedTextField.getValue();
+        String sData = (String) datajFormattedTextField.getText();
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -291,7 +291,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
         if (entradafilmesjTable.getSelectedRowCount() == 1) {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
-            Filme selecionado = tableModel.getFilme(linhaSelecionada);
+            Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
 
             nomejTextField.setText(selecionado.getNomeFilme());
             fornecedorjTextField.setText(selecionado.getFornecedor().getNome());
@@ -323,7 +323,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             int confirmacao = JOptionPane.showConfirmDialog(entradafilmesjTable, "Confirma a exclusão?");
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entradafilmesjTable.getSelectedRow();
-                Filme selecionado = tableModel.getFilme(linhaSelecionada);
+                Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
                 dao.remover(selecionado.getNomeFilme());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");

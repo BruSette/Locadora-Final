@@ -5,12 +5,10 @@
  */
 package br.ufmt.ic.locadora.gui;
 
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
-import br.ufmt.ic.locadora.exception.RegistroException;
-import br.ufmt.ic.locadora.entidade.Endereco;
-import br.ufmt.ic.locadora.entidade.PessoaFisica;
-import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.dao.BancoDAO;
+import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.entidade.Banco;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.BancoTableModel;
 import javax.swing.JOptionPane;
 
@@ -21,17 +19,18 @@ import javax.swing.JOptionPane;
 public class BancoJPanel extends javax.swing.JPanel {
 
     private BancoDAO dao = FabricaDAO.CriarBancoDAO();
-    private BancoTableModel tableModel;
+    private BancoTableModel tableModel = new BancoTableModel(dao.listar());
     private boolean editar = false;
     private int linhaSelecionada;
     private Banco chave;
-
+    
+    
     /**
      * Creates new form BancoJPanel
      */
     public BancoJPanel() {
-        tableModel = new BancoTableModel(dao.listar());
         initComponents();
+        
     }
 
     /**
@@ -43,85 +42,16 @@ public class BancoJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nomejTextField = new javax.swing.JTextField();
-        nomejLabel = new javax.swing.JLabel();
-        ruajTextField = new javax.swing.JTextField();
-        ruajLabel = new javax.swing.JLabel();
-        complementojTextField = new javax.swing.JTextField();
-        complementojLabel = new javax.swing.JLabel();
-        bairrojTextField = new javax.swing.JTextField();
-        bairrojLabel = new javax.swing.JLabel();
-        cepjLabel = new javax.swing.JLabel();
-        cidadejTextField = new javax.swing.JTextField();
-        cidadejLabel = new javax.swing.JLabel();
-        estadojLabel = new javax.swing.JLabel();
-        estadojTextField = new javax.swing.JTextField();
-        limparjButton = new javax.swing.JButton();
-        cadastrarjButton = new javax.swing.JButton();
-        numerojTextField = new javax.swing.JTextField();
-        complementojLabel1 = new javax.swing.JLabel();
-        gerentejTextField = new javax.swing.JTextField();
-        nomejLabel1 = new javax.swing.JLabel();
-        nomejLabel2 = new javax.swing.JLabel();
-        telefonejFormattedTextField = new javax.swing.JFormattedTextField();
-        cepjFormattedTextField = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         bancojTable = new javax.swing.JTable();
         editarjButton = new javax.swing.JButton();
         escluirjButton = new javax.swing.JButton();
-
-        setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Banco", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
-
-        nomejLabel.setText("Nome:");
-
-        ruajLabel.setText("Rua:");
-
-        complementojLabel.setText("Complemento:");
-
-        bairrojLabel.setText("Bairro:");
-
-        cepjLabel.setText("Cep:");
-
-        cidadejLabel.setText("Cidade:");
-
-        estadojLabel.setText("Estado");
-
-        limparjButton.setText("Limpar");
-        limparjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limparjButtonActionPerformed(evt);
-            }
-        });
-
-        cadastrarjButton.setText("Salvar");
-        cadastrarjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastrarjButtonActionPerformed(evt);
-            }
-        });
-
-        complementojLabel1.setText("Numero:");
-
-        nomejLabel1.setText("Gerente:");
-
-        nomejLabel2.setText("Telefone:");
-
-        try {
-            telefonejFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        telefonejFormattedTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefonejFormattedTextFieldActionPerformed(evt);
-            }
-        });
-
-        try {
-            cepjFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        limparjButton = new javax.swing.JButton();
+        cadastrarjButton = new javax.swing.JButton();
+        codjTextField = new javax.swing.JTextField();
+        estadojLabel = new javax.swing.JLabel();
+        cidadejLabel = new javax.swing.JLabel();
+        nomejTextField = new javax.swing.JTextField();
 
         bancojTable.setModel(tableModel);
         jScrollPane1.setViewportView(bancojTable);
@@ -140,147 +70,127 @@ public class BancoJPanel extends javax.swing.JPanel {
             }
         });
 
+        limparjButton.setText("Limpar");
+        limparjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparjButtonActionPerformed(evt);
+            }
+        });
+
+        cadastrarjButton.setText("Salvar");
+        cadastrarjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarjButtonActionPerformed(evt);
+            }
+        });
+
+        estadojLabel.setText("Cod:");
+
+        cidadejLabel.setText("Nome:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(limparjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadastrarjButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nomejLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(nomejLabel1)
-                                    .addComponent(nomejLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(gerentejTextField)
-                                    .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(estadojLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(estadojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(ruajLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ruajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(complementojLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numerojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(cepjLabel)
+            .addGap(0, 707, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(248, 248, 248)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(limparjButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cadastrarjButton))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(estadojLabel)
                                     .addGap(18, 18, 18)
-                                    .addComponent(cepjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(bairrojLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(bairrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(complementojLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(complementojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(codjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(cidadejLabel)
                                     .addGap(18, 18, 18)
-                                    .addComponent(cidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(271, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(escluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                                    .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(266, 266, 266))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(escluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1)))
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ruajLabel)
-                            .addComponent(ruajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(numerojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(complementojLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(complementojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(complementojLabel)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomejLabel)
-                            .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomejLabel1)
-                            .addComponent(gerentejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomejLabel2)
-                            .addComponent(telefonejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bairrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bairrojLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cepjLabel)
-                    .addComponent(cepjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cidadejLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estadojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(estadojLabel))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(limparjButton)
-                    .addComponent(cadastrarjButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(editarjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(escluirjButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(159, 159, 159))
+            .addGap(0, 382, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cidadejLabel))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(codjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(estadojLabel))
+                    .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(limparjButton)
+                        .addComponent(cadastrarjButton))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(editarjButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(escluirjButton))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
+        // TODO add your handling code here:
+
+        if (bancojTable.getSelectedRowCount() == 1) {
+            linhaSelecionada = bancojTable.getSelectedRow();
+            Banco selecionado = tableModel.getBanco(linhaSelecionada);
+
+            nomejTextField.setText(selecionado.getNome());
+            codjTextField.setText(selecionado.getCod());
+            
+            chave = selecionado;
+            editar = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
+        }
+    }//GEN-LAST:event_editarjButtonActionPerformed
+
+    private void escluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escluirjButtonActionPerformed
+        // TODO add your handling code here:
+        if (bancojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(bancojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = bancojTable.getSelectedRow();
+                Banco selecionado = tableModel.getBanco(linhaSelecionada);
+                dao.remover(selecionado);
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
+        }
+
+    }//GEN-LAST:event_escluirjButtonActionPerformed
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
 
+       
         nomejTextField.setText("");
-        ruajTextField.setText("");
-        complementojTextField.setText("");
-        bairrojTextField.setText("");
-        cepjFormattedTextField.setText("");
-        cidadejTextField.setText("");
-        estadojTextField.setText("");
-        numerojTextField.setText("");
-        gerentejTextField.setText("");
-        telefonejFormattedTextField.setText("");
+        codjTextField.setText("");
+        
         editar = false;
-
 
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -288,22 +198,9 @@ public class BancoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Banco novo = new Banco();
         novo.setNome(nomejTextField.getText());
-        novo.setTelefone(telefonejFormattedTextField.getText());
-
-        Endereco end = new Endereco();
-        end.setBairro(bairrojTextField.getText());
-        end.setCep(cepjFormattedTextField.getText());
-        end.setCidade(cidadejTextField.getText());
-        end.setComplemento(complementojTextField.getText());
-        end.setEstado(estadojTextField.getText());
-        end.setNumero(numerojTextField.getText());
-        end.setRua(ruajTextField.getText());
-        novo.setEndereco(end);
-
-        PessoaFisica gerente = new PessoaFisica();
-        gerente.setNome(gerentejTextField.getText());
-        novo.setGerente(gerente);
-
+        novo.setCod(codjTextField.getText());
+       
+        
         try {
             if (editar) {
                 dao.alterar(novo, chave);
@@ -320,82 +217,19 @@ public class BancoJPanel extends javax.swing.JPanel {
             nomejTextField.grabFocus();
         }
 
-
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
-
-    private void telefonejFormattedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonejFormattedTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonejFormattedTextFieldActionPerformed
-
-    private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
-        // TODO add your handling code here:
-
-        if (bancojTable.getSelectedRowCount() == 1) {
-            linhaSelecionada = bancojTable.getSelectedRow();
-            Banco selecionado = tableModel.getBanco(linhaSelecionada);
-
-            nomejTextField.setText(selecionado.getNome());
-            gerentejTextField.setText(selecionado.getGerente().getNome());
-            telefonejFormattedTextField.setText(selecionado.getTelefone());
-            cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
-            ruajTextField.setText(selecionado.getEndereco().getRua());
-            bairrojTextField.setText(selecionado.getEndereco().getBairro());
-            estadojTextField.setText(selecionado.getEndereco().getEstado());
-            cidadejTextField.setText(selecionado.getEndereco().getCidade());
-            numerojTextField.setText(selecionado.getEndereco().getNumero());
-            complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            chave = selecionado;
-            editar = true;
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
-        }
-    }//GEN-LAST:event_editarjButtonActionPerformed
-
-    private void escluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escluirjButtonActionPerformed
-        // TODO add your handling code here:
-        if (bancojTable.getSelectedRowCount() > 0) {
-            int confirmacao = JOptionPane.showConfirmDialog(bancojTable, "Confirma a exclusão?");
-            if (confirmacao == JOptionPane.YES_OPTION) {
-                linhaSelecionada = bancojTable.getSelectedRow();
-                Banco selecionado = tableModel.getBanco(linhaSelecionada);
-                dao.remover(selecionado.getNome());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
-        }
-
-
-    }//GEN-LAST:event_escluirjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bairrojLabel;
-    private javax.swing.JTextField bairrojTextField;
     private javax.swing.JTable bancojTable;
     private javax.swing.JButton cadastrarjButton;
-    private javax.swing.JFormattedTextField cepjFormattedTextField;
-    private javax.swing.JLabel cepjLabel;
     private javax.swing.JLabel cidadejLabel;
-    private javax.swing.JTextField cidadejTextField;
-    private javax.swing.JLabel complementojLabel;
-    private javax.swing.JLabel complementojLabel1;
-    private javax.swing.JTextField complementojTextField;
+    private javax.swing.JTextField codjTextField;
     private javax.swing.JButton editarjButton;
     private javax.swing.JButton escluirjButton;
     private javax.swing.JLabel estadojLabel;
-    private javax.swing.JTextField estadojTextField;
-    private javax.swing.JTextField gerentejTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;
-    private javax.swing.JLabel nomejLabel;
-    private javax.swing.JLabel nomejLabel1;
-    private javax.swing.JLabel nomejLabel2;
     private javax.swing.JTextField nomejTextField;
-    private javax.swing.JTextField numerojTextField;
-    private javax.swing.JLabel ruajLabel;
-    private javax.swing.JTextField ruajTextField;
-    private javax.swing.JFormattedTextField telefonejFormattedTextField;
     // End of variables declaration//GEN-END:variables
 }

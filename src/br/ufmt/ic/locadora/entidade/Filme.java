@@ -93,8 +93,7 @@ public class Filme {
     }
 
     @Override
-    public String toString() {
-        return "Filmes []";
+    public String toString(){
+        return getNomeFilme() + getGenero();
     }
-
 }

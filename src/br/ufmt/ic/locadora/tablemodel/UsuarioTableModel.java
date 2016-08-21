@@ -9,7 +9,6 @@ import br.ufmt.ic.locadora.entidade.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
 /**

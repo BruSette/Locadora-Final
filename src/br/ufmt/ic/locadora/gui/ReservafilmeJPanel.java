@@ -10,7 +10,7 @@ import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.dao.impl.FabricaDAO;
+import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
 import br.ufmt.ic.locadora.tablemodel.ReservaFilmeTableModel;
 import java.text.ParseException;
@@ -235,7 +235,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         funcionario.setNome(funcionarioTextField.getText());
         reserva.setFuncionario(funcionario);
 
-        String sData = (String) datadevolucaojFormattedTextField.getValue();
+        String sData = (String) datadevolucaojFormattedTextField.getText();
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -248,7 +248,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             }
         }
 
-        sData = (String) dataemprestimojFormattedTextField.getValue();
+        sData = (String) dataemprestimojFormattedTextField.getText();
 
         if (sData != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

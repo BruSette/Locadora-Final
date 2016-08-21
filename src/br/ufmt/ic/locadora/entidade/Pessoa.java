@@ -11,63 +11,70 @@ package br.ufmt.ic.locadora.entidade;
  */
 public abstract class Pessoa {
 
-	private String nome;
-	private String telefone;
-	private String celular;
-	private Endereco endereco;
-	private String email;
-        
+    private String nome;
+    private String telefone;
+    private String celular;
+    private Endereco endereco;
+    private String email;
+    private ContaBancaria conta;
 
-	
-	public Pessoa() {
-		
-	}
+    public ContaBancaria getConta() {
+        return conta;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setConta(ContaBancaria conta) {
+        this.conta = conta;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    
+    
+    public Pessoa() {
 
-	public String getNome() {
-		return nome;
-	}
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getCelular() {
-		return celular;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+    public String getCelular() {
+        return celular;
+    }
 
-	@Override
-	public String toString() {
-		return "Pessoa []";
-	}
-	
-	
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa []";
+    }
 
 }

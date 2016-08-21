@@ -5,7 +5,7 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import br.ufmt.ic.locadora.entidade.Banco;
+import br.ufmt.ic.locadora.entidade.Agencia;
 
 /**
  *
@@ -14,19 +14,7 @@ import br.ufmt.ic.locadora.entidade.Banco;
 public class ContaBancaria {
 
     private Banco banco;
-    private String agencia;
     private String contaNumero;
-
-    public ContaBancaria(Banco banco, String agencia) {
-        super();
-        this.banco = banco;
-        this.agencia = agencia;
-    }
-
-    public ContaBancaria(String agencia) {
-        super();
-        this.agencia = agencia;
-    }
 
     public Banco getBanco() {
         return banco;
@@ -34,14 +22,6 @@ public class ContaBancaria {
 
     public void setBanco(Banco banco) {
         this.banco = banco;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
     }
 
     public String getContaNumero() {
@@ -52,9 +32,11 @@ public class ContaBancaria {
         this.contaNumero = contaNumero;
     }
 
-    @Override
-    public String toString() {
-        return "ContaBancaria []";
-    }
+    
 
+   
+    @Override
+    public String toString(){
+        return getContaNumero() + getBanco();
+    }
 }

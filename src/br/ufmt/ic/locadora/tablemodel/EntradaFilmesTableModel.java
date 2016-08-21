@@ -77,7 +77,7 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
         fireTableRowsInserted(ultima, ultima);
     }
 
-    public Filme getFilme(int index) {
+    public Filme getEntradaFilmes(int index) {
         return filmes.get(index);
     }
 }

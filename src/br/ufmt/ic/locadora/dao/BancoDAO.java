@@ -4,25 +4,25 @@
  * and open the template in the editor.
  */
 package br.ufmt.ic.locadora.dao;
-
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.Map;
+import java.util.List;
+
 
 /**
  *
  * @author brunosette
  */
 public interface BancoDAO {
-    
     public void inserir(Banco banco) throws RegistroException;
 
-    public void remover(String nome);
+    public int remover(Banco banco);
 
-    public void alterar(Banco banco, Banco chave) throws RegistroException;
+    public void alterar(Banco banco,Banco chave) throws RegistroException;
 
     public Banco consultar(String nome);
 
-    public Map<String, Banco> listar();
-    
+    public List<Banco> listar();
 }
+
+
