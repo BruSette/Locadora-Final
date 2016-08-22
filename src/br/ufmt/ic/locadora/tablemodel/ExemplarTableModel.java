@@ -48,7 +48,7 @@ public class ExemplarTableModel extends AbstractTableModel {
                 valor = selecionado.getNome();
                 break;
             case 1:
-                valor = selecionado.getGenero();
+                valor = selecionado.getGenero().getNome();
                 break;
             case 2:
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

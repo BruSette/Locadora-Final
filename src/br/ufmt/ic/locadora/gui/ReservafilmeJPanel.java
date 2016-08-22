@@ -226,7 +226,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             return;
         }
 
-        filme.setNomeFilme(filmejTextField.getText());
+        //filme.setNomeFilme(filmejTextField.getText());
         reserva.setFilme(filme);
         Cliente cliente = new Cliente();
         cliente.setNome(nomejTextField.getText());
@@ -288,7 +288,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
 
             nomejTextField.setText(selecionado.getCliente().getNome());
-            filmejTextField.setText(selecionado.getFilme().getNomeFilme());
+            filmejTextField.setText(selecionado.getFilme().getExemplar().getNome());
             funcionarioTextField.setText(selecionado.getFuncionario().getNome());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {

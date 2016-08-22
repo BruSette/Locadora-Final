@@ -6,11 +6,15 @@
 package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
+import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Exemplar;
+import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.ExemplarTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import locadora.FabricaDAO;
 
@@ -21,6 +25,7 @@ import locadora.FabricaDAO;
 public class ExemplarJPanel extends javax.swing.JPanel {
 
     ExemplarDAO dao = FabricaDAO.CriarExemplarDAO();
+    GeneroDAO generoDAO = FabricaDAO.CriarGeneroDAO();
     private ExemplarTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
@@ -32,8 +37,22 @@ public class ExemplarJPanel extends javax.swing.JPanel {
     public ExemplarJPanel() {
         tableModel = new ExemplarTableModel(dao.listar());
         initComponents();
+        setComboExemplar();
     }
 
+    private void setComboExemplar() {
+        generojComboBox.removeAllItems();
+        generojComboBox.addItem("Selecione");
+
+        Map<String, Genero> generos = generoDAO.listar();
+        Collection<Genero> colecao = generos.values();
+        for (Genero genero : colecao) {
+            generojComboBox.addItem(genero);
+        }
+
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,7 +63,6 @@ public class ExemplarJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         nomejTextField = new javax.swing.JTextField();
-        generojTextField = new javax.swing.JTextField();
         lancamentojFormattedTextField = new javax.swing.JFormattedTextField();
         editarjButton1 = new javax.swing.JButton();
         excluirjButton = new javax.swing.JButton();
@@ -55,6 +73,7 @@ public class ExemplarJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        generojComboBox = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Exemplar de Filme", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 18)))); // NOI18N
 
@@ -101,43 +120,47 @@ public class ExemplarJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Lancamento:");
 
+        generojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        generojComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generojComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(editarjButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 46, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(editarjButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(157, 157, 157)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(limparjButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cadastrarjButton))
+                                .addComponent(cadastrarjButton))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(108, 108, 108)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(generojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lancamentojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(39, 39, 39)
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(lancamentojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,8 +172,8 @@ public class ExemplarJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(generojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lancamentojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,7 +188,7 @@ public class ExemplarJPanel extends javax.swing.JPanel {
                         .addComponent(editarjButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(excluirjButton)
-                        .addGap(0, 94, Short.MAX_VALUE))
+                        .addGap(0, 93, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -178,7 +201,7 @@ public class ExemplarJPanel extends javax.swing.JPanel {
             linhaSelecionada = exemplarjTable.getSelectedRow();
             Exemplar selecionado = tableModel.getExemplar(linhaSelecionada);
             nomejTextField.setText(selecionado.getNome());
-            generojTextField.setText(selecionado.getGenero());
+            generojComboBox.setSelectedItem(selecionado.getGenero());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             try {
@@ -215,7 +238,14 @@ public class ExemplarJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Exemplar novo = new Exemplar();
         novo.setNome(nomejTextField.getText());
-        novo.setGenero(generojTextField.getText());
+        if (generojComboBox.getSelectedIndex() > 0 ){
+            novo.setGenero((Genero) generojComboBox.getSelectedItem());
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione um Genero");
+            generojComboBox.grabFocus();
+            return;
+        }
+                
 
         String sData = (String) lancamentojFormattedTextField.getText();
 
@@ -230,7 +260,6 @@ public class ExemplarJPanel extends javax.swing.JPanel {
             }
         }
 
-        
 
         try {
             if (editar) {
@@ -253,12 +282,16 @@ public class ExemplarJPanel extends javax.swing.JPanel {
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
         nomejTextField.setText("");
-        generojTextField.setText("");
+        generojComboBox.setSelectedIndex(0);
         lancamentojFormattedTextField.setText("");
         
         editar = false;
 
     }//GEN-LAST:event_limparjButtonActionPerformed
+
+    private void generojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generojComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_generojComboBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -266,7 +299,7 @@ public class ExemplarJPanel extends javax.swing.JPanel {
     private javax.swing.JButton editarjButton1;
     private javax.swing.JButton excluirjButton;
     private javax.swing.JTable exemplarjTable;
-    private javax.swing.JTextField generojTextField;
+    private javax.swing.JComboBox generojComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -6,16 +6,10 @@
 package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
-import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
-import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  *

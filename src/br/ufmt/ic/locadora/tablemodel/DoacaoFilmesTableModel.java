@@ -46,7 +46,7 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
         DoacaoFilmes selecionado = doacoes.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                valor = selecionado.getFilme().getNomeFilme();
+                valor = selecionado.getFilme().getExemplar().getNome();
                 break;
             case 1:
                 valor = selecionado.getResponsavel().getNome();
@@ -67,7 +67,6 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
     }
 
     public void adicionar(DoacaoFilmes doacao) {
-        System.out.println("Passou!");
         doacoes.add(doacao);
         int ultima = doacoes.size() - 1;
         fireTableRowsInserted(ultima, ultima);

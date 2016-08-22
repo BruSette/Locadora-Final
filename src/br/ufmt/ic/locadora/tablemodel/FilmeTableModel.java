@@ -15,11 +15,11 @@ import java.util.Map;
  *
  * @author bruno
  */
-public class FilmesTableModel extends AbstractTableModel {
+public class FilmeTableModel extends AbstractTableModel {
     private List<Filme> filmes;
     private String[] header = new String[]{"Nome", "Genero", "Lançamento","Disponibilidade"};
 
-    public FilmesTableModel(Map<String, Filme> map) {
+    public FilmeTableModel(Map<String, Filme> map) {
         filmes= new ArrayList<>(map.values());
     }
 
@@ -44,13 +44,13 @@ public class FilmesTableModel extends AbstractTableModel {
         Filme selecionado = filmes.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                valor = selecionado.getNomeFilme();
+                valor = selecionado.getExemplar().getNome();
                 break;
             case 1:
-                valor = selecionado.getGenero();
+                valor = selecionado.getExemplar().getGenero().getNome();
                 break;
             case 2:
-                valor = String.valueOf(selecionado.getDatalancamento());
+                valor = String.valueOf(selecionado.getExemplar().getDatalancamento());
                 break;
             case 3:
                 valor = Boolean.toString(selecionado.getDisponibilidade());

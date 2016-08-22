@@ -9,7 +9,6 @@ import br.ufmt.ic.locadora.entidade.Filme;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -45,10 +44,10 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
         Filme selecionado = filmes.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                valor = selecionado.getNomeFilme();
+                valor = selecionado.getExemplar().getNome();
                 break;
             case 1:
-                valor = selecionado.getGenero();
+                valor = selecionado.getExemplar().getGenero().getNome();
                 break;
             case 2:
                 valor = Integer.toString(selecionado.getQuantidade());

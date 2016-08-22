@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author bruno
  */
-public interface FilmesDAO {
+public interface FilmeDAO {
     
     public void inserir(Filme filme) throws RegistroException;
 

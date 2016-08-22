@@ -40,7 +40,7 @@ public class Cliente extends PessoaFisica {
 
     @Override
    public String toString(){
-        return getNome() + getCpf();
+        return getNome() + " - "  + getCpf();
     }
 
 }

@@ -47,6 +47,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         exemplarjMenuItem = new javax.swing.JMenuItem();
         filmesjMenuItem = new javax.swing.JMenuItem();
         doacaojMenuItem = new javax.swing.JMenuItem();
+        generojMenuItem = new javax.swing.JMenuItem();
         usuariosjMenu = new javax.swing.JMenu();
         usuariosjMenuItem = new javax.swing.JMenuItem();
         BancojMenu = new javax.swing.JMenu();
@@ -54,6 +55,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         agenciajMenuItem = new javax.swing.JMenuItem();
         AmbientejMenu = new javax.swing.JMenu();
         ambientejMenuItem = new javax.swing.JMenuItem();
+        entidadejMenu = new javax.swing.JMenu();
+        entidadejMenuItem = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -122,7 +125,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         estoquejMenu.setText("Estoque");
 
-        estoquejMenuItem.setText("Estoque");
+        estoquejMenuItem.setText("Filmes");
         estoquejMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 estoquejMenuItemActionPerformed(evt);
@@ -157,6 +160,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
         filmesjMenu.add(doacaojMenuItem);
+
+        generojMenuItem.setText("Genero");
+        generojMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generojMenuItemActionPerformed(evt);
+            }
+        });
+        filmesjMenu.add(generojMenuItem);
 
         jMenuBar1.add(filmesjMenu);
 
@@ -204,13 +215,25 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(AmbientejMenu);
 
+        entidadejMenu.setText("Entidade");
+
+        entidadejMenuItem.setText("Entidade");
+        entidadejMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                entidadejMenuItemActionPerformed(evt);
+            }
+        });
+        entidadejMenu.add(entidadejMenuItem);
+
+        jMenuBar1.add(entidadejMenu);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principaljPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+            .addComponent(principaljPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,7 +258,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void filmesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filmesjMenuItemActionPerformed
         // TODO add your handling code here:
-        setConteudo(new FilmesJPanel());
+        setConteudo(new EntradaFilmesJPanel());
     }//GEN-LAST:event_filmesjMenuItemActionPerformed
 
     private void usuariosjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosjMenuItemActionPerformed
@@ -296,6 +319,16 @@ public class PrincipalJFrame extends javax.swing.JFrame {
          setConteudo(new FornecedorJPanel());
     }//GEN-LAST:event_fornecedorjMenuItemActionPerformed
 
+    private void entidadejMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entidadejMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new EntidadeJPanel());
+    }//GEN-LAST:event_entidadejMenuItemActionPerformed
+
+    private void generojMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generojMenuItemActionPerformed
+        // TODO add your handling code here:
+        setConteudo(new GeneroJPanel());
+    }//GEN-LAST:event_generojMenuItemActionPerformed
+
     
     private void setConteudo(JPanel tela){
         principaljPanel.removeAll();
@@ -351,6 +384,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem clientejMenuItem;
     private javax.swing.JMenuItem doacaojMenuItem;
     private javax.swing.JMenuItem emprestimojMenuItem;
+    private javax.swing.JMenu entidadejMenu;
+    private javax.swing.JMenuItem entidadejMenuItem;
     private javax.swing.JMenu estoquejMenu;
     private javax.swing.JMenuItem estoquejMenuItem;
     private javax.swing.JMenuItem exemplarjMenuItem;
@@ -359,6 +394,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem fornecedorjMenuItem;
     private javax.swing.JMenu funcionariojMenu;
     private javax.swing.JMenuItem funcionariojMenuItem;
+    private javax.swing.JMenuItem generojMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem pontojMenuItem;

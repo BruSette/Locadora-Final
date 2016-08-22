@@ -41,7 +41,7 @@ public class Ponto {
     }
     
     public String toString(){
-        return getFuncionario() + getTipoPonto();
+        return getFuncionario() +" - "+ getTipoPonto();
     }
     
 }

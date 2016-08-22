@@ -52,7 +52,7 @@ public class Funcionario extends PessoaFisica {
 
     @Override
     public String toString() {
-        return getNome() + getCpf();
+        return getNome() + " - " + getCpf();
     }
 
 }

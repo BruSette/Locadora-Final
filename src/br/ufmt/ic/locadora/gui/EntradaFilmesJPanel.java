@@ -5,16 +5,21 @@
  */
 package br.ufmt.ic.locadora.gui;
 
-import br.ufmt.ic.locadora.dao.FilmesDAO;
+import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 import br.ufmt.ic.locadora.entidade.Filme;
 import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.tablemodel.EntradaFilmesTableModel;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import br.ufmt.ic.locadora.dao.FilmeDAO;
+import br.ufmt.ic.locadora.dao.FornecedorDAO;
+import br.ufmt.ic.locadora.dao.FuncionarioDAO;
+import br.ufmt.ic.locadora.dao.GeneroDAO;
+import br.ufmt.ic.locadora.entidade.Fornecedor;
+import br.ufmt.ic.locadora.entidade.Exemplar;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  *
@@ -22,7 +27,12 @@ import javax.swing.JOptionPane;
  */
 public class EntradaFilmesJPanel extends javax.swing.JPanel {
 
-    FilmesDAO dao = FabricaDAO.CriarFilmesDAO();
+    FilmeDAO dao = FabricaDAO.CriarFilmeDAO();
+    ExemplarDAO exemplarDAO = FabricaDAO.CriarExemplarDAO();
+    FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
+    FornecedorDAO fornecedorDAO = FabricaDAO.CriarForncedorDAO();
+    GeneroDAO generoDAO = FabricaDAO.CriarGeneroDAO();
+    
     private EntradaFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
@@ -33,8 +43,49 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
     public EntradaFilmesJPanel() {
         tableModel = new EntradaFilmesTableModel(dao.listar());
         initComponents();
+        setComboFuncionario();
+        setComboFornecedor();
+        setComboExemplar();
     }
+    
+    private void setComboFuncionario() {
+        funcionariojComboBox.removeAllItems();
+        funcionariojComboBox.addItem("Selecione");
 
+        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
+        Collection<Funcionario> colecao = funcionarios.values();
+        for (Funcionario funcionario : colecao) {
+            funcionariojComboBox.addItem(funcionario);
+        }
+
+    }
+    
+    private void setComboFornecedor() {
+        fornecedorjComboBox.removeAllItems();
+        fornecedorjComboBox.addItem("Selecione");
+
+        Map<String, Fornecedor> fornecedores = fornecedorDAO.listar();
+        Collection<Fornecedor> colecao = fornecedores.values();
+        for (Fornecedor fornecedor : colecao) {
+            fornecedorjComboBox.addItem(fornecedor);
+        }
+
+    }
+    
+    
+    
+    private void setComboExemplar() {
+        exemplarjComboBox.removeAllItems();
+        exemplarjComboBox.addItem("Selecione");
+
+        Map<String, Exemplar> exemplares = exemplarDAO.listar();
+        Collection<Exemplar> colecao = exemplares.values();
+        for (Exemplar exemplar : colecao) {
+            exemplarjComboBox.addItem(exemplar);
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,28 +96,25 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         nomejLabel = new javax.swing.JLabel();
-        nomejTextField = new javax.swing.JTextField();
         telefonejLabel = new javax.swing.JLabel();
-        fornecedorjTextField = new javax.swing.JTextField();
         funcionariojLabel = new javax.swing.JLabel();
-        funcionarioJTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
-        generoJTextField = new javax.swing.JTextField();
-        funcionariojLabel1 = new javax.swing.JLabel();
         datajFormattedTextField = new javax.swing.JFormattedTextField();
         funcionariojLabel2 = new javax.swing.JLabel();
         quantidadejFormattedTextField = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         entradafilmesjTable = new javax.swing.JTable();
         editarjButton = new javax.swing.JButton();
-        editarjButton1 = new javax.swing.JButton();
         excluirjButton = new javax.swing.JButton();
+        exemplarjComboBox = new javax.swing.JComboBox();
+        funcionariojComboBox = new javax.swing.JComboBox();
+        fornecedorjComboBox = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Entrada de Filmes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
-        nomejLabel.setText("Nome:");
+        nomejLabel.setText("Exemplar:");
 
         telefonejLabel.setText("Fornecedor:");
 
@@ -88,8 +136,6 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             }
         });
 
-        funcionariojLabel1.setText("Genero:");
-
         try {
             datajFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -110,17 +156,26 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             }
         });
 
-        editarjButton1.setText("Editar");
-        editarjButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarjButton1ActionPerformed(evt);
-            }
-        });
-
         excluirjButton.setText("Excluir");
         excluirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excluirjButtonActionPerformed(evt);
+            }
+        });
+
+        exemplarjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        funcionariojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        funcionariojComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                funcionariojComboBoxActionPerformed(evt);
+            }
+        });
+
+        fornecedorjComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fornecedorjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fornecedorjComboBoxActionPerformed(evt);
             }
         });
 
@@ -129,158 +184,139 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(telefonejLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fornecedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(nomejLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(funcionariojLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(funcionariojLabel1)
                                     .addComponent(emailjLabel)
                                     .addComponent(funcionariojLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(datajFormattedTextField)
-                                    .addComponent(generoJTextField)
-                                    .addComponent(quantidadejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(quantidadejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nomejLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(funcionariojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(telefonejLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(exemplarjComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 115, Short.MAX_VALUE)
+                                    .addComponent(funcionariojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(fornecedorjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(editarjButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(1, 1, 1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
                         .addComponent(limparjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadastrarjButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cadastrarjButton)
+                        .addGap(108, 108, 108)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(339, 339, 339)
-                    .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(430, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(excluirjButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(nomejLabel)
-                                    .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(editarjButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(exemplarjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nomejLabel)
+                            .addComponent(editarjButton))
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(telefonejLabel)
-                            .addComponent(fornecedorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(excluirjButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(funcionariojLabel)
-                            .addComponent(funcionarioJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(generoJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(funcionariojLabel1))
-                        .addGap(7, 7, 7)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(emailjLabel)
-                            .addComponent(datajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(funcionariojLabel2)
-                            .addComponent(quantidadejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(limparjButton)
-                            .addComponent(cadastrarjButton))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(18, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(157, 157, 157)
-                    .addComponent(editarjButton)
-                    .addContainerGap(157, Short.MAX_VALUE)))
+                            .addComponent(fornecedorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(funcionariojLabel)
+                    .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailjLabel)
+                    .addComponent(datajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(funcionariojLabel2)
+                    .addComponent(quantidadejFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(limparjButton)
+                    .addComponent(cadastrarjButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
-        nomejTextField.setText("");
+        exemplarjComboBox.setSelectedIndex(0);
+        funcionariojComboBox.setSelectedIndex(0);
+        
+        fornecedorjComboBox.setSelectedIndex(0);
+        
         datajFormattedTextField.setText("");
-        funcionarioJTextField.setText("");
         datajFormattedTextField.setText("");
-        generoJTextField.setText("");
-        fornecedorjTextField.setText("");
-        generoJTextField.setText("");
+        
         quantidadejFormattedTextField.setText("");
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
-        Filme estoque = new Filme();
-        estoque.setGenero(generoJTextField.getText());
-        estoque.setNomeFilme(nomejTextField.getText());
-        Funcionario func = new Funcionario();
-        func.setNome(funcionarioJTextField.getText());
-        estoque.setFuncionario(func);
-        PessoaJuridica fornecedor = new PessoaJuridica();
-        fornecedor.setNome(fornecedorjTextField.getText());
-        estoque.setFornecedor(fornecedor);
+        Filme novo = new Filme();
+        
+        
+        if (fornecedorjComboBox.getSelectedIndex() > 0){
+            novo.setFornecedor((Fornecedor) fornecedorjComboBox.getSelectedItem());
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione um Fornecedor");
+            fornecedorjComboBox.grabFocus();
+            return;
+        }
+        
+        if (funcionariojComboBox.getSelectedIndex() > 0){
+            novo.setFuncionario((Funcionario) funcionariojComboBox.getSelectedItem());
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecione um Funcionario");
+            funcionariojComboBox.grabFocus();
+            return;
+        }
+        
         Integer quant;
 
         try {
             quant = Integer.parseInt(quantidadejFormattedTextField.getText());
+            if (quant == 0){
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException erro) {
             JOptionPane.showMessageDialog(this, "Quantidade inválida");
             quantidadejFormattedTextField.grabFocus();
             return;
         }
 
-        estoque.setQuantidade(quant);
-        String sData = (String) datajFormattedTextField.getText();
-
-        if (sData != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                estoque.setDatalancamento(sdf.parse(sData));
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "Data Inválida!");
-                datajFormattedTextField.grabFocus();
-                return;
-            }
-        }
+        novo.setQuantidade(quant);
+        
 
         try {
-            dao.inserir(estoque);
+            dao.inserir(novo);
             JOptionPane.showMessageDialog(this, "Cadastrado!");
             limparjButtonActionPerformed(null);
-            tableModel.adicionar(estoque);
+            tableModel.adicionar(novo);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
-            nomejTextField.grabFocus();
+            exemplarjComboBox.grabFocus();
         }
 
 
@@ -292,18 +328,11 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         if (entradafilmesjTable.getSelectedRowCount() == 1) {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
             Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-
-            nomejTextField.setText(selecionado.getNomeFilme());
-            fornecedorjTextField.setText(selecionado.getFornecedor().getNome());
-            funcionarioJTextField.setText(selecionado.getFuncionario().getNome());
-            generoJTextField.setText(selecionado.getGenero());
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                datajFormattedTextField.setText(sdf.format(selecionado.getDatalancamento()));
-            } catch (NullPointerException erro) {
-
-            }
-
+            
+            exemplarjComboBox.setSelectedItem(selecionado.getExemplar());
+            fornecedorjComboBox.setSelectedItem(selecionado.getFornecedor());
+            funcionariojComboBox.setSelectedItem(selecionado.getFuncionario());
+            
             quantidadejFormattedTextField.setText(String.valueOf(selecionado.getQuantidade()));
 
             editar = true;
@@ -311,10 +340,6 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Selecione somente 1 linha!");
         }
     }//GEN-LAST:event_editarjButtonActionPerformed
-
-    private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editarjButton1ActionPerformed
 
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
@@ -324,7 +349,7 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entradafilmesjTable.getSelectedRow();
                 Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-                dao.remover(selecionado.getNomeFilme());
+                dao.remover(selecionado.getExemplar().getNome());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }
@@ -333,25 +358,30 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 
+    private void funcionariojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionariojComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_funcionariojComboBoxActionPerformed
+
+    private void fornecedorjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fornecedorjComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fornecedorjComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JFormattedTextField datajFormattedTextField;
     private javax.swing.JButton editarjButton;
-    private javax.swing.JButton editarjButton1;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JTable entradafilmesjTable;
     private javax.swing.JButton excluirjButton;
-    private javax.swing.JTextField fornecedorjTextField;
-    private javax.swing.JTextField funcionarioJTextField;
+    private javax.swing.JComboBox exemplarjComboBox;
+    private javax.swing.JComboBox fornecedorjComboBox;
+    private javax.swing.JComboBox funcionariojComboBox;
     private javax.swing.JLabel funcionariojLabel;
-    private javax.swing.JLabel funcionariojLabel1;
     private javax.swing.JLabel funcionariojLabel2;
-    private javax.swing.JTextField generoJTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
-    private javax.swing.JTextField nomejTextField;
     private javax.swing.JFormattedTextField quantidadejFormattedTextField;
     private javax.swing.JLabel telefonejLabel;
     // End of variables declaration//GEN-END:variables

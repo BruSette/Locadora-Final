@@ -15,7 +15,7 @@ import java.util.Date;
 public class DoacaoFilmes {
 
     private Filme filme;
-    private PessoaJuridica entidade;
+    private Entidade entidade;
     private Date dataDoacao;
     private Funcionario responsavel;
 
@@ -34,11 +34,11 @@ public class DoacaoFilmes {
         this.filme = filme;
     }
 
-    public PessoaJuridica getEntidade() {
+    public Entidade getEntidade() {
         return entidade;
     }
 
-    public void setEntidade(PessoaJuridica entidade) {
+    public void setEntidade(Entidade entidade) {
         this.entidade = entidade;
     }
 
@@ -60,7 +60,7 @@ public class DoacaoFilmes {
 
     @Override
     public String toString(){
-        return getEntidade().toString() + getFilme().getNomeFilme();
+        return getEntidade().toString() + " - "  + getFilme().getExemplar().getNome();
     }
 
 }

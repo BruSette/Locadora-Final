@@ -49,7 +49,7 @@ public class ReservaFilmeTableModel extends AbstractTableModel {
                 valor = selecionado.getCliente().getNome();
                 break;
             case 1:
-                valor = selecionado.getFilme().getNomeFilme();
+                valor = selecionado.getFilme().getExemplar().getNome();
                 break;
             case 2:
                 try{

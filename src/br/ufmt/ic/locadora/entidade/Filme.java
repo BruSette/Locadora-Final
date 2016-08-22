@@ -13,24 +13,21 @@ import java.util.Date;
  */
 public class Filme {
 
-    private String nomeFilme;
-    private String genero;
+    private Exemplar exemplar;
     private Boolean disponibilidade;
     private Double valorAluguel;
     private int quantidade;
-    private PessoaJuridica fornecedor;
+    private Fornecedor fornecedor;
     private Funcionario funcionario;
-    private Date datalancamento;
 
-    public Date getDatalancamento() {
-        return datalancamento;
+    public Exemplar getExemplar() {
+        return exemplar;
     }
 
-    public void setDatalancamento(Date datalancamento) {
-        this.datalancamento = datalancamento;
+    public void setExemplar(Exemplar exemplar) {
+        this.exemplar = exemplar;
     }
-    
-
+        
     public Funcionario getFuncionario() {
         return funcionario;
     }
@@ -39,11 +36,11 @@ public class Filme {
         this.funcionario = funcionario;
     }
     
-    public PessoaJuridica getFornecedor() {
+    public Fornecedor getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(PessoaJuridica fornecedor) {
+    public void setFornecedor(Fornecedor  fornecedor) {
         this.fornecedor = fornecedor;
     }
     
@@ -68,21 +65,6 @@ public class Filme {
         super();
     }
 
-    public String getNomeFilme() {
-        return nomeFilme;
-    }
-
-    public void setNomeFilme(String nomeFilme) {
-        this.nomeFilme = nomeFilme;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
 
     public Boolean getDisponibilidade() {
         return disponibilidade;
@@ -94,6 +76,6 @@ public class Filme {
 
     @Override
     public String toString(){
-        return getNomeFilme() + getGenero();
+        return getExemplar().getNome();
     }
 }

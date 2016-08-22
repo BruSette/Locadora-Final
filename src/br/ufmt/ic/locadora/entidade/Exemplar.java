@@ -14,7 +14,7 @@ import java.util.Date;
 public class Exemplar {
     
     private String nome;
-    private String genero;
+    private Genero genero;
     private Date datalancamento;
 
     public String getNome() {
@@ -25,11 +25,11 @@ public class Exemplar {
         this.nome = nome;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
@@ -43,7 +43,7 @@ public class Exemplar {
     
     @Override
     public String toString(){
-        return getNome();
+        return getNome() + " - " + getGenero();
     }
     
 }

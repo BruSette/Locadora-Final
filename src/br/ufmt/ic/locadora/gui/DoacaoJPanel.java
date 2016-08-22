@@ -7,13 +7,20 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 import locadora.FabricaDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
+import br.ufmt.ic.locadora.dao.EntidadeDAO;
+import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
+import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Filme;
 import br.ufmt.ic.locadora.tablemodel.DoacaoFilmesTableModel;
+import java.util.Collection;
+import java.util.Map;
+import br.ufmt.ic.locadora.dao.FilmeDAO;
+import br.ufmt.ic.locadora.dao.GeneroDAO;
+import br.ufmt.ic.locadora.entidade.Genero;
 
 /**
  *
@@ -22,6 +29,11 @@ import br.ufmt.ic.locadora.tablemodel.DoacaoFilmesTableModel;
 public class DoacaoJPanel extends javax.swing.JPanel {
 
     DoacaoFilmesDAO dao = FabricaDAO.CriarDoacaoFilmesDAO();
+    FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
+    FilmeDAO filmeDAO = FabricaDAO.CriarFilmeDAO();
+    GeneroDAO generoDAO = FabricaDAO.CriarGeneroDAO();
+    EntidadeDAO entidadeDAO = FabricaDAO.CriarEntidadeDAO();
+
     private DoacaoFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
@@ -34,6 +46,63 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         tableModel = new DoacaoFilmesTableModel(dao.listar());
 
         initComponents();
+        setComboFuncionario();
+        setComboEntidade();
+        setComboGenero();
+        LimpaComboFilme();
+    }
+
+    private void setComboFuncionario() {
+        funcionariojComboBox.removeAllItems();
+        funcionariojComboBox.addItem("Selecione");
+
+        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
+        Collection<Funcionario> colecao = funcionarios.values();
+        for (Funcionario funcionario : colecao) {
+            funcionariojComboBox.addItem(funcionario);
+        }
+
+    }
+
+    private void setComboFilme(Genero genero) {
+        filmejComboBox.removeAllItems();
+        filmejComboBox.addItem("Selecione");
+
+        Map<String, Filme> filmes = filmeDAO.listar();
+        Collection<Filme> colecao = filmes.values();
+        for (Filme filme : colecao) {
+            if (filme.getExemplar().getGenero().equals(genero)) {
+                filmejComboBox.addItem(filme);
+            }
+        }
+    }
+
+    private void LimpaComboFilme() {
+        filmejComboBox.removeAllItems();
+        filmejComboBox.addItem("Esperando ...");
+    }
+
+    private void setComboGenero() {
+        generojComboBox.removeAllItems();
+        generojComboBox.addItem("Selecione");
+
+        Map<String, Genero> generos = generoDAO.listar();
+        Collection<Genero> colecao = generos.values();
+        for (Genero genero : colecao) {
+            generojComboBox.addItem(genero);
+        }
+
+    }
+
+    private void setComboEntidade() {
+        entidadejComboBox.removeAllItems();
+        entidadejComboBox.addItem("Selecione");
+        Map<String, Entidade> entidades = entidadeDAO.listar();
+        Collection<Entidade> colecao = entidades.values();
+        for (Entidade entidade : colecao) {
+            entidadejComboBox.addItem(entidade);
+        }
+
     }
 
     /**
@@ -45,18 +114,20 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filmejTextField = new javax.swing.JTextField();
         nomejLabel = new javax.swing.JLabel();
         telefonejLabel = new javax.swing.JLabel();
-        entidadejTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
-        funcionariojTextField = new javax.swing.JTextField();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
         editarjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         doacaojTable = new javax.swing.JTable();
         excluirjButton = new javax.swing.JButton();
+        entidadejComboBox = new javax.swing.JComboBox();
+        funcionariojComboBox = new javax.swing.JComboBox();
+        filmejComboBox = new javax.swing.JComboBox();
+        generojComboBox = new javax.swing.JComboBox();
+        nomejLabel1 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Doações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -97,29 +168,53 @@ public class DoacaoJPanel extends javax.swing.JPanel {
             }
         });
 
+        entidadejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        funcionariojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        filmejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        generojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        generojComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                generojComboBoxItemStateChanged(evt);
+            }
+        });
+
+        nomejLabel1.setText("Genero:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(limparjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cadastrarjButton))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(limparjButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cadastrarjButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(emailjLabel)
+                                        .addGap(4, 4, 4))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(nomejLabel)
+                                            .addComponent(telefonejLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filmejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(funcionariojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(entidadejComboBox, 0, 118, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(telefonejLabel)
+                        .addGap(52, 52, 52)
+                        .addComponent(nomejLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(entidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nomejLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(emailjLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(funcionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(generojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,65 +230,81 @@ public class DoacaoJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomejLabel)
-                            .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editarjButton))
+                            .addComponent(editarjButton)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nomejLabel1)
+                                .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(telefonejLabel)
-                            .addComponent(entidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(excluirjButton))
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailjLabel)
-                            .addComponent(funcionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cadastrarjButton)
-                            .addComponent(limparjButton)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(excluirjButton)
+                                .addGap(78, 78, 78)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cadastrarjButton)
+                                    .addComponent(limparjButton)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nomejLabel)
+                                    .addComponent(filmejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(telefonejLabel)
+                                    .addComponent(entidadejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(emailjLabel)
+                                    .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
-        // TODO add your handling code here:
-        filmejTextField.setText("");
-        entidadejTextField.setText("");
-        funcionariojTextField.setText("");
+        // TODO add your handling code her
+        filmejComboBox.setSelectedIndex(0);
+        entidadejComboBox.setSelectedIndex(0);
+        funcionariojComboBox.setSelectedIndex(0);
+        generojComboBox.setSelectedIndex(0);
         editar = false;
 
     }//GEN-LAST:event_limparjButtonActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
-        DoacaoFilmes doacao = new DoacaoFilmes();
-        Funcionario func = new Funcionario();
-        func.setNome(funcionariojTextField.getText());
-        doacao.setResponsavel(func);
+        DoacaoFilmes novo = new DoacaoFilmes();
 
-        PessoaJuridica entidade = new PessoaJuridica();
-        entidade.setNome(entidadejTextField.getText());
-        doacao.setEntidade(entidade);
+        if (funcionariojComboBox.getSelectedIndex() > 0) {
+            novo.setResponsavel((Funcionario) funcionariojComboBox.getSelectedItem());
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Funcionario");
+            funcionariojComboBox.grabFocus();
+            return;
+        }
 
-        Filme filme = new Filme();
-        filme.setNomeFilme(filmejTextField.getText());
-        doacao.setFilme(filme);
+        if (entidadejComboBox.getSelectedIndex() > 0) {
+            novo.setEntidade((Entidade) entidadejComboBox.getSelectedItem());
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione uma Entidade");
+            entidadejComboBox.grabFocus();
+            return;
+        }
+
+        novo.setFilme((Filme) filmejComboBox.getSelectedItem());
 
         try {
             if (editar) {
-                dao.alterar(doacao, chave);
+                dao.alterar(novo, chave);
                 JOptionPane.showMessageDialog(this, "Alterado!");
-                tableModel.alterar(linhaSelecionada, doacao);
+                tableModel.alterar(linhaSelecionada, novo);
             } else {
-                dao.inserir(doacao);
+                dao.inserir(novo);
                 JOptionPane.showMessageDialog(this, "Cadastrado!");
-                tableModel.adicionar(doacao);
+                tableModel.adicionar(novo);
             }
             limparjButtonActionPerformed(null);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
-            entidadejTextField.grabFocus();
+            entidadejComboBox.grabFocus();
         }
 
 
@@ -205,10 +316,9 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         if (doacaojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-
-            filmejTextField.setText(selecionado.getFilme().getNomeFilme());
-            entidadejTextField.setText(selecionado.getEntidade().getNome());
-            funcionariojTextField.setText(selecionado.getResponsavel().getNome());
+            filmejComboBox.setSelectedItem(selecionado.getFilme());
+            entidadejComboBox.setSelectedItem(selecionado.getEntidade());
+            funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
             chave = selecionado;
             editar = true;
         } else {
@@ -226,11 +336,21 @@ public class DoacaoJPanel extends javax.swing.JPanel {
                 dao.remover(selecionado);
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                limparjButtonActionPerformed(null);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
+
+    private void generojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_generojComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if (generojComboBox.getSelectedIndex() > 0) {
+            setComboFilme((Genero) generojComboBox.getSelectedItem());
+        } else {
+            LimpaComboFilme();
+        }
+    }//GEN-LAST:event_generojComboBoxItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -238,13 +358,15 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     private javax.swing.JTable doacaojTable;
     private javax.swing.JButton editarjButton;
     private javax.swing.JLabel emailjLabel;
-    private javax.swing.JTextField entidadejTextField;
+    private javax.swing.JComboBox entidadejComboBox;
     private javax.swing.JButton excluirjButton;
-    private javax.swing.JTextField filmejTextField;
-    private javax.swing.JTextField funcionariojTextField;
+    private javax.swing.JComboBox filmejComboBox;
+    private javax.swing.JComboBox funcionariojComboBox;
+    private javax.swing.JComboBox generojComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
+    private javax.swing.JLabel nomejLabel1;
     private javax.swing.JLabel telefonejLabel;
     // End of variables declaration//GEN-END:variables
 }

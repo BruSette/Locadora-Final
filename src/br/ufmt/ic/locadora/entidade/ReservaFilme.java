@@ -75,7 +75,7 @@ public class ReservaFilme {
 
     @Override
    public String toString(){
-        return getCliente().getNome() + getFilme().getNomeFilme();
+        return getCliente().getNome() +" - "+ getFilme().getExemplar().getNome();
     }
 
 }

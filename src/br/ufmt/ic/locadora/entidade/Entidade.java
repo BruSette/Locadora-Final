@@ -5,15 +5,14 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import java.util.Date;
+import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 
 /**
  *
  * @author brunosette
  */
-public class Fornecedor extends PessoaJuridica {
+public class Entidade extends PessoaJuridica{
     private String obs;
-    private Date datacadastro;
 
     public String getObs() {
         return obs;
@@ -22,16 +21,9 @@ public class Fornecedor extends PessoaJuridica {
     public void setObs(String obs) {
         this.obs = obs;
     }
-
-    public Date getDatacadastro() {
-        return datacadastro;
-    }
-
-    public void setDatacadastro(Date datacadastro) {
-        this.datacadastro = datacadastro;
-    }
     
     public String toString(){
-        return getNome() + " - " + getCnpj();
+        return  getNome() + " - " + getCnpj() ;
     }
+    
 }

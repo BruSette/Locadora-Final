@@ -30,7 +30,7 @@ public class Banco {
     }
     
     public String toString(){
-        return getNome() + getCod();
+        return getNome() + " - "  + getCod();
     }
     
     

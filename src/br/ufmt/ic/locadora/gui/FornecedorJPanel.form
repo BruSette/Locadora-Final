@@ -17,10 +17,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="nacionalidadejLabel3" min="-2" max="-2" attributes="0"/>
@@ -34,44 +33,42 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="telefonejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="celularjLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="telefonejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                      <Component id="celularjLabel" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="emailjLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rgjLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="emailjTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Component id="celularjFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Component id="telefonejFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="cpfjLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nomejLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="cnpjjFormattedTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Component id="nomejTextField" min="-2" pref="119" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="nomejLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="razaojTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="emailjTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="rgjTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="celularjFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="telefonejFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="cpfjLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="nomejLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="cnpjjFormattedTextField" min="-2" pref="116" max="-2" attributes="0"/>
-                          <Component id="nomejTextField" min="-2" pref="119" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="nomejLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="razaojTextField" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -142,7 +139,34 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cpfjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cnpjjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="telefonejFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="celularjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="emailjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="emailjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ruajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -180,40 +204,9 @@
                           <Component id="ruajLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="numerojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="nomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cpfjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cnpjjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="telefonejFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="celularjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="emailjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="emailjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rgjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="rgjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="limparjButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -360,16 +353,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Email:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="rgjLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Rg:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="rgjTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rgjTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="cpfjLabel">
       <Properties>

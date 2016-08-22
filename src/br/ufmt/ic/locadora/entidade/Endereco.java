@@ -68,7 +68,7 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco []";
+        return getCidade() + " - "  + getRua() + " - "  + getNumero();
     }
 
 }

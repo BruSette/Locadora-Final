@@ -37,6 +37,6 @@ public class ContaBancaria {
    
     @Override
     public String toString(){
-        return getContaNumero() + getBanco();
+        return getContaNumero() + " - "  + getBanco();
     }
 }

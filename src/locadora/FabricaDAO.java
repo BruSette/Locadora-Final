@@ -10,11 +10,11 @@ import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
-import br.ufmt.ic.locadora.dao.FilmesDAO;
 import br.ufmt.ic.locadora.dao.PontoDAO;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
 import br.ufmt.ic.locadora.dao.AmbienteDAO;
 import br.ufmt.ic.locadora.dao.BancoDAO;
+import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
@@ -23,14 +23,18 @@ import br.ufmt.ic.locadora.dao.impl.AmbienteDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.BancoDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.ClienteDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.DoacaoFilmesDAOImpl;
+import br.ufmt.ic.locadora.dao.impl.EntidadeDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.ExemplarDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.FilmesDAOImpl;
+import br.ufmt.ic.locadora.dao.impl.FilmeDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.FornecedorDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.FuncionarioDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.PontoDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.ReservaFilmeDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.TipoCargoDAOImpl;
 import br.ufmt.ic.locadora.dao.impl.UsuarioDAOImpl;
+import br.ufmt.ic.locadora.dao.FilmeDAO;
+import br.ufmt.ic.locadora.dao.GeneroDAO;
+import br.ufmt.ic.locadora.dao.impl.GeneroDAOImpl;
 
 /**
  *
@@ -41,7 +45,7 @@ public class FabricaDAO {
     private static AgenciaDAO agenciadao;
     private static ClienteDAO clientedao;
     private static DoacaoFilmesDAO doacaofilmesdao;
-    private static FilmesDAO filmesdao;
+    private static FilmeDAO filmesdao;
     private static FuncionarioDAO funcionariodao;
     private static ReservaFilmeDAO reservafilmedao;
     private static UsuarioDAO usuariodao;
@@ -51,6 +55,8 @@ public class FabricaDAO {
     private static ExemplarDAO exemplardao;
     private static AmbienteDAO ambientedao;
     private static FornecedorDAO fornecedordao;
+    private static EntidadeDAO entidadedao;
+    private static GeneroDAO generodao;
 
     
     public static TipoCargoDAO CriarTipoCargoDAO() {
@@ -58,6 +64,20 @@ public class FabricaDAO {
             tipocargodao = new TipoCargoDAOImpl();
         }
         return tipocargodao;
+    }
+    
+    public static GeneroDAO CriarGeneroDAO() {
+        if (generodao == null) {
+            generodao = new GeneroDAOImpl();
+        }
+        return generodao;
+    }
+    
+    public static EntidadeDAO CriarEntidadeDAO() {
+        if (entidadedao == null) {
+            entidadedao = new EntidadeDAOImpl();
+        }
+        return entidadedao;
     }
     
     public static ExemplarDAO CriarExemplarDAO() {
@@ -116,9 +136,9 @@ public class FabricaDAO {
         return doacaofilmesdao;
     }
 
-    public static FilmesDAO CriarFilmesDAO() {
+    public static FilmeDAO CriarFilmeDAO() {
         if (filmesdao == null){
-            filmesdao =  new FilmesDAOImpl();
+            filmesdao =  new FilmeDAOImpl();
         }
         return filmesdao;
     }
