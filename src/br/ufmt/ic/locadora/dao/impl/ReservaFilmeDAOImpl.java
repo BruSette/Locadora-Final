@@ -22,7 +22,7 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
     public void inserir(ReservaFilme reserva) throws RegistroException {
 
         for (ReservaFilme reservalist : reservas) {
-            if (reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())) {
+            if (reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
                 if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
                     throw new RegistroException();
                 }
@@ -36,7 +36,7 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
 
     public void remover(ReservaFilme reserva) {
         for (ReservaFilme reservalist : reservas) {
-            if(reservalist.getFilme().getNomeFilme().equals(reserva.getFilme().getNomeFilme())){
+            if(reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())){
                 if(reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())){
                     reservas.remove(reservalist);
                 }
@@ -57,7 +57,7 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
     public List<ReservaFilme> consultar(String nomeFilme) {
         List<ReservaFilme> consulta = new ArrayList<ReservaFilme>();
         for (ReservaFilme reservalist : reservas) {
-            if(reservalist.getFilme().getNomeFilme().equals(nomeFilme)){
+            if(reservalist.getFilme().getExemplar().getNome().equals(nomeFilme)){
                 consulta.add(reservalist);
             }
         }

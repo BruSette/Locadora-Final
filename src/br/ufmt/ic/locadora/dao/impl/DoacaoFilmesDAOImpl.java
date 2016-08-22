@@ -22,7 +22,7 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
     public void inserir(DoacaoFilmes doacao) throws RegistroException {
 
         for (DoacaoFilmes doacaolist : doacoes) {
-            if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
+            if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
                 if (doacaolist.getEntidade().getNome().equals(doacao.getEntidade().getNome())) {
                     System.out.println("Deu erro!");
                     throw new RegistroException();
@@ -37,7 +37,7 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
 
     public void remover(DoacaoFilmes doacao) {
         for (DoacaoFilmes doacaolist : doacoes) {
-            if (doacaolist.getFilme().getNomeFilme().equals(doacao.getFilme().getNomeFilme())) {
+            if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
                 if (doacaolist.getEntidade().getNome().equals(doacaolist.getEntidade().getNome())) {
                     doacoes.remove(doacao);
                     return;
