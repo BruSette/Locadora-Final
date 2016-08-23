@@ -27,8 +27,6 @@ public class EntidadeDAOImpl implements EntidadeDAO {
             throw new CNPJException();
         }
         
-        
-        
         if (entidade.getCnpj().equals("  .   .   /    -  ")) {
             throw new CNPJException("Erro no CNPJ");
         }

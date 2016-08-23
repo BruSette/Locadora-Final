@@ -115,11 +115,10 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboFilme(JComboBox jComboBox, Genero genero) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, Filme> filmes = filmeDAO.listar();
-        Collection<Filme> colecao = filmes.values();
-        for (Filme filme : colecao) {
+        List<Filme> filmes = filmeDAO.listar();
+        for (Iterator<Filme> it = filmes.iterator(); it.hasNext();) {
+            Filme filme = it.next();
             if (filme.getExemplar().getGenero().equals(genero)) {
-
                 jComboBox.addItem(filme);
             }
         }

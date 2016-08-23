@@ -7,9 +7,9 @@ package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.entidade.Filme;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.HashMap;
-import java.util.Map;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,29 +17,21 @@ import br.ufmt.ic.locadora.dao.FilmeDAO;
  */
 public class FilmeDAOImpl implements FilmeDAO {
 
-    private Map<String, Filme> filmes = new HashMap<String, Filme>();
+    private List<Filme> filmes = new ArrayList<Filme>();
 
     public void inserir(Filme filme) throws RegistroException {
 
-        if (filmes.containsKey(filme.getExemplar().getNome())) {
-            throw new RegistroException();
-        }
-
-        if (filme.getExemplar().getNome().equals("")) {
-            throw new RegistroException("Filme invalido");
-        }
-
-        filmes.put(filme.getExemplar().getNome(), filme);
+        filmes.add(filme);
 
     }
 
-    public void remover(String filme) {
+    public void remover(Filme filme) {
         filmes.remove(filme);
     }
 
     @Override
     public void alterar(Filme filme, Filme chave) throws RegistroException {
-        filmes.remove(chave.getExemplar().getNome());
+        filmes.remove(chave);
         try{
             this.inserir(filme);
         }catch (RegistroException erro){
@@ -50,10 +42,10 @@ public class FilmeDAOImpl implements FilmeDAO {
     }
 
     public Filme consultar(String filme) {
-        return filmes.get(filme);
+        return null;
     }
 
-    public Map<String, Filme> listar() {
+    public List<Filme> listar() {
         return filmes;
     }
 

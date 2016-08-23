@@ -14,14 +14,8 @@ import br.ufmt.ic.locadora.util.FabricaTela;
 import br.ufmt.ic.locadora.tablemodel.EntradaFilmesTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
-import br.ufmt.ic.locadora.dao.FornecedorDAO;
-import br.ufmt.ic.locadora.dao.FuncionarioDAO;
-import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.entidade.Exemplar;
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Map;
 
 /**
  *
@@ -315,7 +309,7 @@ public class EntradaFilmesJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entradafilmesjTable.getSelectedRow();
                 Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-                dao.remover(selecionado.getExemplar().getNome());
+                dao.remover(selecionado);
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

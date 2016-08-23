@@ -7,10 +7,7 @@ package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
-import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.exception.CNPJException;
-import br.ufmt.ic.locadora.exception.CPFException;
-import br.ufmt.ic.locadora.exception.UsuarioException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +26,7 @@ public class FornecedorDAOImpl implements FornecedorDAO {
         
         
         
-        if (fornecedor.getCnpj().equals("   .   .   -  ")) {
+        if (fornecedor.getCnpj().equals("  .   .   /    -  ")) {
             throw new CNPJException("Erro no CNPJ");
         }
 

@@ -7,8 +7,6 @@ package br.ufmt.ic.locadora.dao.impl;
 
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.exception.CPFException;
-import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import java.util.HashMap;
 import java.util.Map;

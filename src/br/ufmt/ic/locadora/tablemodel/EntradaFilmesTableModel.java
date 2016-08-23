@@ -19,8 +19,8 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
     private List<Filme> filmes;
     private String[] header = new String[]{"Nome", "Genero", "Quantidade","Fornecedor"};
 
-    public EntradaFilmesTableModel(Map<String, Filme> map) {
-        filmes= new ArrayList<>(map.values());
+    public EntradaFilmesTableModel(List<Filme> list) {
+        filmes= new ArrayList<>(list);
     }
 
     @Override

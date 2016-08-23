@@ -20,42 +20,42 @@ public class BancoDAOImpl implements BancoDAO {
     private List<Banco> bancos = new ArrayList<Banco>();
 
     public void inserir(Banco banco) throws RegistroException {
-        
-       for (Banco bancolist : bancos) {
-            if (bancolist.getNome().equals(banco.getNome())) {
-                if (bancolist.getCod().equals(banco.getCod())) {
-                    throw new RegistroException();
-                }
+
+        for (Banco bancolist : bancos) {
+            if (bancolist.getCod().equals(banco.getCod())) {
+
+                throw new RegistroException();
+
             }
 
         }
 
         bancos.add(banco);
-        
+
     }
 
     public int remover(Banco banco) {
         for (Banco bancolist : bancos) {
-            if (bancolist.getNome().equals(banco.getNome())) {
-                if (bancolist.getCod().equals(banco.getCod())) {
-                    bancos.remove(banco);
-                    return 1;
-                }
+            if (bancolist.getCod().equals(banco.getCod())) {
+
+                bancos.remove(banco);
+                return 1;
+
             }
         }
         return 0;
     }
 
     public void alterar(Banco banco, Banco chave) throws RegistroException {
-       if(remover(chave) == 1){
-           try{
-            this.inserir(banco);
-        }catch(RegistroException erro){
-            this.inserir(chave);
-            throw new RegistroException();
+        if (remover(chave) == 1) {
+            try {
+                this.inserir(banco);
+            } catch (RegistroException erro) {
+                this.inserir(chave);
+                throw new RegistroException();
+            }
         }
-       }
-       
+
     }
 
     public Banco consultar(String nome) {

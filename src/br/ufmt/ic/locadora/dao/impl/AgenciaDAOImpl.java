@@ -5,7 +5,6 @@
  */
 package br.ufmt.ic.locadora.dao.impl;
 
-
 import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import java.util.HashMap;
@@ -23,42 +22,40 @@ public class AgenciaDAOImpl implements AgenciaDAO {
     private List<Agencia> agencias = new ArrayList<Agencia>();
 
     public void inserir(Agencia agencia) throws RegistroException {
-        
-       for (Agencia agencialist : agencias) {
+
+        for (Agencia agencialist : agencias) {
             if (agencialist.getCodigo().equals(agencia.getCodigo())) {
-                if (agencialist.getGerente().getCpf().equals(agencia.getGerente().getCpf())) {
-                    throw new RegistroException();
-                }
+                throw new RegistroException();
+
             }
 
         }
 
         agencias.add(agencia);
-        
+
     }
 
     public int remover(Agencia agencia) {
         for (Agencia agencialist : agencias) {
             if (agencialist.getCodigo().equals(agencia.getCodigo())) {
-                if (agencialist.getGerente().getNome().equals(agencia.getGerente().getNome())) {
-                    agencias.remove(agencia);
-                    return 1;
-                }
+                agencias.remove(agencia);
+                return 1;
+
             }
         }
         return 0;
     }
 
     public void alterar(Agencia agencia, Agencia chave) throws RegistroException {
-       if(remover(chave) == 1){
-           try{
-            this.inserir(agencia);
-        }catch(RegistroException erro){
-            this.inserir(chave);
-            throw new RegistroException();
+        if (remover(chave) == 1) {
+            try {
+                this.inserir(agencia);
+            } catch (RegistroException erro) {
+                this.inserir(chave);
+                throw new RegistroException();
+            }
         }
-       }
-       
+
     }
 
     public Agencia consultar(String nome) {

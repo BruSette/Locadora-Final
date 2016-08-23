@@ -23,8 +23,8 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
 
         for (DoacaoFilmes doacaolist : doacoes) {
             if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacaolist.getEntidade().getNome().equals(doacao.getEntidade().getNome())) {
-                    System.out.println("Deu erro!");
+                if (doacaolist.getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
+                    
                     throw new RegistroException();
                 }
             }
@@ -38,7 +38,7 @@ public class DoacaoFilmesDAOImpl implements DoacaoFilmesDAO {
     public void remover(DoacaoFilmes doacao) {
         for (DoacaoFilmes doacaolist : doacoes) {
             if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacaolist.getEntidade().getNome().equals(doacaolist.getEntidade().getNome())) {
+                if (doacaolist.getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
                     doacoes.remove(doacao);
                     return;
                 }

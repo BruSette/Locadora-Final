@@ -24,7 +24,13 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
         for (ReservaFilme reservalist : reservas) {
             if (reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
                 if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
-                    throw new RegistroException();
+                    //REGRAS DE NEGOCIOS AQUI
+                    if (reservalist.getDataReserva().equals(reserva.getDataReserva())){
+                        if(reservalist.getDataDevolucao().equals(reserva.getDataDevolucao())){
+                            throw new RegistroException();
+                        }
+                    }
+                    
                 }
             }
 
@@ -36,9 +42,15 @@ public class ReservaFilmeDAOImpl implements ReservaFilmeDAO {
 
     public void remover(ReservaFilme reserva) {
         for (ReservaFilme reservalist : reservas) {
-            if(reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())){
-                if(reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())){
-                    reservas.remove(reservalist);
+            if (reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
+                if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
+                    //REGRAS DE NEGOCIOS AQUI
+                    if (reservalist.getDataReserva().equals(reserva.getDataReserva())){
+                        if(reservalist.getDataDevolucao().equals(reserva.getDataDevolucao())){
+                            reservas.remove(reserva);
+                        }
+                    }
+                    
                 }
             }
         }

@@ -7,7 +7,7 @@ package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Filme;
-import java.util.Map;
+import java.util.List;
 
 /**
  *
@@ -17,12 +17,12 @@ public interface FilmeDAO {
     
     public void inserir(Filme filme) throws RegistroException;
 
-    public void remover(String nome);
+    public void remover(Filme filme);
 
     public void alterar(Filme filme, Filme chave) throws RegistroException;
 
     public Filme consultar(String nome);
 
-    public Map<String, Filme> listar();
+    public List<Filme> listar();
     
 }
