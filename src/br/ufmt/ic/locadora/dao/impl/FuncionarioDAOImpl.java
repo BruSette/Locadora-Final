@@ -5,7 +5,7 @@
  */
 package br.ufmt.ic.locadora.dao.impl;
 
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.exception.CPFException;

@@ -16,13 +16,14 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaTela;
 
 /**
  *
  * @author brunosette
  */
-public class ExemplarJPanel extends javax.swing.JPanel {
+public class ExemplarJPanel extends FabricaTela {
 
     ExemplarDAO dao = FabricaDAO.CriarExemplarDAO();
     GeneroDAO generoDAO = FabricaDAO.CriarGeneroDAO();
@@ -37,21 +38,9 @@ public class ExemplarJPanel extends javax.swing.JPanel {
     public ExemplarJPanel() {
         tableModel = new ExemplarTableModel(dao.listar());
         initComponents();
-        setComboExemplar();
+        generojComboBox = setComboGenero(generojComboBox);
     }
 
-    private void setComboExemplar() {
-        generojComboBox.removeAllItems();
-        generojComboBox.addItem("Selecione");
-
-        Map<String, Genero> generos = generoDAO.listar();
-        Collection<Genero> colecao = generos.values();
-        for (Genero genero : colecao) {
-            generojComboBox.addItem(genero);
-        }
-
-    }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -238,10 +227,9 @@ public class ExemplarJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Exemplar novo = new Exemplar();
         novo.setNome(nomejTextField.getText());
-        if (generojComboBox.getSelectedIndex() > 0 ){
+        if (ValidaCombo(generojComboBox)){
             novo.setGenero((Genero) generojComboBox.getSelectedItem());
         }else{
-            JOptionPane.showMessageDialog(this, "Selecione um Genero");
             generojComboBox.grabFocus();
             return;
         }

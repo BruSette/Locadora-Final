@@ -15,9 +15,19 @@ public class Funcionario extends PessoaFisica {
 
     private Date dataAdmiss;
     private Date dataDemiss;
-    private String cargo;
+    private TipoCargo cargo;
+    private Ambiente ambiente;
     private Usuario usuario;
 
+    public Ambiente getAmbiente() {
+        return ambiente;
+    }
+
+    public void setAmbiente(Ambiente ambiente) {
+        this.ambiente = ambiente;
+    }
+
+        
     public Usuario getUsuario() {
         return usuario;
     }
@@ -42,13 +52,14 @@ public class Funcionario extends PessoaFisica {
         this.dataDemiss = dataDemiss;
     }
 
-    public String getCargo() {
+    public TipoCargo getCargo() {
         return cargo;
     }
 
-    public void setCargo(String cargo) {
+    public void setCargo(TipoCargo cargo) {
         this.cargo = cargo;
     }
+
 
     @Override
     public String toString() {

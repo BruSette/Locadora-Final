@@ -75,7 +75,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="nacionalidadejLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="bancojTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Component id="bancojComboBox" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="nacionalidadejLabel7" min="-2" max="-2" attributes="0"/>
@@ -278,8 +278,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bancojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="nacionalidadejLabel3" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="bancojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -358,11 +358,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="razaojTextField">
-    </Component>
-    <Component class="javax.swing.JTextField" name="bancojTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bancojTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="nacionalidadejLabel3">
       <Properties>
@@ -486,6 +481,21 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarjButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="bancojComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

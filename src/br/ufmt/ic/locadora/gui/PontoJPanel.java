@@ -7,12 +7,12 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.dao.PontoDAO;
-import locadora.FabricaDAO;
-import br.ufmt.ic.locadora.dao.impl.FuncionarioDAOImpl;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.Ponto;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.PontoTableModel;
+import br.ufmt.ic.locadora.util.FabricaTela;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author brunosette
  */
-public class PontoJPanel extends javax.swing.JPanel {
+public class PontoJPanel extends FabricaTela {
 
     private PontoDAO dao = FabricaDAO.CriarPontoDAO();
     private FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
@@ -40,29 +40,13 @@ public class PontoJPanel extends javax.swing.JPanel {
     public PontoJPanel() {
         tableModel = new PontoTableModel(dao.listar());
         initComponents();
-        setComboFuncionario();
-        setComboTipoPonto();
+        tipoPontojComboBox = setComboTipoPonto(tipoPontojComboBox);
+        funcionariojComboBox = setComboFuncionario(funcionariojComboBox);
     }
 
-    private void setComboFuncionario() {
-        funcionariojComboBox.removeAllItems();
-        funcionariojComboBox.addItem("Selecione");
+    
 
-        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
-        Collection<Funcionario> colecao = funcionarios.values();
-        for (Funcionario funcionario : colecao) {
-            funcionariojComboBox.addItem(funcionario);
-        }
-
-    }
-
-    private void setComboTipoPonto() {
-        tipoPontojComboBox.removeAllItems();
-        tipoPontojComboBox.addItem("Selecione");
-        tipoPontojComboBox.addItem("Entrada");
-        tipoPontojComboBox.addItem("Saída");
-
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -238,18 +222,16 @@ public class PontoJPanel extends javax.swing.JPanel {
 
         Ponto novo = new Ponto();
 
-        if (funcionariojComboBox.getSelectedIndex() > 0) {
+        if (ValidaCombo(funcionariojComboBox)) {
             novo.setFuncionario((Funcionario) funcionariojComboBox.getSelectedItem());
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Funcionario");
             funcionariojComboBox.grabFocus();
             return;
         }
 
-        if (tipoPontojComboBox.getSelectedIndex() > 0) {
+        if (ValidaCombo(tipoPontojComboBox)) {
             novo.setTipoPonto((String) tipoPontojComboBox.getSelectedItem());
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Tipo de Ponto");
             tipoPontojComboBox.grabFocus();
             return;
         }

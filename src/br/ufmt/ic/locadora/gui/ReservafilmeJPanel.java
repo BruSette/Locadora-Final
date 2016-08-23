@@ -10,9 +10,11 @@ import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.entidade.Filme;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
+import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.tablemodel.ReservaFilmeTableModel;
+import br.ufmt.ic.locadora.util.FabricaTela;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -21,7 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author bruno
  */
-public class ReservafilmeJPanel extends javax.swing.JPanel {
+public class ReservafilmeJPanel extends FabricaTela {
 
     ReservaFilmeDAO dao = FabricaDAO.CriarReservaFilmeDAO();
     private ReservaFilmeTableModel tableModel;
@@ -34,7 +36,19 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
      */
     public ReservafilmeJPanel() {
         tableModel = new ReservaFilmeTableModel(dao.listar());
+        
         initComponents();
+        funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
+        generojComboBox = super.setComboGenero(generojComboBox);
+        clientejComboBox = super.setComboCliente(clientejComboBox);
+        LimpaComboFilme();
+        
+        
+    }
+    
+    private void LimpaComboFilme() {
+        filmejComboBox.removeAllItems();
+        filmejComboBox.addItem("Esperando ...");
     }
 
     /**
@@ -49,11 +63,8 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
         nomejLabel = new javax.swing.JLabel();
-        nomejTextField = new javax.swing.JTextField();
         telefonejLabel = new javax.swing.JLabel();
-        filmejTextField = new javax.swing.JTextField();
         funcionariojLabel = new javax.swing.JLabel();
-        funcionarioTextField = new javax.swing.JTextField();
         emailjLabel = new javax.swing.JLabel();
         datadevolucaojFormattedTextField = new javax.swing.JFormattedTextField();
         emailjLabel1 = new javax.swing.JLabel();
@@ -62,6 +73,11 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         reservaFilmejTable = new javax.swing.JTable();
         excluirjButton = new javax.swing.JButton();
+        generojComboBox = new javax.swing.JComboBox();
+        nomejLabel1 = new javax.swing.JLabel();
+        filmejComboBox = new javax.swing.JComboBox();
+        funcionariojComboBox = new javax.swing.JComboBox();
+        clientejComboBox = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Reservar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18)))); // NOI18N
 
@@ -118,6 +134,21 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             }
         });
 
+        generojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        generojComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                generojComboBoxItemStateChanged(evt);
+            }
+        });
+
+        nomejLabel1.setText("Genero:");
+
+        filmejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        funcionariojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        clientejComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,38 +158,48 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(telefonejLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(65, 65, 65)
                                         .addComponent(nomejLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(funcionariojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(emailjLabel))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(funcionarioTextField)
-                                            .addComponent(datadevolucaojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(emailjLabel1)
+                                        .addComponent(clientejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(nomejLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(editarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(excluirjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(122, 122, 122)
+                                .addComponent(limparjButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataemprestimojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editarjButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
+                                .addComponent(cadastrarjButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(limparjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cadastrarjButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(funcionariojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(emailjLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dataemprestimojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(datadevolucaojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(telefonejLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(filmejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(emailjLabel1)
+                        .addGap(219, 219, 219)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -170,17 +211,21 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nomejLabel)
-                            .addComponent(nomejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editarjButton1))
+                            .addComponent(editarjButton1)
+                            .addComponent(clientejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(excluirjButton)
+                            .addComponent(nomejLabel1)
+                            .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(telefonejLabel)
-                            .addComponent(filmejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(excluirjButton))
+                            .addComponent(filmejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(funcionariojLabel)
-                            .addComponent(funcionarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(dataemprestimojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,7 +234,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(emailjLabel)
                             .addComponent(datadevolucaojFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(limparjButton)
                             .addComponent(cadastrarjButton)))
@@ -200,11 +245,14 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
-        nomejTextField.setText("");
+        
         datadevolucaojFormattedTextField.setText("");
-        funcionarioTextField.setText("");
-        filmejTextField.setText("");
         dataemprestimojFormattedTextField.setText("");
+        
+        clientejComboBox.setSelectedIndex(0);
+        filmejComboBox.setSelectedIndex(0);
+        funcionariojComboBox.setSelectedIndex(0);
+        generojComboBox.setSelectedIndex(0);
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -212,29 +260,29 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         ReservaFilme reserva = new ReservaFilme();
 
-        Filme filme = new Filme();
-
-        if (filmejTextField.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Nome do filme inválido!");
-            filmejTextField.grabFocus();
+        
+        
+        if (ValidaCombo(filmejComboBox)){
+            reserva.setFilme((Filme)filmejComboBox.getSelectedItem());
+        }else{
+            filmejComboBox.grabFocus();
             return;
         }
-
-        if (nomejTextField.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Nome do cliente inválido!");
-            nomejTextField.grabFocus();
+        
+        if (ValidaCombo(clientejComboBox)){
+            reserva.setCliente((Cliente)clientejComboBox.getSelectedItem());
+        }else{
+            clientejComboBox.grabFocus();
             return;
         }
-
-        //filme.setNomeFilme(filmejTextField.getText());
-        reserva.setFilme(filme);
-        Cliente cliente = new Cliente();
-        cliente.setNome(nomejTextField.getText());
-        reserva.setCliente(cliente);
-        Funcionario funcionario = new Funcionario();
-        funcionario.setNome(funcionarioTextField.getText());
-        reserva.setFuncionario(funcionario);
-
+        
+        if (ValidaCombo(funcionariojComboBox)){
+            reserva.setFuncionario((Funcionario)funcionariojComboBox.getSelectedItem());
+        }else{
+            funcionariojComboBox.grabFocus();
+            return;
+        }
+        
         String sData = (String) datadevolucaojFormattedTextField.getText();
 
         if (sData != null) {
@@ -274,7 +322,7 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
             limparjButtonActionPerformed(null);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
-            filmejTextField.grabFocus();
+            filmejComboBox.grabFocus();
         }
 
 
@@ -286,10 +334,13 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         if (reservaFilmejTable.getSelectedRowCount() == 1) {
             linhaSelecionada = reservaFilmejTable.getSelectedRow();
             ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-
-            nomejTextField.setText(selecionado.getCliente().getNome());
-            filmejTextField.setText(selecionado.getFilme().getExemplar().getNome());
-            funcionarioTextField.setText(selecionado.getFuncionario().getNome());
+            
+            funcionariojComboBox.setSelectedItem((Funcionario) selecionado.getFuncionario());
+            clientejComboBox.setSelectedItem((Cliente) selecionado.getCliente());
+            filmejComboBox.setSelectedItem((Filme) selecionado.getFilme());
+            generojComboBox.setSelectedItem((Genero)selecionado.getFilme().getExemplar().getGenero());
+            
+            
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 dataemprestimojFormattedTextField.setText(sdf.format(selecionado.getDataReserva()));
@@ -325,22 +376,34 @@ public class ReservafilmeJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_excluirjButtonActionPerformed
 
+    private void generojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_generojComboBoxItemStateChanged
+        // TODO add your handling code here:
+        if (generojComboBox.getSelectedIndex() > 0) {
+            filmejComboBox = setComboFilme(filmejComboBox,(Genero) generojComboBox.getSelectedItem());
+
+        } else {
+            LimpaComboFilme();
+        }
+    }//GEN-LAST:event_generojComboBoxItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
+    private javax.swing.JComboBox clientejComboBox;
     private javax.swing.JFormattedTextField datadevolucaojFormattedTextField;
     private javax.swing.JFormattedTextField dataemprestimojFormattedTextField;
     private javax.swing.JButton editarjButton1;
     private javax.swing.JLabel emailjLabel;
     private javax.swing.JLabel emailjLabel1;
     private javax.swing.JButton excluirjButton;
-    private javax.swing.JTextField filmejTextField;
-    private javax.swing.JTextField funcionarioTextField;
+    private javax.swing.JComboBox filmejComboBox;
+    private javax.swing.JComboBox funcionariojComboBox;
     private javax.swing.JLabel funcionariojLabel;
+    private javax.swing.JComboBox generojComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;
     private javax.swing.JLabel nomejLabel;
-    private javax.swing.JTextField nomejTextField;
+    private javax.swing.JLabel nomejLabel1;
     private javax.swing.JTable reservaFilmejTable;
     private javax.swing.JLabel telefonejLabel;
     // End of variables declaration//GEN-END:variables

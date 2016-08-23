@@ -63,50 +63,54 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="cpfjFormattedTextField" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="emailjTextField" min="-2" pref="116" max="-2" attributes="0"/>
-                                  <Component id="rgjTextField" min="-2" pref="116" max="-2" attributes="0"/>
-                                  <Component id="celularjFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                                  <Component id="telefonejFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                                  <Component id="nomejTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="excluirjButton" pref="0" max="32767" attributes="0"/>
-                                  <Component id="editarjButton1" pref="84" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="emailjTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="rgjTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="celularjFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="telefonejFormattedTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="nomejTextField" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
                           </Group>
                           <Component id="nascimentojFormattedTextField" alignment="0" min="-2" pref="117" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="nacionalidadejLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nacionalidadejLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="nacionalidadejLabel8" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nacionalidadejLabel2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="sexojComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="nacionalidadejTextField" max="32767" attributes="0"/>
-                                          <Component id="dataadmissjFormattedTextField" max="32767" attributes="0"/>
-                                          <Component id="cargojTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="nacionalidadejLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nacionalidadejLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="nacionalidadejLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="nacionalidadejLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nacionalidadejLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="sexojComboBox" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="nacionalidadejTextField" max="32767" attributes="0"/>
+                                      <Component id="dataadmissjFormattedTextField" pref="116" max="32767" attributes="0"/>
+                                      <Component id="tipocargojComboBox" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="ambientejComboBox" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="limparjButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="cadastrarjButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="103" alignment="0" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                                   <Component id="ruajLabel" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="ruajTextField" min="-2" pref="116" max="-2" attributes="0"/>
@@ -154,22 +158,25 @@
                                                   <Component id="senhajPasswordField" min="-2" pref="116" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="limparjButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cadastrarjButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="editarjButton1" min="-2" pref="84" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
+                                          <Component id="excluirjButton" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="nacionalidadejLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="bancojTextField" min="-2" pref="116" max="-2" attributes="0"/>
+                                      <Component id="bancojComboBox" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="nacionalidadejLabel7" min="-2" max="-2" attributes="0"/>
@@ -177,13 +184,14 @@
                                       <Component id="ccjTextField" min="-2" pref="116" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="491" max="-2" attributes="0"/>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -195,25 +203,32 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace pref="50" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="nacionalidadejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="nacionalidadejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="nacionalidadejLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dataadmissjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="nacionalidadejLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="cargojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                              <EmptySpace pref="274" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="nacionalidadejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="nacionalidadejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="nacionalidadejLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dataadmissjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="nacionalidadejLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tipocargojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                                      <Component id="excluirjButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="editarjButton1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="ruajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="ruajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -259,24 +274,12 @@
                                           <Component id="senhajPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nacionalidadejLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="sexojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="editarjButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="telefonejFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="telefonejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -286,35 +289,44 @@
                                           <Component id="celularjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="celularjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="emailjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="emailjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="rgjLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="rgjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="cpfjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="cpfjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="nascimentojLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nascimentojFormattedTextField" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Component id="excluirjButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="emailjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="emailjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="rgjLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rgjTextField" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cpfjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cpfjFormattedTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nascimentojLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nascimentojFormattedTextField" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bancojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ambientejComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nacionalidadejLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="sexojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nacionalidadejLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="nacionalidadejLabel3" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
+                          <Component id="bancojComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -446,20 +458,10 @@
         <Property name="text" type="java.lang.String" value="Data Admiss&#xe3;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="cargojTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cargojTextFieldActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="nacionalidadejLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cargo:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="bancojTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bancojTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="nacionalidadejLabel3">
       <Properties>
@@ -551,6 +553,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sexojComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -597,6 +602,56 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirjButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="tipocargojComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="nacionalidadejLabel6">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ambiente:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="ambientejComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="bancojComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

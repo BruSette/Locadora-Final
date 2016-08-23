@@ -7,7 +7,7 @@ package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
@@ -21,12 +21,13 @@ import java.util.Map;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
 import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Genero;
+import br.ufmt.ic.locadora.util.FabricaTela;
 
 /**
  *
  * @author brunosette
  */
-public class DoacaoJPanel extends javax.swing.JPanel {
+public class DoacaoJPanel extends FabricaTela {
 
     DoacaoFilmesDAO dao = FabricaDAO.CriarDoacaoFilmesDAO();
     FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
@@ -46,64 +47,20 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         tableModel = new DoacaoFilmesTableModel(dao.listar());
 
         initComponents();
-        setComboFuncionario();
-        setComboEntidade();
-        setComboGenero();
+        funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
+        entidadejComboBox = super.setComboEntidade(entidadejComboBox);
+        generojComboBox = super.setComboGenero(generojComboBox);
         LimpaComboFilme();
     }
 
-    private void setComboFuncionario() {
-        funcionariojComboBox.removeAllItems();
-        funcionariojComboBox.addItem("Selecione");
-
-        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
-        Collection<Funcionario> colecao = funcionarios.values();
-        for (Funcionario funcionario : colecao) {
-            funcionariojComboBox.addItem(funcionario);
-        }
-
-    }
-
-    private void setComboFilme(Genero genero) {
-        filmejComboBox.removeAllItems();
-        filmejComboBox.addItem("Selecione");
-
-        Map<String, Filme> filmes = filmeDAO.listar();
-        Collection<Filme> colecao = filmes.values();
-        for (Filme filme : colecao) {
-            if (filme.getExemplar().getGenero().equals(genero)) {
-                filmejComboBox.addItem(filme);
-            }
-        }
-    }
+    
 
     private void LimpaComboFilme() {
         filmejComboBox.removeAllItems();
         filmejComboBox.addItem("Esperando ...");
     }
 
-    private void setComboGenero() {
-        generojComboBox.removeAllItems();
-        generojComboBox.addItem("Selecione");
-
-        Map<String, Genero> generos = generoDAO.listar();
-        Collection<Genero> colecao = generos.values();
-        for (Genero genero : colecao) {
-            generojComboBox.addItem(genero);
-        }
-
-    }
-
-    private void setComboEntidade() {
-        entidadejComboBox.removeAllItems();
-        entidadejComboBox.addItem("Selecione");
-        Map<String, Entidade> entidades = entidadeDAO.listar();
-        Collection<Entidade> colecao = entidades.values();
-        for (Entidade entidade : colecao) {
-            entidadejComboBox.addItem(entidade);
-        }
-
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,11 +186,11 @@ public class DoacaoJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(editarjButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(nomejLabel1)
-                                .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(generojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(editarjButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -273,23 +230,26 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DoacaoFilmes novo = new DoacaoFilmes();
 
-        if (funcionariojComboBox.getSelectedIndex() > 0) {
+        if (ValidaCombo(funcionariojComboBox)) {
             novo.setResponsavel((Funcionario) funcionariojComboBox.getSelectedItem());
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Funcionario");
             funcionariojComboBox.grabFocus();
             return;
         }
 
-        if (entidadejComboBox.getSelectedIndex() > 0) {
+        if (ValidaCombo(filmejComboBox)) {
             novo.setEntidade((Entidade) entidadejComboBox.getSelectedItem());
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione uma Entidade");
             entidadejComboBox.grabFocus();
             return;
         }
 
-        novo.setFilme((Filme) filmejComboBox.getSelectedItem());
+        if (ValidaCombo(filmejComboBox)){
+            novo.setFilme((Filme) filmejComboBox.getSelectedItem());
+        }else{
+            filmejComboBox.grabFocus();
+        }
+        
 
         try {
             if (editar) {
@@ -316,6 +276,7 @@ public class DoacaoJPanel extends javax.swing.JPanel {
         if (doacaojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
+            generojComboBox.setSelectedItem(selecionado.getFilme().getExemplar().getGenero());
             filmejComboBox.setSelectedItem(selecionado.getFilme());
             entidadejComboBox.setSelectedItem(selecionado.getEntidade());
             funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
@@ -346,7 +307,8 @@ public class DoacaoJPanel extends javax.swing.JPanel {
     private void generojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_generojComboBoxItemStateChanged
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
-            setComboFilme((Genero) generojComboBox.getSelectedItem());
+            filmejComboBox = super.setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
+            
         } else {
             LimpaComboFilme();
         }

@@ -13,13 +13,14 @@ import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.exception.CNPJException;
 import br.ufmt.ic.locadora.tablemodel.EntidadeTableModel;
 import javax.swing.JOptionPane;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaTela;
 
 /**
  *
  * @author brunosette
  */
-public class EntidadeJPanel extends javax.swing.JPanel {
+public class EntidadeJPanel extends FabricaTela {
     EntidadeDAO dao = FabricaDAO.CriarEntidadeDAO();
     private EntidadeTableModel tableModel;
     private boolean editar = false;
@@ -32,6 +33,7 @@ public class EntidadeJPanel extends javax.swing.JPanel {
     public EntidadeJPanel() {
         tableModel = new EntidadeTableModel(dao.listar());
         initComponents();
+        bancojComboBox = super.setComboBanco(bancojComboBox);
     }
 
     /**
@@ -59,7 +61,6 @@ public class EntidadeJPanel extends javax.swing.JPanel {
         telefonejFormattedTextField = new javax.swing.JFormattedTextField();
         nomejLabel1 = new javax.swing.JLabel();
         razaojTextField = new javax.swing.JTextField();
-        bancojTextField = new javax.swing.JTextField();
         nacionalidadejLabel3 = new javax.swing.JLabel();
         ccjTextField = new javax.swing.JTextField();
         nacionalidadejLabel7 = new javax.swing.JLabel();
@@ -83,6 +84,7 @@ public class EntidadeJPanel extends javax.swing.JPanel {
         entidadejTable = new javax.swing.JTable();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
+        bancojComboBox = new javax.swing.JComboBox<>();
 
         funcionariojTable.setModel(tableModel);
         jScrollPane1.setViewportView(funcionariojTable);
@@ -138,12 +140,6 @@ public class EntidadeJPanel extends javax.swing.JPanel {
         }
 
         nomejLabel1.setText("Razão:");
-
-        bancojTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bancojTextFieldActionPerformed(evt);
-            }
-        });
 
         nacionalidadejLabel3.setText("Banco:");
 
@@ -206,6 +202,8 @@ public class EntidadeJPanel extends javax.swing.JPanel {
             }
         });
 
+        bancojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,7 +214,7 @@ public class EntidadeJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nacionalidadejLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bancojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bancojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nacionalidadejLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -368,8 +366,8 @@ public class EntidadeJPanel extends javax.swing.JPanel {
                         .addGap(74, 74, 74))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bancojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nacionalidadejLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nacionalidadejLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bancojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ccjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,10 +379,6 @@ public class EntidadeJPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bancojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancojTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bancojTextFieldActionPerformed
 
     private void ccjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccjTextFieldActionPerformed
         // TODO add your handling code here:
@@ -421,6 +415,7 @@ public class EntidadeJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
+            bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             chave = selecionado;
             editar = true;
         } else {
@@ -458,10 +453,10 @@ public class EntidadeJPanel extends javax.swing.JPanel {
         cepjFormattedTextField.setText("");
         cidadejTextField.setText("");
         estadojTextField.setText("");
-        bancojTextField.setText("");
         ccjTextField.setText("");
         numerojTextField.setText("");
         razaojTextField.setText("");
+        bancojComboBox.setSelectedIndex(0);
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -477,9 +472,14 @@ public class EntidadeJPanel extends javax.swing.JPanel {
         entidade.setCnpj(cnpjjFormattedTextField.getText());
 
         ContaBancaria conta = new ContaBancaria();
-        Banco banco = new Banco();
-        //banco.setNomeBanco(bancojTextField.getText());
-        //conta.setBanco(banco);
+        
+        if (ValidaCombo(bancojComboBox)){
+            conta.setBanco((Banco) bancojComboBox.getSelectedItem());
+        }else{
+            bancojComboBox.grabFocus();
+            return;
+        }
+        
         conta.setContaNumero(ccjTextField.getText());
         
         entidade.setConta(conta);
@@ -520,7 +520,7 @@ public class EntidadeJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bairrojLabel;
     private javax.swing.JTextField bairrojTextField;
-    private javax.swing.JTextField bancojTextField;
+    private javax.swing.JComboBox<String> bancojComboBox;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JTextField ccjTextField;
     private javax.swing.JFormattedTextField celularjFormattedTextField;

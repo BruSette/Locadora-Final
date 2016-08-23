@@ -6,7 +6,7 @@
 package br.ufmt.ic.locadora.gui;
 
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.TipoCargoTableModel;

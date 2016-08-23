@@ -45,7 +45,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         estoquejMenuItem = new javax.swing.JMenuItem();
         filmesjMenu = new javax.swing.JMenu();
         exemplarjMenuItem = new javax.swing.JMenuItem();
-        filmesjMenuItem = new javax.swing.JMenuItem();
         doacaojMenuItem = new javax.swing.JMenuItem();
         generojMenuItem = new javax.swing.JMenuItem();
         usuariosjMenu = new javax.swing.JMenu();
@@ -145,14 +144,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         });
         filmesjMenu.add(exemplarjMenuItem);
 
-        filmesjMenuItem.setText("Filmes");
-        filmesjMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filmesjMenuItemActionPerformed(evt);
-            }
-        });
-        filmesjMenu.add(filmesjMenuItem);
-
         doacaojMenuItem.setText("Doacao");
         doacaojMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +176,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BancojMenu.setText("Banco");
 
-        BancojMenuItem.setText("Agencia");
+        BancojMenuItem.setText("Conta");
         BancojMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BancojMenuItemActionPerformed(evt);
@@ -255,11 +246,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         setConteudo(new EntradaFilmesJPanel());
     }//GEN-LAST:event_estoquejMenuItemActionPerformed
-
-    private void filmesjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filmesjMenuItemActionPerformed
-        // TODO add your handling code here:
-        setConteudo(new EntradaFilmesJPanel());
-    }//GEN-LAST:event_filmesjMenuItemActionPerformed
 
     private void usuariosjMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosjMenuItemActionPerformed
         // TODO add your handling code here:
@@ -390,7 +376,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem estoquejMenuItem;
     private javax.swing.JMenuItem exemplarjMenuItem;
     private javax.swing.JMenu filmesjMenu;
-    private javax.swing.JMenuItem filmesjMenuItem;
     private javax.swing.JMenuItem fornecedorjMenuItem;
     private javax.swing.JMenu funcionariojMenu;
     private javax.swing.JMenuItem funcionariojMenuItem;

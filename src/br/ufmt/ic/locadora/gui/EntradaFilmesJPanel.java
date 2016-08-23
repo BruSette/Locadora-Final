@@ -9,7 +9,8 @@ import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.Filme;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaTela;
 import br.ufmt.ic.locadora.tablemodel.EntradaFilmesTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
@@ -18,6 +19,7 @@ import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.entidade.Exemplar;
+import java.awt.Color;
 import java.util.Collection;
 import java.util.Map;
 
@@ -25,14 +27,9 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class EntradaFilmesJPanel extends javax.swing.JPanel {
+public class EntradaFilmesJPanel extends FabricaTela {
 
     FilmeDAO dao = FabricaDAO.CriarFilmeDAO();
-    ExemplarDAO exemplarDAO = FabricaDAO.CriarExemplarDAO();
-    FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
-    FornecedorDAO fornecedorDAO = FabricaDAO.CriarForncedorDAO();
-    GeneroDAO generoDAO = FabricaDAO.CriarGeneroDAO();
-    
     private EntradaFilmesTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
@@ -43,48 +40,13 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
     public EntradaFilmesJPanel() {
         tableModel = new EntradaFilmesTableModel(dao.listar());
         initComponents();
-        setComboFuncionario();
-        setComboFornecedor();
-        setComboExemplar();
-    }
-    
-    private void setComboFuncionario() {
-        funcionariojComboBox.removeAllItems();
-        funcionariojComboBox.addItem("Selecione");
-
-        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
-        Collection<Funcionario> colecao = funcionarios.values();
-        for (Funcionario funcionario : colecao) {
-            funcionariojComboBox.addItem(funcionario);
-        }
-
-    }
-    
-    private void setComboFornecedor() {
-        fornecedorjComboBox.removeAllItems();
-        fornecedorjComboBox.addItem("Selecione");
-
-        Map<String, Fornecedor> fornecedores = fornecedorDAO.listar();
-        Collection<Fornecedor> colecao = fornecedores.values();
-        for (Fornecedor fornecedor : colecao) {
-            fornecedorjComboBox.addItem(fornecedor);
-        }
-
+        funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
+        fornecedorjComboBox = super.setComboFornecedor(fornecedorjComboBox);
+        exemplarjComboBox = super.setComboExemplar(exemplarjComboBox);
+        
     }
     
     
-    
-    private void setComboExemplar() {
-        exemplarjComboBox.removeAllItems();
-        exemplarjComboBox.addItem("Selecione");
-
-        Map<String, Exemplar> exemplares = exemplarDAO.listar();
-        Collection<Exemplar> colecao = exemplares.values();
-        for (Exemplar exemplar : colecao) {
-            exemplarjComboBox.addItem(exemplar);
-        }
-
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -262,7 +224,6 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         exemplarjComboBox.setSelectedIndex(0);
         funcionariojComboBox.setSelectedIndex(0);
-        
         fornecedorjComboBox.setSelectedIndex(0);
         
         datajFormattedTextField.setText("");
@@ -277,19 +238,24 @@ public class EntradaFilmesJPanel extends javax.swing.JPanel {
         Filme novo = new Filme();
         
         
-        if (fornecedorjComboBox.getSelectedIndex() > 0){
+        if (ValidaCombo(fornecedorjComboBox)){
             novo.setFornecedor((Fornecedor) fornecedorjComboBox.getSelectedItem());
         }else{
-            JOptionPane.showMessageDialog(this, "Selecione um Fornecedor");
             fornecedorjComboBox.grabFocus();
             return;
         }
         
-        if (funcionariojComboBox.getSelectedIndex() > 0){
+        if (ValidaCombo(funcionariojComboBox)){
             novo.setFuncionario((Funcionario) funcionariojComboBox.getSelectedItem());
         }else{
-            JOptionPane.showMessageDialog(this, "Selecione um Funcionario");
             funcionariojComboBox.grabFocus();
+            return;
+        }
+        
+        if (ValidaCombo(exemplarjComboBox)){
+            novo.setExemplar((Exemplar) exemplarjComboBox.getSelectedItem());
+        }else{
+            exemplarjComboBox.grabFocus();
             return;
         }
         

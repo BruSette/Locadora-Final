@@ -110,14 +110,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exemplarjMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="filmesjMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Filmes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filmesjMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="doacaojMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Doacao"/>
@@ -158,7 +150,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="BancojMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agencia"/>
+                <Property name="text" type="java.lang.String" value="Conta"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BancojMenuItemActionPerformed"/>

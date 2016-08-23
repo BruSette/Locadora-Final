@@ -24,9 +24,6 @@ public class TipoCargoDAOImpl implements TipoCargoDAO {
         if (tipocargos.containsKey(tipocargo.getNome())) {
             throw new RegistroException();
         }
-
-       
-
         tipocargos.put(tipocargo.getNome(), tipocargo);
 
     }

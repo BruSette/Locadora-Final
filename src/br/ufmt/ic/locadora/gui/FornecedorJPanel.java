@@ -13,13 +13,14 @@ import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.exception.CNPJException;
 import br.ufmt.ic.locadora.tablemodel.FornecedorTableModel;
 import javax.swing.JOptionPane;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaTela;
 
 /**
  *
  * @author brunosette
  */
-public class FornecedorJPanel extends javax.swing.JPanel {
+public class FornecedorJPanel extends FabricaTela {
     FornecedorDAO dao = FabricaDAO.CriarForncedorDAO();
     private FornecedorTableModel tableModel;
     private boolean editar = false;
@@ -31,6 +32,7 @@ public class FornecedorJPanel extends javax.swing.JPanel {
     public FornecedorJPanel() {
         tableModel = new FornecedorTableModel(dao.listar());
         initComponents();
+        bancojComboBox = super.setComboBanco(bancojComboBox);
     }
 
     /**
@@ -72,12 +74,12 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         nomejTextField = new javax.swing.JTextField();
         cadastrarjButton = new javax.swing.JButton();
         limparjButton = new javax.swing.JButton();
-        bancojTextField = new javax.swing.JTextField();
         nacionalidadejLabel3 = new javax.swing.JLabel();
         ccjTextField = new javax.swing.JTextField();
         nacionalidadejLabel7 = new javax.swing.JLabel();
         nomejLabel1 = new javax.swing.JLabel();
         razaojTextField = new javax.swing.JTextField();
+        bancojComboBox = new javax.swing.JComboBox<>();
 
         editarjButton1.setText("Editar");
         editarjButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +101,12 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         ruajLabel.setText("Rua:");
 
         complementojLabel.setText("Complemento:");
+
+        bairrojTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bairrojTextFieldActionPerformed(evt);
+            }
+        });
 
         bairrojLabel.setText("Bairro:");
 
@@ -158,12 +166,6 @@ public class FornecedorJPanel extends javax.swing.JPanel {
             }
         });
 
-        bancojTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bancojTextFieldActionPerformed(evt);
-            }
-        });
-
         nacionalidadejLabel3.setText("Banco:");
 
         ccjTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +177,8 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         nacionalidadejLabel7.setText("CC:");
 
         nomejLabel1.setText("Razão:");
+
+        bancojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -188,7 +192,7 @@ public class FornecedorJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(nacionalidadejLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bancojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(bancojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(nacionalidadejLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,23 +224,12 @@ public class FornecedorJPanel extends javax.swing.JPanel {
                                 .addComponent(nomejLabel1)
                                 .addGap(28, 28, 28)
                                 .addComponent(razaojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(ruajLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ruajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(bairrojLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bairrojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(complementojLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(complementojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(ruajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -250,12 +243,25 @@ public class FornecedorJPanel extends javax.swing.JPanel {
                                     .addComponent(ruajLabel1)
                                     .addComponent(cidadejLabel)
                                     .addComponent(cepjLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(numerojTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                    .addComponent(estadojTextField)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(complementojLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(bairrojLabel)
+                                .addGap(18, 18, 18)))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cepjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(numerojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(estadojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cepjFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(bairrojTextField)
+                                    .addComponent(complementojTextField))))))
                 .addContainerGap(643, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -330,13 +336,13 @@ public class FornecedorJPanel extends javax.swing.JPanel {
                         .addComponent(cadastrarjButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bancojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nacionalidadejLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nacionalidadejLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bancojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ccjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nacionalidadejLabel7))))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,8 +371,6 @@ public class FornecedorJPanel extends javax.swing.JPanel {
             celularjFormattedTextField.setText(selecionado.getCelular());
             emailjTextField.setText(selecionado.getEmail());
             cnpjjFormattedTextField.setText(selecionado.getCnpj());
-            
-            
             cepjFormattedTextField.setText(selecionado.getEndereco().getCep());
             ruajTextField.setText(selecionado.getEndereco().getRua());
             bairrojTextField.setText(selecionado.getEndereco().getBairro());
@@ -374,6 +378,7 @@ public class FornecedorJPanel extends javax.swing.JPanel {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
+            bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             chave = selecionado;
             editar = true;
         } else {
@@ -411,9 +416,13 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         
         
         ContaBancaria conta = new ContaBancaria();
-        Banco banco = new Banco();
-        //banco.setNomeBanco(bancojTextField.getText());
-        //conta.setBanco(banco);
+        if (ValidaCombo(bancojComboBox)){
+            conta.setBanco((Banco) bancojComboBox.getSelectedItem());
+        }else{
+            bancojComboBox.grabFocus();
+            return;
+        }
+        
         conta.setContaNumero(ccjTextField.getText());
 
         fornecedor.setConta(conta);
@@ -461,26 +470,26 @@ public class FornecedorJPanel extends javax.swing.JPanel {
         cepjFormattedTextField.setText("");
         cidadejTextField.setText("");
         estadojTextField.setText("");
-        bancojTextField.setText("");
         ccjTextField.setText("");
         numerojTextField.setText("");
         razaojTextField.setText("");
+        bancojComboBox.setSelectedIndex(0);
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
-
-    private void bancojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bancojTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bancojTextFieldActionPerformed
 
     private void ccjTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccjTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ccjTextFieldActionPerformed
 
+    private void bairrojTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairrojTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bairrojTextFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bairrojLabel;
     private javax.swing.JTextField bairrojTextField;
-    private javax.swing.JTextField bancojTextField;
+    private javax.swing.JComboBox<String> bancojComboBox;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JTextField ccjTextField;
     private javax.swing.JFormattedTextField celularjFormattedTextField;

@@ -5,7 +5,7 @@
  */
 package br.ufmt.ic.locadora.gui;
 
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.PessoaFisica;
@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
 import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.entidade.Banco;
+import br.ufmt.ic.locadora.util.FabricaTela;
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,10 +23,9 @@ import java.util.List;
  *
  * @author brunosette
  */
-public class AgenciaJPanel extends javax.swing.JPanel {
+public class AgenciaJPanel extends FabricaTela {
 
     private AgenciaDAO dao = FabricaDAO.CriarAgenciaDAO();
-    private BancoDAO bancodao = FabricaDAO.CriarBancoDAO();
     private AgenciaTableModel tableModel = new AgenciaTableModel(dao.listar());
     private boolean editar = false;
     private int linhaSelecionada;
@@ -38,19 +38,12 @@ public class AgenciaJPanel extends javax.swing.JPanel {
     
     public AgenciaJPanel() {
         initComponents();
-        setComboBanco();
+        bancojComboBox = super.setComboBanco(bancojComboBox);
+        
     }
     
     
-    private void setComboBanco() {
-        bancojComboBox.removeAllItems();
-        bancojComboBox.addItem("Selecione");
-        List<Banco> bancos = bancodao.listar();
-        for (Iterator<Banco> it = bancos.iterator(); it.hasNext();) {
-            Banco banco = it.next();
-            bancojComboBox.addItem(banco);
-        }
-    }
+    
     
     
     /**
@@ -338,10 +331,9 @@ public class AgenciaJPanel extends javax.swing.JPanel {
         
         novo.setGerente(gerente);
         
-        if (bancojComboBox.getSelectedIndex() > 0) {
+        if (ValidaCombo(bancojComboBox)) {
             novo.setBanco((Banco) bancojComboBox.getSelectedItem());
         } else {
-            JOptionPane.showMessageDialog(this, "Selecione um Banco");
             bancojComboBox.grabFocus();
             return;
         }

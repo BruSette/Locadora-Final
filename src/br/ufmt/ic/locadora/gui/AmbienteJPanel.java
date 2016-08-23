@@ -13,7 +13,7 @@ import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.AmbienteTableModel;
 import br.ufmt.ic.locadora.tablemodel.TipoCargoTableModel;
 import javax.swing.JOptionPane;
-import locadora.FabricaDAO;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 
 /**
  *
