@@ -568,7 +568,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = clientejTable.getSelectedRow();
                 Cliente selecionado = tableModel.getCliente(linhaSelecionada);
-                dao.remover(selecionado.getNome());
+                dao.remover(selecionado.getCpf());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

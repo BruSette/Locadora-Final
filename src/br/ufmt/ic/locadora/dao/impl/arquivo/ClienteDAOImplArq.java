@@ -16,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +29,7 @@ import java.util.Map;
 public class ClienteDAOImplArq extends ClienteDAOImplList {
 
     private static final String dir = BancoArqu.getCaminho() + "cliente/cliente.bd";
-    private String delimitador = ";";
-
-    
+    private String delimitador = "|";
 
     public void inserir(Cliente cliente) throws CPFException {
         Map<String, Cliente> clientes = listar();
@@ -55,9 +55,9 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
     public void alterar(Cliente cliente, Cliente chave) throws CPFException {
         Map<String, Cliente> clientes = listar();
         this.remover(chave.getCpf());
-        try{
+        try {
             this.inserir(cliente);
-        }catch (CPFException erro){
+        } catch (CPFException erro) {
             this.inserir(chave);
             throw new CPFException();
         }
@@ -67,13 +67,43 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
         Map<String, Cliente> clientes = listar();
         return clientes.get(cpf);
     }
-     
-    
+
     private void salvarArquivo(Map<String, Cliente> clientes) {
+
         try {
             PrintWriter arq = new PrintWriter(dir);
             Collection<Cliente> colecao = clientes.values();
+
             for (Cliente cliente : colecao) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String limite = "";
+                String datanascimento = "";
+                String bloqueado = "";
+
+                try {
+                    bloqueado = Boolean.toString(cliente.getBloqueado());
+
+                } catch (NullPointerException err) {
+
+                    System.out.println("Null ao inserir bloqueado");
+                }
+
+                try {
+                    limite = String.valueOf(cliente.getLimiteFilmes());
+
+                } catch (NullPointerException err) {
+
+                    System.out.println("Null ao inserir Limite");
+                }
+
+                try {
+                    datanascimento = sdf.format(cliente.getDataNascimento());
+
+                } catch (NullPointerException err) {
+
+                    System.out.println("Null ao inserir Data");
+                }
+
                 arq.println(Boolean.toString(cliente.getBloqueado())
                         + delimitador + cliente.getCpf()
                         + delimitador + cliente.getEmail()
@@ -83,7 +113,8 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                         + delimitador + cliente.getSexo()
                         + delimitador + cliente.getTelefone()
                         + delimitador + cliente.getCelular()
-                        + delimitador + Integer.toString(cliente.getLimiteFilmes())
+                        + delimitador + datanascimento
+                        + delimitador + limite
                         + delimitador + cliente.getEndereco().getBairro()
                         + delimitador + cliente.getEndereco().getCep()
                         + delimitador + cliente.getEndereco().getCidade()
@@ -113,14 +144,29 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
             BufferedReader arq = new BufferedReader(new FileReader(dir));
             String linha;
             linha = arq.readLine();
-            
-            
+
             while (linha != null) {
                 String[] fatiado = linha.split(delimitador, -2);
                 Cliente cliente = new Cliente();
-                
+
                 System.out.println(fatiado[0]);
-                cliente.setBloqueado(false);
+
+                try {
+                    cliente.setBloqueado(Boolean.getBoolean(fatiado[0]));
+
+                } catch (NullPointerException err) {
+                    System.out.println("Null pointer ao converter bloqueado ou nao");
+                }
+                
+                try {
+                    String limite = fatiado[9];
+                    Integer limiteint = Integer.valueOf(limite);
+                    //cliente.setLimiteFilmes(limiteint);
+                    
+                } catch (NumberFormatException err) {
+                    System.out.println("NumberFormatException ao converter Limite");
+                }
+
                 cliente.setCpf(fatiado[1]);
                 cliente.setEmail(fatiado[2]);
                 cliente.setNacionalidade(fatiado[3]);
@@ -129,25 +175,32 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                 cliente.setSexo(fatiado[6]);
                 cliente.setTelefone(fatiado[7]);
                 cliente.setCelular(fatiado[8]);
-                System.out.println(String.valueOf(fatiado[9]));
-                cliente.setLimiteFilmes(4);
-                Endereco endereco = new Endereco();
-                endereco.setBairro(fatiado[10]);
-                endereco.setCep(fatiado[11]);
-                endereco.setCidade(fatiado[12]);
-                endereco.setComplemento(fatiado[13]);
-                endereco.setEstado(fatiado[14]);
-                endereco.setNumero(fatiado[15]);
-                endereco.setRua(fatiado[16]);
-                cliente.setEndereco(endereco);
                 
+                String sdata = fatiado[10];
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                
+                try {
+                    cliente.setDataNascimento(sdf.parse(sdata));
+                } catch (ParseException erro) {
+                    System.out.println("Null pointer ao converter data");
+                }
+
+                Endereco endereco = new Endereco();
+                endereco.setBairro(fatiado[11]);
+                endereco.setCep(fatiado[12]);
+                endereco.setCidade(fatiado[13]);
+                endereco.setComplemento(fatiado[14]);
+                endereco.setEstado(fatiado[15]);
+                endereco.setNumero(fatiado[16]);
+                endereco.setRua(fatiado[17]);
+                cliente.setEndereco(endereco);
+
                 clientes.put(cliente.getCpf(), cliente);
 
                 linha = arq.readLine();
-                
+
             }
-            
-            
+
             arq.close();
         } catch (FileNotFoundException erro) {
             try {
@@ -158,7 +211,7 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
             System.out.println("Erro ao abrir o arquivo/ Arquivo criado");
         } catch (IOException ex) {
             System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
-        } catch (NullPointerException er){
+        } catch (NullPointerException er) {
             System.out.println("Null pointer");
         }
 
