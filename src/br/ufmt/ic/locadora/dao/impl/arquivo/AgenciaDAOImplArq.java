@@ -31,7 +31,7 @@ public class AgenciaDAOImplArq extends AgenciaDAOImplList {
 
    public void inserir(Agencia agencia) throws RegistroException {
         List<Agencia> agencias = listar();
-        for (int i = 0; i < agencias.size(); i++) {
+        for (int i = agencias.size()-1; i >= 0; i--) {
             if (agencias.get(i).getCodigo().equals(agencia.getCodigo())) {
                 throw new RegistroException();
             }
@@ -43,6 +43,16 @@ public class AgenciaDAOImplArq extends AgenciaDAOImplList {
 
     public void remover(Agencia agencia) {
         List<Agencia> agencias = listar();
+        for (int i = 0; i < agencias.size(); i++) {
+            if (agencias.get(i).getCodigo().equals(agencia.getCodigo())) {
+                agencias.remove(i);
+                break;
+            }
+        }
+        salvarArquivo(agencias);
+        
+        
+        
         for (Agencia agencialist : agencias) {
             if (agencialist.getCodigo().equals(agencia.getCodigo())) {
                 agencias.remove(agencia);

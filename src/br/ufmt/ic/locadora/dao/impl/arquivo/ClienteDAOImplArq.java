@@ -6,7 +6,6 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.impl.list.*;
-import br.ufmt.ic.locadora.entidade.Ambiente;
 
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.entidade.Endereco;
@@ -30,22 +29,43 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
     private static final String dir = BancoArqu.getCaminho() + "cliente/cliente.bd";
     private String delimitador = ";";
 
-    @Override
+    
+
     public void inserir(Cliente cliente) throws CPFException {
-        super.inserir(cliente); //To change body of generated methods, choose Tools | Templates.
-        salvarArquivo(super.listar());
+        Map<String, Cliente> clientes = listar();
+        if (clientes.containsKey(cliente.getCpf())) {
+            throw new CPFException();
+        }
+
+        if (cliente.getCpf().equals("   .   .   -  ")) {
+            throw new CPFException("Erro no CPF");
+        }
+
+        clientes.put(cliente.getCpf(), cliente);
+        salvarArquivo(clientes);
     }
 
-    @Override
     public void remover(String cpf) {
-        super.remover(cpf); //To change body of generated methods, choose Tools | Templates.
-        salvarArquivo(super.listar());
+        Map<String, Cliente> clientes = listar();
+        clientes.remove(cpf);
+        System.out.println("Removeu " + cpf);
+        salvarArquivo(clientes);
     }
 
-    @Override
     public void alterar(Cliente cliente, Cliente chave) throws CPFException {
-        super.alterar(cliente, chave); //To change body of generated methods, choose Tools | Templates.
-        salvarArquivo(super.listar());
+        Map<String, Cliente> clientes = listar();
+        this.remover(chave.getCpf());
+        try{
+            this.inserir(cliente);
+        }catch (CPFException erro){
+            this.inserir(chave);
+            throw new CPFException();
+        }
+    }
+
+    public Cliente consultar(String cpf) {
+        Map<String, Cliente> clientes = listar();
+        return clientes.get(cpf);
     }
      
     
@@ -98,7 +118,6 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
             while (linha != null) {
                 String[] fatiado = linha.split(delimitador, -2);
                 Cliente cliente = new Cliente();
-                
                 
                 System.out.println(fatiado[0]);
                 cliente.setBloqueado(false);

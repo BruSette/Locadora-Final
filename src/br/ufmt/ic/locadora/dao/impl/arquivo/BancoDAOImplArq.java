@@ -6,7 +6,6 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.BancoDAO;
-import br.ufmt.ic.locadora.dao.impl.list.*;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
