@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.dao.PontoDAO;
 import br.ufmt.ic.locadora.entidade.Ponto;
 import br.ufmt.ic.locadora.exception.RegistroException;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author brunosette
  */
-public class PontoDAOImpl implements PontoDAO {
+public class PontoDAOImplList implements PontoDAO {
 
     private List<Ponto> pontos = new ArrayList<Ponto>();
 

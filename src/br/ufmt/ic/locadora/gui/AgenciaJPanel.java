@@ -219,8 +219,8 @@ public class AgenciaJPanel extends FabricaTela {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(escluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -286,8 +286,6 @@ public class AgenciaJPanel extends FabricaTela {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(159, 159, 159))
         );
-
-        getAccessibleContext().setAccessibleName("Agencia");
     }// </editor-fold>//GEN-END:initComponents
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
@@ -378,7 +376,17 @@ public class AgenciaJPanel extends FabricaTela {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            bancojComboBox.setSelectedItem(selecionado.getBanco());
+            System.out.println(selecionado.getBanco());
+            System.out.println(bancojComboBox.getItemCount());
+            
+            for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
+               Banco banco = new Banco();  
+               banco = (Banco) bancojComboBox.getItemAt(i);
+               if (banco.getNome().equals(selecionado.getBanco().getNome())){
+                   bancojComboBox.setSelectedIndex(i);
+               }
+            }
+            
             
             chave = selecionado;
             editar = true;

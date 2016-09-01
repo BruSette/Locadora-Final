@@ -176,7 +176,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BancojMenu.setText("Banco");
 
-        BancojMenuItem.setText("Conta");
+        BancojMenuItem.setText("Agencia");
         BancojMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BancojMenuItemActionPerformed(evt);

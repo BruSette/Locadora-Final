@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
@@ -19,7 +20,7 @@ import java.util.Map;
  *
  * @author bruno
  */
-public class FuncionarioDAOImpl implements FuncionarioDAO {
+public class FuncionarioDAOImplList implements FuncionarioDAO {
 
     private Map<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
     private Map<String, Usuario> usuarios = new HashMap<String, Usuario>();

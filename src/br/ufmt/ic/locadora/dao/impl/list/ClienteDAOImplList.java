@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Cliente;
@@ -15,7 +16,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class ClienteDAOImpl implements ClienteDAO {
+public class ClienteDAOImplList implements ClienteDAO {
 
     private Map<String, Cliente> clientes = new HashMap<String, Cliente>();
 

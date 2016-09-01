@@ -18,23 +18,9 @@ import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
-import br.ufmt.ic.locadora.dao.impl.AgenciaDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.AmbienteDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.BancoDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.ClienteDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.DoacaoFilmesDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.EntidadeDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.ExemplarDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.FilmeDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.FornecedorDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.FuncionarioDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.PontoDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.ReservaFilmeDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.TipoCargoDAOImpl;
-import br.ufmt.ic.locadora.dao.impl.UsuarioDAOImpl;
-import br.ufmt.ic.locadora.dao.FilmeDAO;
-import br.ufmt.ic.locadora.dao.GeneroDAO;
-import br.ufmt.ic.locadora.dao.impl.GeneroDAOImpl;
+import br.ufmt.ic.locadora.dao.impl.list.*;
+import br.ufmt.ic.locadora.dao.impl.arquivo.*;
+import br.ufmt.ic.locadora.dao.*;
 
 /**
  *
@@ -61,105 +47,105 @@ public class FabricaDAO {
     
     public static TipoCargoDAO CriarTipoCargoDAO() {
         if (tipocargodao == null) {
-            tipocargodao = new TipoCargoDAOImpl();
+            tipocargodao = new TipoCargoDAOImplList();
         }
         return tipocargodao;
     }
     
     public static GeneroDAO CriarGeneroDAO() {
         if (generodao == null) {
-            generodao = new GeneroDAOImpl();
+            generodao = new GeneroDAOImplList();
         }
         return generodao;
     }
     
     public static EntidadeDAO CriarEntidadeDAO() {
         if (entidadedao == null) {
-            entidadedao = new EntidadeDAOImpl();
+            entidadedao = new EntidadeDAOImplList();
         }
         return entidadedao;
     }
     
     public static ExemplarDAO CriarExemplarDAO() {
         if (exemplardao == null) {
-            exemplardao = new ExemplarDAOImpl();
+            exemplardao = new ExemplarDAOImplList();
         }
         return exemplardao;
     }
     
      public static AmbienteDAO CriarAmbienteDAO() {
         if (ambientedao == null) {
-            ambientedao = new AmbienteDAOImpl();
+            ambientedao = new AmbienteDAOImplArq();
         }
         return ambientedao;
     }
     
     public static BancoDAO CriarBancoDAO() {
         if (bancodao == null) {
-            bancodao = new BancoDAOImpl();
+            bancodao = new BancoDAOImplArq();
         }
         return bancodao;
     }
     
      public static FornecedorDAO CriarForncedorDAO() {
         if (fornecedordao == null) {
-            fornecedordao = new FornecedorDAOImpl();
+            fornecedordao = new FornecedorDAOImplList();
         }
         return fornecedordao;
     }
     
     public static AgenciaDAO CriarAgenciaDAO() {
         if (agenciadao == null) {
-            agenciadao = new AgenciaDAOImpl();
+            agenciadao = new AgenciaDAOImplArq();
         }
         return agenciadao;
     }
     
     public static PontoDAO CriarPontoDAO() {
         if (pontodao == null) {
-            pontodao = new PontoDAOImpl();
+            pontodao = new PontoDAOImplList();
         }
         return pontodao;
     }
 
     public static ClienteDAO CriarClienteDAO() {
         if (clientedao == null){
-            clientedao =new ClienteDAOImpl();
+            clientedao =new ClienteDAOImplArq();
         }
         return clientedao;
     }
 
     public static DoacaoFilmesDAO CriarDoacaoFilmesDAO() {
         if (doacaofilmesdao == null){
-            doacaofilmesdao = new DoacaoFilmesDAOImpl();
+            doacaofilmesdao = new DoacaoFilmesDAOImplList();
         }
         return doacaofilmesdao;
     }
 
     public static FilmeDAO CriarFilmeDAO() {
         if (filmesdao == null){
-            filmesdao =  new FilmeDAOImpl();
+            filmesdao =  new FilmeDAOImplList();
         }
         return filmesdao;
     }
 
     public static FuncionarioDAO CriarFuncionarioDAO() {
         if (funcionariodao == null){
-            funcionariodao =  new FuncionarioDAOImpl();
+            funcionariodao =  new FuncionarioDAOImplList();
         }
         return funcionariodao;
     }
 
     public static ReservaFilmeDAO CriarReservaFilmeDAO() {
         if (reservafilmedao == null){
-            reservafilmedao = new ReservaFilmeDAOImpl();
+            reservafilmedao = new ReservaFilmeDAOImplList();
         }
         return reservafilmedao;
     }
 
     public static UsuarioDAO CriarUsuarioDAO() {
         if(usuariodao == null){
-            usuariodao =  new UsuarioDAOImpl();
+            usuariodao =  new UsuarioDAOImplList();
         }
         return usuariodao;
     }

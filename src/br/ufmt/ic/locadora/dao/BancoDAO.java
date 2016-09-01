@@ -16,7 +16,7 @@ import java.util.List;
 public interface BancoDAO {
     public void inserir(Banco banco) throws RegistroException;
 
-    public int remover(Banco banco);
+    public void remover(Banco banco);
 
     public void alterar(Banco banco,Banco chave) throws RegistroException;
 

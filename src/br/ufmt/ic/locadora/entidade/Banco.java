@@ -5,11 +5,12 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
+
 /**
  *
  * @author brunosette
  */
-public class Banco {
+public class Banco  {
     private String nome;
     private String cod;
 
@@ -30,7 +31,7 @@ public class Banco {
     }
     
     public String toString(){
-        return getNome() + " - "  + getCod();
+        return getNome();
     }
     
     

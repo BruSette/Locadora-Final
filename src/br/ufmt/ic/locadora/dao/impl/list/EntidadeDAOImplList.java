@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
@@ -18,7 +19,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class EntidadeDAOImpl implements EntidadeDAO {
+public class EntidadeDAOImplList implements EntidadeDAO {
    private Map<String, Entidade> entidades = new HashMap<String, Entidade>();
 
     public void inserir(Entidade entidade) throws CNPJException {

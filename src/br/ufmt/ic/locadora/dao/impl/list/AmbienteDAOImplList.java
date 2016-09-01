@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.dao.AmbienteDAO;
 import br.ufmt.ic.locadora.entidade.Exemplar;
 import br.ufmt.ic.locadora.entidade.Ambiente;
@@ -16,7 +17,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class AmbienteDAOImpl implements AmbienteDAO {
+public class AmbienteDAOImplList implements AmbienteDAO {
     private Map<String, Ambiente> ambientes = new HashMap<String, Ambiente>();
 
     public void inserir(Ambiente ambiente) throws RegistroException {
@@ -24,9 +25,6 @@ public class AmbienteDAOImpl implements AmbienteDAO {
         if (ambientes.containsKey(ambiente.getNome())) {
             throw new RegistroException();
         }
-
-       
-
         ambientes.put(ambiente.getNome(), ambiente);
 
     }

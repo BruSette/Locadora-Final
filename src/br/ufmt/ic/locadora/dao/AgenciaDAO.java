@@ -17,7 +17,7 @@ public interface AgenciaDAO {
     
     public void inserir(Agencia agencia) throws RegistroException;
 
-    public int remover(Agencia agencia);
+    public void remover(Agencia agencia);
 
     public void alterar(Agencia agencia, Agencia chave) throws RegistroException;
 

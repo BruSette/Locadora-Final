@@ -107,7 +107,7 @@ public abstract class FabricaTela extends javax.swing.JPanel {
             Banco banco = it.next();
             jComboBox.addItem(banco);
         }
-
+        
         jComboBox.setName("Banco");
         return jComboBox;
     }

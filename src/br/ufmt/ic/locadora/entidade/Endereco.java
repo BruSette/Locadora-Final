@@ -1,5 +1,6 @@
 package br.ufmt.ic.locadora.entidade;
 
+
 public class Endereco {
 
     private String rua;

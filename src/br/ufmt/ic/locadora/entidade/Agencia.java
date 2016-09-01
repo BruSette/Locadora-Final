@@ -5,6 +5,7 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
+
 /**
  *
  * @author brunosette

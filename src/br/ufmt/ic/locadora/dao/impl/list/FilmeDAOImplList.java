@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl;
+package br.ufmt.ic.locadora.dao.impl.list;
 
+import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.entidade.Filme;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author bruno
  */
-public class FilmeDAOImpl implements FilmeDAO {
+public class FilmeDAOImplList implements FilmeDAO {
 
     private List<Filme> filmes = new ArrayList<Filme>();
 
