@@ -230,8 +230,6 @@ public class EntradaFilmesJPanel extends FabricaTela {
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
         Filme novo = new Filme();
-        
-        
         if (ValidaCombo(fornecedorjComboBox)){
             novo.setFornecedor((Fornecedor) fornecedorjComboBox.getSelectedItem());
         }else{

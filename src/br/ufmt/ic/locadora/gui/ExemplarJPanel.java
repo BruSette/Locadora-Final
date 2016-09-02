@@ -13,8 +13,6 @@ import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.ExemplarTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.util.FabricaTela;

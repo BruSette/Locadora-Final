@@ -52,10 +52,10 @@ public class BancoDAOImplArq implements BancoDAO {
 
     public void alterar(Banco banco, Banco chave) throws RegistroException {
         try {
-            this.remover(chave);
-            this.inserir(banco);
+            remover(chave);
+            inserir(banco);
         } catch (RegistroException erro) {
-            this.inserir(chave);
+            inserir(chave);
             throw new RegistroException();
         }
     }

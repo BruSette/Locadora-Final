@@ -42,8 +42,6 @@ public class ReservafilmeJPanel extends FabricaTela {
         generojComboBox = super.setComboGenero(generojComboBox);
         clientejComboBox = super.setComboCliente(clientejComboBox);
         LimpaComboFilme();
-        
-        
     }
     
     private void LimpaComboFilme() {

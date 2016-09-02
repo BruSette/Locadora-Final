@@ -5,7 +5,6 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import br.ufmt.ic.locadora.entidade.PessoaJuridica;
 
 /**
  *

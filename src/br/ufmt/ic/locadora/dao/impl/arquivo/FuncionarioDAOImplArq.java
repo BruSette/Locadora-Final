@@ -6,13 +6,81 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 
-import br.ufmt.ic.locadora.dao.impl.list.*;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import br.ufmt.ic.locadora.dao.FuncionarioDAO;
+import br.ufmt.ic.locadora.dao.UsuarioDAO;
+import br.ufmt.ic.locadora.exception.CPFException;
+import br.ufmt.ic.locadora.entidade.Funcionario;
+import br.ufmt.ic.locadora.entidade.Usuario;
+import br.ufmt.ic.locadora.exception.UsuarioException;
+import br.ufmt.ic.locadora.util.BancoArqu;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author bruno
  */
-public class FuncionarioDAOImplArq extends FuncionarioDAOImplList {
-
+public class FuncionarioDAOImplArq implements FuncionarioDAO {
     
+    private static final String dir = BancoArqu.getCaminho() + "funcionario/funcionario.bd";
+    private String delimitador = ";";
+    
+    private UsuarioDAO daousuario = FabricaDAO.CriarUsuarioDAO();
+
+    public void inserir(Funcionario funcionario) throws CPFException, UsuarioException {
+        Map<String, Funcionario> funcionarios = listar();
+        Map<String, Usuario> usuarios = daousuario.listar();
+        if (funcionarios.containsKey(funcionario.getCpf())) {
+            throw new CPFException();
+        }
+        
+        daousuario.inserir(funcionario.getUsuario());
+        
+        if (funcionario.getCpf().equals("   .   .   -  ")) {
+            throw new CPFException("Erro no CPF");
+        }
+
+        if (funcionario.getUsuario().getUsuario().equals("") || funcionario.getUsuario().getSenha().equals("")) {
+            throw new UsuarioException("Usuario ou senha invalidos!");
+        }
+
+        funcionarios.put(funcionario.getCpf(), funcionario);
+        usuarios.put(funcionario.getUsuario().getUsuario(), funcionario.getUsuario());
+
+        
+    }
+
+    public void remover(String cpf) {
+        Map<String, Funcionario> funcionarios = listar();
+        Map<String, Usuario> usuarios = daousuario.listar();
+        daousuario.remover(funcionarios.get(cpf).getUsuario().getUsuario());
+        funcionarios.remove(cpf);
+    }
+
+    public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException {
+        this.remover(chave.getCpf());
+        try{
+            this.inserir(funcionario);
+        }catch (CPFException erro){
+            this.inserir(chave);
+            throw new CPFException();
+        }catch (UsuarioException erro){
+            this.inserir(chave);
+            throw new UsuarioException();
+        }
+    }
+
+    public Funcionario consultar(String cpf) {
+        Map<String, Funcionario> funcionarios = listar();
+        Map<String, Usuario> usuarios = daousuario.listar();
+        return funcionarios.get(cpf);
+    }
+
+    public Map<String, Funcionario> listar() {
+        Map<String, Funcionario> funcionarios = new HashMap<String, Funcionario>();
+        Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
+        return funcionarios;
+    }
+
 }

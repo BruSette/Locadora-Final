@@ -54,11 +54,11 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
 
     public void alterar(Cliente cliente, Cliente chave) throws CPFException {
         Map<String, Cliente> clientes = listar();
-        this.remover(chave.getCpf());
+        remover(chave.getCpf());
         try {
-            this.inserir(cliente);
+            inserir(cliente);
         } catch (CPFException erro) {
-            this.inserir(chave);
+            inserir(chave);
             throw new CPFException();
         }
     }
@@ -161,7 +161,7 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                 try {
                     String limite = fatiado[9];
                     Integer limiteint = Integer.valueOf(limite);
-                    //cliente.setLimiteFilmes(limiteint);
+                    cliente.setLimiteFilmes(limiteint);
                     
                 } catch (NumberFormatException err) {
                     System.out.println("NumberFormatException ao converter Limite");

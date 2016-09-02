@@ -7,7 +7,6 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.AmbienteDAO;
 import br.ufmt.ic.locadora.entidade.Ambiente;
-import br.ufmt.ic.locadora.dao.impl.list.AmbienteDAOImplList;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
 import java.io.BufferedReader;
@@ -44,11 +43,11 @@ public class AmbienteDAOImplArq implements AmbienteDAO {
     }
 
     public void alterar(Ambiente ambiente, Ambiente chave) throws RegistroException {
-        this.remover(chave.getNome());
+        remover(chave.getNome());
         try{
-            this.inserir(ambiente);
+            inserir(ambiente);
         }catch (RegistroException erro){
-            this.inserir(chave);
+            inserir(chave);
             throw new RegistroException();
         }
     }
