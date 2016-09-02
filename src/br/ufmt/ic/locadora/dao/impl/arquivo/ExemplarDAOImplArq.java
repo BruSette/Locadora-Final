@@ -25,22 +25,19 @@ import java.util.Map;
 public class ExemplarDAOImplArq implements ExemplarDAO {
     private static final String dir = BancoArqu.getCaminho() + "exemplar/exemplar.bd";
     private String delimitador = ";";
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public void inserir(Exemplar exemplar) throws RegistroException {
         Map<String, Exemplar> exemplares =listar();
         if (exemplares.containsKey(exemplar.getNome())) {
             throw new RegistroException();
         }
-
         exemplares.put(exemplar.getNome(), exemplar);
+        salvarArquivo(exemplares);
     }
     private void salvarArquivo(Map<String, Exemplar> exemplares) {
         try {
             PrintWriter arq = new PrintWriter(dir);
-            
-            
-            
             
             Collection<Exemplar> colecao = exemplares.values();
             for (Exemplar exemplar : colecao) {
@@ -75,6 +72,8 @@ public class ExemplarDAOImplArq implements ExemplarDAO {
     public void remover(String nome) {
         Map<String, Exemplar> exemplares =listar();
         exemplares.remove(nome);
+        salvarArquivo(exemplares);
+        
     }
 
     public void alterar(Exemplar exemplar, Exemplar chave) throws RegistroException {

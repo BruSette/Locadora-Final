@@ -28,7 +28,7 @@ public class BancoDAOImplArq implements BancoDAO {
 
     public void inserir(Banco banco) throws RegistroException {
         List<Banco> bancos = listar();
-        for (int i = 0; i < bancos.size(); i++) {
+        for (int i = bancos.size()-1; i >=0 ; i--) {
             if (bancos.get(i).getNome().equals(banco.getNome())) {
                 throw new RegistroException();
             }
@@ -40,7 +40,7 @@ public class BancoDAOImplArq implements BancoDAO {
 
     public void remover(Banco banco) {
         List<Banco> bancos = listar();
-        for (int i = 0; i < bancos.size(); i++) {
+        for (int i = bancos.size()-1; i >=0 ; i--) {
             if (bancos.get(i).getNome().equals(banco.getNome())) {
                 bancos.remove(i);
                 break;

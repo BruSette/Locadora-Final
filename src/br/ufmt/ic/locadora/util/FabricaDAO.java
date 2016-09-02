@@ -35,6 +35,7 @@ public class FabricaDAO {
     private static FuncionarioDAO funcionariodao;
     private static ReservaFilmeDAO reservafilmedao;
     private static UsuarioDAO usuariodao;
+    private static UsuarioDAOImplArq usuariodaoarq;
     private static PontoDAO pontodao;
     private static BancoDAO bancodao;
     private static TipoCargoDAO tipocargodao;
@@ -54,21 +55,21 @@ public class FabricaDAO {
     
     public static GeneroDAO CriarGeneroDAO() {
         if (generodao == null) {
-            generodao = new GeneroDAOImplList();
+            generodao = new GeneroDAOImplArq();
         }
         return generodao;
     }
     
     public static EntidadeDAO CriarEntidadeDAO() {
         if (entidadedao == null) {
-            entidadedao = new EntidadeDAOImplList();
+            entidadedao = new EntidadeDAOImplArq();
         }
         return entidadedao;
     }
     
     public static ExemplarDAO CriarExemplarDAO() {
         if (exemplardao == null) {
-            exemplardao = new ExemplarDAOImplList();
+            exemplardao = new ExemplarDAOImplArq();
         }
         return exemplardao;
     }
@@ -89,7 +90,7 @@ public class FabricaDAO {
     
      public static FornecedorDAO CriarForncedorDAO() {
         if (fornecedordao == null) {
-            fornecedordao = new FornecedorDAOImplList();
+            fornecedordao = new FornecedorDAOImplArq();
         }
         return fornecedordao;
     }
@@ -103,7 +104,7 @@ public class FabricaDAO {
     
     public static PontoDAO CriarPontoDAO() {
         if (pontodao == null) {
-            pontodao = new PontoDAOImplList();
+            pontodao = new PontoDAOImplArq();
         }
         return pontodao;
     }
@@ -117,28 +118,28 @@ public class FabricaDAO {
 
     public static DoacaoFilmesDAO CriarDoacaoFilmesDAO() {
         if (doacaofilmesdao == null){
-            doacaofilmesdao = new DoacaoFilmesDAOImplList();
+            doacaofilmesdao = new DoacaoFilmesDAOImplArq();
         }
         return doacaofilmesdao;
     }
 
     public static FilmeDAO CriarFilmeDAO() {
         if (filmesdao == null){
-            filmesdao =  new FilmeDAOImplList();
+            filmesdao =  new FilmeDAOImplArq();
         }
         return filmesdao;
     }
 
     public static FuncionarioDAO CriarFuncionarioDAO() {
         if (funcionariodao == null){
-            funcionariodao =  new FuncionarioDAOImplList();
+            funcionariodao =  new FuncionarioDAOImplArq();
         }
         return funcionariodao;
     }
 
     public static ReservaFilmeDAO CriarReservaFilmeDAO() {
         if (reservafilmedao == null){
-            reservafilmedao = new ReservaFilmeDAOImplList();
+            reservafilmedao = new ReservaFilmeDAOImplArq();
         }
         return reservafilmedao;
     }
@@ -148,6 +149,13 @@ public class FabricaDAO {
             usuariodao =  new UsuarioDAOImplList();
         }
         return usuariodao;
+    }
+    
+    public static UsuarioDAOImplArq CriarUsuarioDAOArq() {
+        if(usuariodaoarq == null){
+            usuariodaoarq =  new UsuarioDAOImplArq();
+        }
+        return usuariodaoarq;
     }
 
 }

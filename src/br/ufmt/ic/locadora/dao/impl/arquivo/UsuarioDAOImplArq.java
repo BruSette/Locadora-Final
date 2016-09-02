@@ -5,12 +5,14 @@
  */
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
-import br.ufmt.ic.locadora.dao.impl.list.*;
-import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,14 +35,37 @@ public class UsuarioDAOImplArq implements UsuarioDAO {
         }
         
         usuarios.put(usuario.getUsuario(), usuario);
-        
-        
+        salvarArquivo(usuarios);
+    }
+    
+     public void salvarArquivo(Map<String, Usuario> usuarios) {
+        try {
+            PrintWriter arq = new PrintWriter(dir);
+
+            Collection<Usuario> colecao = usuarios.values();
+            for (Usuario usuario : colecao) {
+                arq.println(usuario.getUsuario()
+                + delimitador + usuario.getSenha()
+                );
+            }
+            
+            arq.close();
+
+        } catch (IOException ex) {
+            System.out.println("Arquivo ou diretório Inexistente!");
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex1) {
+                System.out.println("Arquivo Inexistente!");
+            }
+        }
     }
 
     public void remover(String usuario) {
         Map<String, Usuario> usuarios = listar();
         System.out.println("Removeu " + usuario);
-        usuarios.remove(usuario);   
+        usuarios.remove(usuario);  
+        salvarArquivo(usuarios);
     }
 
     public void alterar(Usuario usuario, Usuario chave) throws UsuarioException {

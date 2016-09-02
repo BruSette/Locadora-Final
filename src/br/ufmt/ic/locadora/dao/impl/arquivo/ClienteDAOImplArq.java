@@ -73,7 +73,7 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
         try {
             PrintWriter arq = new PrintWriter(dir);
             Collection<Cliente> colecao = clientes.values();
-
+            
             for (Cliente cliente : colecao) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String limite = "";

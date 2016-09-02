@@ -6,9 +6,14 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
+import br.ufmt.ic.locadora.entidade.Ambiente;
 import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +32,35 @@ public class TipoCargoDAOImplArq implements TipoCargoDAO {
             throw new RegistroException();
         }
         tipocargos.put(tipocargo.getNome(), tipocargo);
+        salvarArquivo(tipocargos);
 
+    }
+    
+    private void salvarArquivo(Map<String, TipoCargo> tipocargos) {
+        try {
+            PrintWriter arq = new PrintWriter(dir);
+
+            Collection<TipoCargo> colecao = tipocargos.values();
+            for (TipoCargo tipocargo : colecao) {
+                arq.println(tipocargo.getNome());
+            }
+
+            arq.close();
+
+        } catch (IOException ex) {
+            System.out.println("Arquivo ou diretório Inexistente!");
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex1) {
+                System.out.println("Arquivo Inexistente!");
+            }
+        }
     }
 
     public void remover(String nome) {
         Map<String, TipoCargo> tipocargos = listar();
         tipocargos.remove(nome);
+        salvarArquivo(tipocargos);
     }
 
     public void alterar(TipoCargo tipocargo, TipoCargo chave) throws RegistroException {

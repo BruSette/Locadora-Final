@@ -10,6 +10,10 @@ import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,20 +32,40 @@ public class GeneroDAOImplArq implements GeneroDAO {
             throw new RegistroException();
         }
         generos.put(genero.getNome(), genero);
+        salvarArquivo(generos);
+    }
+    
+    private void salvarArquivo(Map<String, Genero> generos) {
+        try {    
+            PrintWriter arq = new PrintWriter(dir);
+            Collection<Genero> colecao = generos.values();
+            for (Genero genero : colecao) {
+                arq.println(genero.getNome());
+            }
+            arq.close();
 
+        } catch (IOException ex) {
+            System.out.println("Arquivo ou diretório Inexistente!");
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex1) {
+                System.out.println("Arquivo Inexistente!");
+            }
+        }
     }
 
     public void remover(String nome) {
         Map<String, Genero> generos = listar();
         generos.remove(nome);
+        salvarArquivo(generos);
     }
 
     public void alterar(Genero genero, Genero chave) throws RegistroException {
-        this.remover(chave.getNome());
+        remover(chave.getNome());
         try{
-            this.inserir(genero);
+            inserir(genero);
         }catch (RegistroException erro){
-            this.inserir(chave);
+            inserir(chave);
             throw new RegistroException();
         }
     }

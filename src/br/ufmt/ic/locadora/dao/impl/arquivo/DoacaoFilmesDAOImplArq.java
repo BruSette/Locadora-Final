@@ -8,9 +8,14 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
+import br.ufmt.ic.locadora.entidade.Endereco;
+import br.ufmt.ic.locadora.entidade.PessoaFisica;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -30,44 +35,42 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
 
     public void inserir(DoacaoFilmes doacao) throws RegistroException {
         List<DoacaoFilmes> doacoes = listar();
-        for (DoacaoFilmes doacaolist : doacoes) {
-            if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacaolist.getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
-
+        for (int i = doacoes.size()-1; i >=0 ; i--) {
+            if (doacoes.get(i).getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
+                if (doacoes.get(i).getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
                     throw new RegistroException();
                 }
             }
 
         }
-
         doacoes.add(doacao);
+        salvarArquivo(doacoes);
 
     }
 
     public void remover(DoacaoFilmes doacao) {
         List<DoacaoFilmes> doacoes = listar();
-        for (DoacaoFilmes doacaolist : doacoes) {
-            if (doacaolist.getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacaolist.getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
+        for (int i = doacoes.size()-1; i >=0 ; i--) {
+            if (doacoes.get(i).getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
+                if (doacoes.get(i).getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
                     doacoes.remove(doacao);
                     return;
                 }
             }
-
         }
+        salvarArquivo(doacoes);
     }
 
     public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException {
         List<DoacaoFilmes> doacoes = listar();
         doacoes.remove(chave);
-
         try {
             inserir(doacao);
         } catch (RegistroException erro) {
             inserir(chave);
             throw new RegistroException();
         }
-
+        
     }
 
     private void salvarArquivo(List<DoacaoFilmes> doacoes) {
@@ -106,6 +109,30 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
 
     public List<DoacaoFilmes> listar() {
         List<DoacaoFilmes> doacoes = new ArrayList<DoacaoFilmes>();
+        try {
+            BufferedReader arq = new BufferedReader(new FileReader(dir));
+            String linha;
+            linha = arq.readLine();
+            while (linha != null) {
+                String[] fatiado = linha.split(delimitador, -2);
+
+                DoacaoFilmes doacao = new DoacaoFilmes();
+                
+                
+                
+                linha = arq.readLine();
+            }
+            arq.close();
+        } catch (FileNotFoundException erro) {
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Erro ao abrir o arquivo");
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
+        }
 
         return doacoes;
     }

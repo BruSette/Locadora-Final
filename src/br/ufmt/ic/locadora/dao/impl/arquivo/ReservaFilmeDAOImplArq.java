@@ -9,6 +9,9 @@ import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +26,12 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
    
     public void inserir(ReservaFilme reserva) throws RegistroException {
         List<ReservaFilme> reservas = listar();
-        for (ReservaFilme reservalist : reservas) {
-            if (reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
-                if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
+        for (int i = reservas.size()-1; i >=0 ; i--) {
+            if (reservas.get(i).getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
+                if (reservas.get(i).getCliente().getNome().equals(reserva.getCliente().getNome())) {
                     //REGRAS DE NEGOCIOS AQUI
-                    if (reservalist.getDataReserva().equals(reserva.getDataReserva())){
-                        if(reservalist.getDataDevolucao().equals(reserva.getDataDevolucao())){
+                    if (reservas.get(i).getDataReserva().equals(reserva.getDataReserva())){
+                        if(reservas.get(i).getDataDevolucao().equals(reserva.getDataDevolucao())){
                             throw new RegistroException();
                         }
                     }
@@ -39,17 +42,41 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
         }   
 
         reservas.add(reserva);
-
+        salvarArquivo(reservas);
     }
+    
+     private void salvarArquivo(List<ReservaFilme> reservas) {
+        try {
+            PrintWriter arq = new PrintWriter(dir);
+            for (ReservaFilme reserva : reservas) {
+                arq.println(reserva.getCliente().getCpf()
+                        + delimitador + reserva.getFilme().getExemplar().getNome()
+                        + delimitador + reserva.getFuncionario().getCpf()
+                        + delimitador + Double.toString(reserva.getValorCompra())
+                       
+                );
+            }
+            arq.close();
+
+        } catch (IOException ex) {
+            System.out.println("Arquivo ou diretório Inexistente!");
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException er) {
+                System.out.println("Arquivo Inexistente!");
+            }
+        }
+    }
+    
 
     public void remover(ReservaFilme reserva) {
         List<ReservaFilme> reservas = listar();
-        for (ReservaFilme reservalist : reservas) {
-            if (reservalist.getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
-                if (reservalist.getCliente().getNome().equals(reserva.getCliente().getNome())) {
+        for (int i = reservas.size()-1; i >=0 ; i--) {
+            if (reservas.get(i).getFilme().getExemplar().getNome().equals(reserva.getFilme().getExemplar().getNome())) {
+                if (reservas.get(i).getCliente().getNome().equals(reserva.getCliente().getNome())) {
                     //REGRAS DE NEGOCIOS AQUI
-                    if (reservalist.getDataReserva().equals(reserva.getDataReserva())){
-                        if(reservalist.getDataDevolucao().equals(reserva.getDataDevolucao())){
+                    if (reservas.get(i).getDataReserva().equals(reserva.getDataReserva())){
+                        if(reservas.get(i).getDataDevolucao().equals(reserva.getDataDevolucao())){
                             reservas.remove(reserva);
                         }
                     }
@@ -57,6 +84,7 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
                 }
             }
         }
+        salvarArquivo(reservas);
     }
 
     public void alterar(ReservaFilme reserva, ReservaFilme chave) throws RegistroException {

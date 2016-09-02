@@ -38,7 +38,7 @@ public class EntidadeDAOImplArq implements EntidadeDAO {
         }
 
         entidades.put(entidade.getCnpj(), entidade);
-        
+        salvarArquivo(entidades);
         
     }
     
@@ -85,6 +85,7 @@ public class EntidadeDAOImplArq implements EntidadeDAO {
     public void remover(String cpf) {
         Map<String, Entidade> entidades = listar();
         entidades.remove(cpf);
+        salvarArquivo(entidades);
     }
 
     public void alterar(Entidade entidade, Entidade chave) throws CNPJException {
