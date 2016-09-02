@@ -9,6 +9,9 @@ import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
 import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
 import br.ufmt.ic.locadora.entidade.Endereco;
+import br.ufmt.ic.locadora.entidade.Entidade;
+import br.ufmt.ic.locadora.entidade.Filme;
+import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.PessoaFisica;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
@@ -85,6 +88,7 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
 
                 }
                 arq.println(doacao.getFilme().getExemplar().getNome()
+                        + delimitador + doacao.getFilme().getExemplar().getGenero()
                         + delimitador + doacao.getEntidade().getCnpj()
                         + delimitador + doacao.getResponsavel().getCpf()
                         + delimitador + data
@@ -115,9 +119,21 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
             linha = arq.readLine();
             while (linha != null) {
                 String[] fatiado = linha.split(delimitador, -2);
-
                 DoacaoFilmes doacao = new DoacaoFilmes();
+                Filme filme =  FabricaDAO.CriarFilmeDAO().consultar(fatiado[0]);
+                doacao.setFilme(filme);
+                Entidade entidade = FabricaDAO.CriarEntidadeDAO().consultar(fatiado[1]);
+                doacao.setEntidade(entidade);
+                Funcionario funcionario = FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]);
+                doacao.setResponsavel(funcionario);
                 
+                try{
+                    doacao.setDataDoacao(sdf.parse(fatiado[3]));
+                } catch (ParseException | NullPointerException err){
+                    
+                }
+                
+                doacoes.add(doacao);
                 
                 
                 linha = arq.readLine();

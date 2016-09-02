@@ -6,15 +6,22 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
+import br.ufmt.ic.locadora.entidade.Ambiente;
 import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Exemplar;
+import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +58,7 @@ public class ExemplarDAOImplArq implements ExemplarDAO {
                 
                 arq.println(exemplar.getNome()
                 + delimitador + data
+                + delimitador + exemplar.getGenero().getNome()
                         
                 
                 );
@@ -94,6 +102,45 @@ public class ExemplarDAOImplArq implements ExemplarDAO {
 
     public Map<String, Exemplar> listar() {
         Map<String, Exemplar> exemplares = new HashMap<String, Exemplar>();
+        try {
+            BufferedReader arq = new BufferedReader(new FileReader(dir));
+            String linha;
+            linha = arq.readLine();
+            while (linha != null) {
+                String[] fatiado = linha.split(delimitador, -2);
+                
+                Exemplar exemplar = new Exemplar();
+                
+                exemplar.setNome(fatiado[0]);
+                
+                Date data = new Date("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[1]);
+                } catch (NullPointerException | ParseException err){
+                    
+                }
+                exemplar.setDatalancamento(data);
+                Genero genero = FabricaDAO.CriarGeneroDAO().consultar(fatiado[2]);
+                exemplar.setGenero(genero);
+                
+                exemplares.put(exemplar.getNome(), exemplar);
+                linha = arq.readLine();
+            }
+            arq.close();
+        } catch (FileNotFoundException erro) {
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Erro ao abrir o arquivo");
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
+        }
+
+        
+        
+        
         return exemplares;
     }
 

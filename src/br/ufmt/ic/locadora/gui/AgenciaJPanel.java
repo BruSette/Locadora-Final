@@ -79,7 +79,7 @@ public class AgenciaJPanel extends FabricaTela {
         jScrollPane1 = new javax.swing.JScrollPane();
         agenciajTable = new javax.swing.JTable();
         editarjButton = new javax.swing.JButton();
-        escluirjButton = new javax.swing.JButton();
+        excluirjButton = new javax.swing.JButton();
         bancojComboBox = new javax.swing.JComboBox();
         agenciajTextField = new javax.swing.JTextField();
         nomejLabel3 = new javax.swing.JLabel();
@@ -147,10 +147,10 @@ public class AgenciaJPanel extends FabricaTela {
             }
         });
 
-        escluirjButton.setText("Excluir");
-        escluirjButton.addActionListener(new java.awt.event.ActionListener() {
+        excluirjButton.setText("Excluir");
+        excluirjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                escluirjButtonActionPerformed(evt);
+                excluirjButtonActionPerformed(evt);
             }
         });
 
@@ -218,7 +218,7 @@ public class AgenciaJPanel extends FabricaTela {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(escluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -282,7 +282,7 @@ public class AgenciaJPanel extends FabricaTela {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editarjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(escluirjButton))
+                        .addComponent(excluirjButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(159, 159, 159))
         );
@@ -395,7 +395,7 @@ public class AgenciaJPanel extends FabricaTela {
         }
     }//GEN-LAST:event_editarjButtonActionPerformed
 
-    private void escluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escluirjButtonActionPerformed
+    private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
         if (agenciajTable.getSelectedRowCount() > 0) {
             int confirmacao = JOptionPane.showConfirmDialog(agenciajTable, "Confirma a exclusão?");
@@ -411,7 +411,7 @@ public class AgenciaJPanel extends FabricaTela {
         }
 
 
-    }//GEN-LAST:event_escluirjButtonActionPerformed
+    }//GEN-LAST:event_excluirjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -429,9 +429,9 @@ public class AgenciaJPanel extends FabricaTela {
     private javax.swing.JLabel complementojLabel1;
     private javax.swing.JTextField complementojTextField;
     private javax.swing.JButton editarjButton;
-    private javax.swing.JButton escluirjButton;
     private javax.swing.JLabel estadojLabel;
     private javax.swing.JTextField estadojTextField;
+    private javax.swing.JButton excluirjButton;
     private javax.swing.JTextField gerentejTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;

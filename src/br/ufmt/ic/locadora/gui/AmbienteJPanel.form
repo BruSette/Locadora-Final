@@ -37,7 +37,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="editarjButton" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                              <Component id="escluirjButton" alignment="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="excluirjButton" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -70,7 +70,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="editarjButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="escluirjButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="excluirjButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                   </Group>
@@ -107,12 +107,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarjButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="escluirjButton">
+    <Component class="javax.swing.JButton" name="excluirjButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="escluirjButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excluirjButtonActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +30,8 @@ import java.util.Map;
 public class ClienteDAOImplArq extends ClienteDAOImplList {
 
     private static final String dir = BancoArqu.getCaminho() + "cliente/cliente.bd";
-    private String delimitador = "|";
+    private String delimitador = ";";
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     public void inserir(Cliente cliente) throws CPFException {
         Map<String, Cliente> clientes = listar();
@@ -78,7 +80,7 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String limite = "";
                 String datanascimento = "";
-                String bloqueado = "";
+                String bloqueado = "false";
 
                 try {
                     bloqueado = Boolean.toString(cliente.getBloqueado());
@@ -135,7 +137,7 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
             }
         }
     }
-
+    
     public Map<String, Cliente> listar() {
 
         Map<String, Cliente> clientes = new HashMap<String, Cliente>();
@@ -176,14 +178,16 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                 cliente.setTelefone(fatiado[7]);
                 cliente.setCelular(fatiado[8]);
                 
-                String sdata = fatiado[10];
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 
-                try {
-                    cliente.setDataNascimento(sdf.parse(sdata));
-                } catch (ParseException erro) {
-                    System.out.println("Null pointer ao converter data");
+                
+                Date data = new Date("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[10]);
+                } catch (NullPointerException | ParseException err){
+                    
                 }
+                cliente.setDataNascimento(data);
+                
 
                 Endereco endereco = new Endereco();
                 endereco.setBairro(fatiado[11]);
