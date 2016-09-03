@@ -84,7 +84,7 @@ public class EntidadeJPanel extends FabricaTela {
         entidadejTable = new javax.swing.JTable();
         limparjButton = new javax.swing.JButton();
         cadastrarjButton = new javax.swing.JButton();
-        bancojComboBox = new javax.swing.JComboBox<>();
+        bancojComboBox = new javax.swing.JComboBox();
 
         funcionariojTable.setModel(tableModel);
         jScrollPane1.setViewportView(funcionariojTable);
@@ -202,7 +202,7 @@ public class EntidadeJPanel extends FabricaTela {
             }
         });
 
-        bancojComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        bancojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -415,6 +415,17 @@ public class EntidadeJPanel extends FabricaTela {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
+            
+            
+            for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
+               Banco banco = (Banco)bancojComboBox.getItemAt(i);
+               if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())){
+                   bancojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            ccjTextField.setText(selecionado.getConta().getContaNumero());
+            
             bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             chave = selecionado;
             editar = true;
@@ -520,7 +531,7 @@ public class EntidadeJPanel extends FabricaTela {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bairrojLabel;
     private javax.swing.JTextField bairrojTextField;
-    private javax.swing.JComboBox<String> bancojComboBox;
+    private javax.swing.JComboBox bancojComboBox;
     private javax.swing.JButton cadastrarjButton;
     private javax.swing.JTextField ccjTextField;
     private javax.swing.JFormattedTextField celularjFormattedTextField;

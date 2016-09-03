@@ -48,7 +48,7 @@ public class FabricaDAO {
     
     public static TipoCargoDAO CriarTipoCargoDAO() {
         if (tipocargodao == null) {
-            tipocargodao = new TipoCargoDAOImplList();
+            tipocargodao = new TipoCargoDAOImplArq();
         }
         return tipocargodao;
     }
@@ -146,7 +146,7 @@ public class FabricaDAO {
 
     public static UsuarioDAO CriarUsuarioDAO() {
         if(usuariodao == null){
-            usuariodao =  new UsuarioDAOImplList();
+            usuariodao =  new UsuarioDAOImplArq();
         }
         return usuariodao;
     }

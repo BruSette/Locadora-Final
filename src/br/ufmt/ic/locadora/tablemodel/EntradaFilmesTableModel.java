@@ -53,6 +53,7 @@ public class EntradaFilmesTableModel extends AbstractTableModel {
                 valor = Integer.toString(selecionado.getQuantidade());
                 break;
             case 3:
+                
                 valor = selecionado.getFornecedor().getNome();
                 break;
         }

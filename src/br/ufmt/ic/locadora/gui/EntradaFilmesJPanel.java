@@ -252,7 +252,6 @@ public class EntradaFilmesJPanel extends FabricaTela {
         }
         
         Integer quant;
-
         try {
             quant = Integer.parseInt(quantidadejFormattedTextField.getText());
             if (quant == 0){
@@ -287,9 +286,28 @@ public class EntradaFilmesJPanel extends FabricaTela {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
             Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
             
-            exemplarjComboBox.setSelectedItem(selecionado.getExemplar());
-            fornecedorjComboBox.setSelectedItem(selecionado.getFornecedor());
-            funcionariojComboBox.setSelectedItem(selecionado.getFuncionario());
+            
+            for (int i = 1; i <  exemplarjComboBox.getItemCount(); i++) {
+               Exemplar exemplar = (Exemplar)  exemplarjComboBox.getItemAt(i);
+               if (exemplar.getNome().equals(selecionado.getExemplar().getNome())){
+                   exemplarjComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < fornecedorjComboBox.getItemCount(); i++) {
+               Fornecedor fornecedor  = (Fornecedor) fornecedorjComboBox.getItemAt(i);
+               if (fornecedor.getCnpj().equals(selecionado.getFornecedor().getCnpj())){
+                   fornecedorjComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
+               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
+               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
+                   funcionariojComboBox.setSelectedIndex(i);
+               }
+            }
+            
             
             quantidadejFormattedTextField.setText(String.valueOf(selecionado.getQuantidade()));
 

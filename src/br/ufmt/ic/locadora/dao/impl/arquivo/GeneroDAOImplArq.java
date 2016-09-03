@@ -59,6 +59,7 @@ public class GeneroDAOImplArq implements GeneroDAO {
 
     public void remover(String nome) {
         Map<String, Genero> generos = listar();
+        
         generos.remove(nome);
         salvarArquivo(generos);
     }

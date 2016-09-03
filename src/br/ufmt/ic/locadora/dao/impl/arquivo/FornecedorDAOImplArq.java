@@ -68,15 +68,13 @@ public class FornecedorDAOImplArq implements FornecedorDAO {
                     
                 }
                 
-                arq.println(fornecedor.getNome()
-                + delimitador + fornecedor.getCnpj()
+                arq.println(fornecedor.getCnpj()
                         + delimitador + fornecedor.getEmail()
                         + delimitador + fornecedor.getNome()
                         + delimitador + fornecedor.getRazaoSocial()
                         + delimitador + fornecedor.getTelefone()
                         + delimitador + fornecedor.getCelular()
                         + delimitador + fornecedor.getObs()
-                        + delimitador + data
                         + delimitador + fornecedor.getConta().getBanco().getNome()
                         + delimitador + fornecedor.getConta().getContaNumero()
                         + delimitador + fornecedor.getEndereco().getBairro()
@@ -104,7 +102,7 @@ public class FornecedorDAOImplArq implements FornecedorDAO {
     
 
     public void remover(String cpf) {
-        Map<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+        Map<String, Fornecedor> fornecedores =listar();
         fornecedores.remove(cpf);
         salvarArquivo(fornecedores);
     }
@@ -120,7 +118,7 @@ public class FornecedorDAOImplArq implements FornecedorDAO {
     }
 
     public Fornecedor consultar(String cnpj) {
-        Map<String, Fornecedor> fornecedores = new HashMap<String, Fornecedor>();
+        Map<String, Fornecedor> fornecedores = listar();
         return fornecedores.get(cnpj);
     }
 
@@ -132,6 +130,8 @@ public class FornecedorDAOImplArq implements FornecedorDAO {
             linha = arq.readLine();
             while (linha != null) {
                 String[] fatiado = linha.split(delimitador, -2);
+                
+                
                 Fornecedor fornecedor = new Fornecedor();
                 fornecedor.setCnpj(fatiado[0]);
                 fornecedor.setEmail(fatiado[1]);
@@ -142,26 +142,17 @@ public class FornecedorDAOImplArq implements FornecedorDAO {
                 fornecedor.setObs(fatiado[6]);
                 
                 ContaBancaria conta = new ContaBancaria();
-                conta.setBanco(FabricaDAO.CriarBancoDAO().consultar(fatiado[8]));
-                conta.setContaNumero(fatiado[9]);
+                conta.setBanco(FabricaDAO.CriarBancoDAO().consultar(fatiado[7]));
+                conta.setContaNumero(fatiado[8]);
                 fornecedor.setConta(conta);
-                
-                Date data = new Date();
-                try{
-                    data = sdf.parse(fatiado[9]);
-                    fornecedor.setDatacadastro(data);
-                }catch (ParseException | NullPointerException err){
-                    
-                }
-                
                 Endereco endereco = new Endereco();
-                endereco.setBairro(fatiado[10]);
-                endereco.setCep(fatiado[11]);
-                endereco.setCidade(fatiado[12]);
-                endereco.setComplemento(fatiado[13]);
-                endereco.setEstado(fatiado[14]);
-                endereco.setNumero(fatiado[15]);
-                endereco.setRua(fatiado[16]);
+                endereco.setBairro(fatiado[9]);
+                endereco.setCep(fatiado[10]);
+                endereco.setCidade(fatiado[11]);
+                endereco.setComplemento(fatiado[12]);
+                endereco.setEstado(fatiado[13]);
+                endereco.setNumero(fatiado[14]);
+                endereco.setRua(fatiado[15]);
                 fornecedor.setEndereco(endereco);
                 
                 fornecedores.put(fornecedor.getCnpj(), fornecedor);

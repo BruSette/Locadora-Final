@@ -9,6 +9,7 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
 import br.ufmt.ic.locadora.entidade.Ambiente;
+import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
@@ -24,8 +25,11 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,12 +44,11 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
 
     public void inserir(Funcionario funcionario) throws CPFException, UsuarioException {
         Map<String, Funcionario> funcionarios = listar();
-        Map<String, Usuario> usuarios = daousuario.listar();
         if (funcionarios.containsKey(funcionario.getCpf())) {
             throw new CPFException();
         }
         
-        daousuario.inserir(funcionario.getUsuario());
+        
         
         if (funcionario.getCpf().equals("   .   .   -  ")) {
             throw new CPFException("Erro no CPF");
@@ -56,9 +59,9 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
         }
 
         funcionarios.put(funcionario.getCpf(), funcionario);
-        usuarios.put(funcionario.getUsuario().getUsuario(), funcionario.getUsuario());
+        daousuario.inserir(funcionario.getUsuario());
         salvarArquivo(funcionarios);
-        daousuario.salvarArquivo(usuarios);
+        
         
         
     }
@@ -75,7 +78,6 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
                 String dataadmissao = "";
                 String datademissao = "";
                 String bloqueado = "";
-
                 
                 try {
                     datanascimento = sdf.format(funcionario.getDataNascimento());
@@ -122,6 +124,8 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
                         + delimitador + funcionario.getAmbiente().getNome()
                         + delimitador + funcionario.getCargo().getNome()
                         + delimitador + funcionario.getUsuario()
+                        + delimitador + funcionario.getConta().getContaNumero()
+                        + delimitador + funcionario.getConta().getBanco().getNome()
                 );
             }
             arq.close();
@@ -138,11 +142,9 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
 
     public void remover(String cpf) {
         Map<String, Funcionario> funcionarios = listar();
-        Map<String, Usuario> usuarios = daousuario.listar();
         daousuario.remover(funcionarios.get(cpf).getUsuario().getUsuario());
         funcionarios.remove(cpf);
         salvarArquivo(funcionarios);
-        daousuario.salvarArquivo(usuarios);
     }
 
     public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException {
@@ -151,16 +153,17 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
             this.inserir(funcionario);
         }catch (CPFException erro){
             this.inserir(chave);
+            
             throw new CPFException();
         }catch (UsuarioException erro){
             this.inserir(chave);
+            
             throw new UsuarioException();
         }
     }
 
     public Funcionario consultar(String cpf) {
         Map<String, Funcionario> funcionarios = listar();
-        Map<String, Usuario> usuarios = daousuario.listar();
         return funcionarios.get(cpf);
     }
 
@@ -185,26 +188,33 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
                 
                 String sdata = fatiado[8];
                 
-                
-                try {
-                    funcionario.setDataNascimento(sdf.parse(sdata));
-                } catch (ParseException erro) {
-                    System.out.println("Null pointer ao converter data");
+                Date data = new Date("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[1]);
+                } catch (NullPointerException | ParseException err){
+                    
                 }
                 
-                sdata = fatiado[9];
-                try {
-                    funcionario.setDataAdmiss(sdf.parse(sdata));
-                } catch (ParseException erro) {
-                    System.out.println("Null pointer ao converter data");
-                }
+                funcionario.setDataNascimento(data);
                 
-                sdata = fatiado[10];
-                try {
-                    funcionario.setDataDemiss(sdf.parse(sdata));
-                } catch (ParseException erro) {
-                    System.out.println("Null pointer ao converter data");
+                data = sdf.parse("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[9]);
+                } catch (NullPointerException | ParseException err){
+                    
                 }
+                funcionario.setDataAdmiss(data);
+                
+                
+                data = sdf.parse("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[10]);
+                } catch (NullPointerException | ParseException err){
+                    
+                }
+                funcionario.setDataDemiss(data);
+                
+                
                 
                 Endereco endereco = new Endereco();
                 endereco.setBairro(fatiado[11]);
@@ -222,10 +232,11 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
                 funcionario.setCargo(cargo);
                 Usuario usuario = FabricaDAO.CriarUsuarioDAO().consultar(fatiado[20]);
                 funcionario.setUsuario(usuario);
-                
+                ContaBancaria conta = new ContaBancaria();
+                conta.setContaNumero(fatiado[21]);
+                conta.setBanco(FabricaDAO.CriarBancoDAO().consultar(fatiado[22]));
+                funcionario.setConta(conta);
                 funcionarios.put(funcionario.getCpf(), funcionario);
-
-                funcionarios.put(ambiente.getNome(), funcionario);
                 linha = arq.readLine();
             }
             arq.close();
@@ -238,6 +249,8 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
 
         } catch (IOException ex) {
             System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
+        } catch (ParseException ex) {
+            Logger.getLogger(FuncionarioDAOImplArq.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         

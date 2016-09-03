@@ -94,7 +94,7 @@ public class EntidadeDAOImplArq implements EntidadeDAO {
     }
 
     public void alterar(Entidade entidade, Entidade chave) throws CNPJException {
-        Map<String, Entidade> entidades = listar();
+        
         remover(chave.getCnpj());
         try{
             inserir(entidade);

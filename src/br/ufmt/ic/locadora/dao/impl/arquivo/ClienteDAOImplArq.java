@@ -55,7 +55,6 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
     }
 
     public void alterar(Cliente cliente, Cliente chave) throws CPFException {
-        Map<String, Cliente> clientes = listar();
         remover(chave.getCpf());
         try {
             inserir(cliente);

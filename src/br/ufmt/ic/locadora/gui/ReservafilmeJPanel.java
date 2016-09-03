@@ -36,14 +36,14 @@ public class ReservafilmeJPanel extends FabricaTela {
      */
     public ReservafilmeJPanel() {
         tableModel = new ReservaFilmeTableModel(dao.listar());
-        
+
         initComponents();
         funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
         generojComboBox = super.setComboGenero(generojComboBox);
         clientejComboBox = super.setComboCliente(clientejComboBox);
         LimpaComboFilme();
     }
-    
+
     private void LimpaComboFilme() {
         filmejComboBox.removeAllItems();
         filmejComboBox.addItem("Esperando ...");
@@ -243,10 +243,10 @@ public class ReservafilmeJPanel extends FabricaTela {
 
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
-        
+
         datadevolucaojFormattedTextField.setText("");
         dataemprestimojFormattedTextField.setText("");
-        
+
         clientejComboBox.setSelectedIndex(0);
         filmejComboBox.setSelectedIndex(0);
         funcionariojComboBox.setSelectedIndex(0);
@@ -258,29 +258,27 @@ public class ReservafilmeJPanel extends FabricaTela {
         // TODO add your handling code here:
         ReservaFilme reserva = new ReservaFilme();
 
-        
-        
-        if (ValidaCombo(filmejComboBox)){
-            reserva.setFilme((Filme)filmejComboBox.getSelectedItem());
-        }else{
+        if (ValidaCombo(filmejComboBox)) {
+            reserva.setFilme((Filme) filmejComboBox.getSelectedItem());
+        } else {
             filmejComboBox.grabFocus();
             return;
         }
-        
-        if (ValidaCombo(clientejComboBox)){
-            reserva.setCliente((Cliente)clientejComboBox.getSelectedItem());
-        }else{
+
+        if (ValidaCombo(clientejComboBox)) {
+            reserva.setCliente((Cliente) clientejComboBox.getSelectedItem());
+        } else {
             clientejComboBox.grabFocus();
             return;
         }
-        
-        if (ValidaCombo(funcionariojComboBox)){
-            reserva.setFuncionario((Funcionario)funcionariojComboBox.getSelectedItem());
-        }else{
+
+        if (ValidaCombo(funcionariojComboBox)) {
+            reserva.setFuncionario((Funcionario) funcionariojComboBox.getSelectedItem());
+        } else {
             funcionariojComboBox.grabFocus();
             return;
         }
-        
+
         String sData = (String) datadevolucaojFormattedTextField.getText();
 
         if (sData != null) {
@@ -333,12 +331,35 @@ public class ReservafilmeJPanel extends FabricaTela {
             linhaSelecionada = reservaFilmejTable.getSelectedRow();
             ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
             
-            funcionariojComboBox.setSelectedItem((Funcionario) selecionado.getFuncionario());
+            
+            
+            for (int i = 1; i <  generojComboBox.getItemCount(); i++) {
+               Genero genero = (Genero)  generojComboBox.getItemAt(i);
+               if (genero.getNome().equals(selecionado.getFilme().getExemplar().getGenero().getNome())){
+                   generojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < clientejComboBox.getItemCount(); i++) {
+               Cliente fornecedor  = (Cliente) clientejComboBox.getItemAt(i);
+               if (fornecedor.getCpf().equals(selecionado.getCliente().getCpf())){
+                   clientejComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
+               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
+               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
+                   funcionariojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            
+            
             clientejComboBox.setSelectedItem((Cliente) selecionado.getCliente());
-            filmejComboBox.setSelectedItem((Filme) selecionado.getFilme());
-            generojComboBox.setSelectedItem((Genero)selecionado.getFilme().getExemplar().getGenero());
+            //filmejComboBox.setSelectedItem((Filme) selecionado.getFilme());
             
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 dataemprestimojFormattedTextField.setText(sdf.format(selecionado.getDataReserva()));
@@ -377,7 +398,7 @@ public class ReservafilmeJPanel extends FabricaTela {
     private void generojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_generojComboBoxItemStateChanged
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
-            filmejComboBox = setComboFilme(filmejComboBox,(Genero) generojComboBox.getSelectedItem());
+            filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
 
         } else {
             LimpaComboFilme();

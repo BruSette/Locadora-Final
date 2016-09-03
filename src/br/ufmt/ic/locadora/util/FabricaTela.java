@@ -42,9 +42,8 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         }
         jComboBox.setName("Funcionario");
         return jComboBox;
-
     }
-
+    
     public JComboBox setComboAmbiente(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
@@ -118,7 +117,7 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         List<Filme> filmes = filmeDAO.listar();
         for (Iterator<Filme> it = filmes.iterator(); it.hasNext();) {
             Filme filme = it.next();
-            if (filme.getExemplar().getGenero().equals(genero)) {
+            if (filme.getExemplar().getGenero().getNome().equals(genero.getNome())) {
                 jComboBox.addItem(filme);
             }
         }

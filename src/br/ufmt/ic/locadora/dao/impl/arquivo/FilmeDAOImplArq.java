@@ -31,10 +31,10 @@ public class FilmeDAOImplArq implements FilmeDAO {
     private String delimitador = ";";
     
     public void inserir(Filme filme) throws RegistroException {
-        List<Filme> filmes = new ArrayList<Filme>();
+        List<Filme> filmes = listar();
         filmes.add(filme);
         salvarArquivo(filmes);
-
+        
     }
     
     private void salvarArquivo(List <Filme> filmes) {
@@ -42,13 +42,12 @@ public class FilmeDAOImplArq implements FilmeDAO {
             PrintWriter arq = new PrintWriter(dir);
             
             for (Filme filme : filmes) {
+                System.out.println(filme.getFornecedor().getCnpj());
                 
-                arq.println(Boolean.toString(filme.getDisponibilidade())
-                + delimitador + filme.getExemplar().getNome()
+                arq.println(filme.getExemplar().getNome()
                 + delimitador + filme.getFornecedor().getCnpj()
                 + delimitador + filme.getFuncionario().getCpf()
-                + delimitador + filme.getQuantidade()
-                + delimitador + Double.toString(filme.getValorAluguel())
+                + delimitador + String.valueOf(filme.getQuantidade())
                 
                 );
             }
@@ -66,14 +65,18 @@ public class FilmeDAOImplArq implements FilmeDAO {
     }
 
     public void remover(Filme filme) {
-        List<Filme> filmes = new ArrayList<Filme>();
-        filmes.remove(filme);
+        List<Filme> filmes = listar();
+        for (int i = filmes.size()-1; i >= 0; i--) {
+            if (filme.getExemplar().getNome().equals(filmes.get(i).getExemplar().getNome())){
+                filmes.remove(i);
+            }
+        }
         salvarArquivo(filmes);
     }
 
     @Override
     public void alterar(Filme filme, Filme chave) throws RegistroException {
-        List<Filme> filmes = new ArrayList<Filme>();
+        List<Filme> filmes = listar();
         filmes.remove(chave);
         try{
             this.inserir(filme);
@@ -85,7 +88,12 @@ public class FilmeDAOImplArq implements FilmeDAO {
     }
 
     public Filme consultar(String filme) {
-        List<Filme> filmes = new ArrayList<Filme>();
+        List<Filme> filmes = listar();
+        for (Filme filmelist : filmes) {
+            if (filmelist.getExemplar().getNome().equals(filme)){
+                return filmelist;
+            }
+        }
         return null;
     }
 
@@ -99,15 +107,14 @@ public class FilmeDAOImplArq implements FilmeDAO {
                 String[] fatiado = linha.split(delimitador, -2);
 
                 Filme filme = new Filme();
-                filme.setDisponibilidade(Boolean.parseBoolean(fatiado[0]));
-                Exemplar exemplar = FabricaDAO.CriarExemplarDAO().consultar(fatiado[1]);
+                Exemplar exemplar = FabricaDAO.CriarExemplarDAO().consultar(fatiado[0]);
                 filme.setExemplar(exemplar);
-                Fornecedor fornecedor = FabricaDAO.CriarForncedorDAO().consultar(fatiado[2]);
+                Fornecedor fornecedor = FabricaDAO.CriarForncedorDAO().consultar(fatiado[1]);
+                System.out.println(fornecedor.getNome());
                 filme.setFornecedor(fornecedor);
-                Funcionario funcionario = FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[3]);
+                Funcionario funcionario = FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]);
                 filme.setFuncionario(funcionario);
-                filme.setQuantidade(Integer.parseInt(fatiado[4]));
-                filme.setValorAluguel(Double.parseDouble(fatiado[5]));
+                filme.setQuantidade(Integer.parseInt(fatiado[3]));
                 
                 
                 filmes.add(filme);
@@ -124,9 +131,6 @@ public class FilmeDAOImplArq implements FilmeDAO {
         } catch (IOException ex) {
             System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
         }
-        
-        
-        
         return filmes;
     }
 

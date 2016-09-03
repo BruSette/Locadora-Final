@@ -9,7 +9,10 @@ import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.ReservaFilme;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import br.ufmt.ic.locadora.util.FabricaDAO;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -77,7 +80,7 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
                     //REGRAS DE NEGOCIOS AQUI
                     if (reservas.get(i).getDataReserva().equals(reserva.getDataReserva())){
                         if(reservas.get(i).getDataDevolucao().equals(reserva.getDataDevolucao())){
-                            reservas.remove(reserva);
+                            reservas.remove(i);
                         }
                     }
                     
@@ -110,6 +113,38 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
 
     public List<ReservaFilme> listar() {
         List<ReservaFilme> reservas = new ArrayList<ReservaFilme>();
+        try {
+            BufferedReader arq = new BufferedReader(new FileReader(dir));
+            String linha;
+            linha = arq.readLine();
+            while (linha != null) {
+                String[] fatiado = linha.split(delimitador, -2);
+                
+                ReservaFilme reserva = new ReservaFilme();
+                reserva.setCliente(FabricaDAO.CriarClienteDAO().consultar(fatiado[0]));
+                reserva.setFilme(FabricaDAO.CriarFilmeDAO().consultar(fatiado[1]));
+                reserva.setFuncionario(FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]));
+                reserva.setValorCompra(Double.parseDouble(fatiado[3]));
+                
+                
+                reservas.add(reserva);
+
+                linha = arq.readLine();
+            }
+            arq.close();
+        } catch (FileNotFoundException erro) {
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Erro ao abrir o arquivo");
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
+        }
+
+        
+        
         return reservas;
     }
 

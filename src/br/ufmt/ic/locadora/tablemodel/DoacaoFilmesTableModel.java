@@ -46,12 +46,15 @@ public class DoacaoFilmesTableModel extends AbstractTableModel {
         DoacaoFilmes selecionado = doacoes.get(rowIndex);
         switch (columnIndex) {
             case 0:
+                System.out.println(selecionado.getFilme().getExemplar().getNome());
                 valor = selecionado.getFilme().getExemplar().getNome();
                 break;
             case 1:
+                System.out.println(selecionado.getResponsavel().getNome());
                 valor = selecionado.getResponsavel().getNome();
                 break;
             case 2:
+                System.out.println(selecionado.getEntidade().getNome());
                 valor = selecionado.getEntidade().getNome();
                 break;
             case 3:

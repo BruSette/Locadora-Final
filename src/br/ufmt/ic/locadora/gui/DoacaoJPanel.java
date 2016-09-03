@@ -22,6 +22,8 @@ import br.ufmt.ic.locadora.dao.FilmeDAO;
 import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -85,6 +87,8 @@ public class DoacaoJPanel extends FabricaTela {
         filmejComboBox = new javax.swing.JComboBox();
         generojComboBox = new javax.swing.JComboBox();
         nomejLabel1 = new javax.swing.JLabel();
+        datajFormattedTextField = new javax.swing.JFormattedTextField();
+        nacionalidadejLabel1 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Doações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 18)))); // NOI18N
 
@@ -140,6 +144,14 @@ public class DoacaoJPanel extends FabricaTela {
 
         nomejLabel1.setText("Genero:");
 
+        try {
+            datajFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        nacionalidadejLabel1.setText("Data:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,11 +159,6 @@ public class DoacaoJPanel extends FabricaTela {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(limparjButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cadastrarjButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(generojComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,21 +171,31 @@ public class DoacaoJPanel extends FabricaTela {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(telefonejLabel)
-                                        .addGap(18, 18, 18))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(emailjLabel)
-                                        .addGap(2, 2, 2)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(nacionalidadejLabel1)
+                                            .addComponent(emailjLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(entidadejComboBox, 0, 132, Short.MAX_VALUE)
-                                    .addComponent(funcionariojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(funcionariojComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(datajFormattedTextField))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(editarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(excluirjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(limparjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cadastrarjButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,12 +210,7 @@ public class DoacaoJPanel extends FabricaTela {
                             .addComponent(editarjButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(excluirjButton)
-                                .addGap(78, 78, 78)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cadastrarjButton)
-                                    .addComponent(limparjButton)))
+                            .addComponent(excluirjButton)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(nomejLabel)
@@ -210,7 +222,14 @@ public class DoacaoJPanel extends FabricaTela {
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(emailjLabel)
-                                    .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(funcionariojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(datajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nacionalidadejLabel1))
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(limparjButton)
+                            .addComponent(cadastrarjButton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
@@ -250,6 +269,20 @@ public class DoacaoJPanel extends FabricaTela {
             filmejComboBox.grabFocus();
         }
         
+        
+        String sData = (String) datajFormattedTextField.getText();
+
+        if (sData != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                novo.setDataDoacao(sdf.parse(sData));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(this, "Data de doação Inválida!");
+                datajFormattedTextField.grabFocus();
+                return;
+            }
+        }
+        
 
         try {
             if (editar) {
@@ -276,9 +309,46 @@ public class DoacaoJPanel extends FabricaTela {
         if (doacaojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-            generojComboBox.setSelectedItem(selecionado.getFilme().getExemplar().getGenero());
-            filmejComboBox.setSelectedItem(selecionado.getFilme());
-            entidadejComboBox.setSelectedItem(selecionado.getEntidade());
+            
+            for (int i = 1; i <  generojComboBox.getItemCount(); i++) {
+               Genero genero = (Genero) generojComboBox.getItemAt(i);
+               if (genero.getNome().equals(selecionado.getFilme().getExemplar().getGenero().getNome())){
+                   generojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i <  filmejComboBox.getItemCount(); i++) {
+               Filme filme = (Filme) filmejComboBox.getItemAt(i);
+               if (filme.getExemplar().getNome().equals(selecionado.getFilme().getExemplar().getNome())){
+                   filmejComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < entidadejComboBox.getItemCount(); i++) {
+               Entidade entidade = (Entidade) entidadejComboBox.getItemAt(i);
+               if (entidade.getCnpj().equals(selecionado.getEntidade().getCnpj())){
+                   entidadejComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
+               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
+               if (funcionario.getCpf().equals(selecionado.getResponsavel().getCpf())){
+                   funcionariojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            try {
+                datajFormattedTextField.setText(sdf.format(selecionado.getDataDoacao()));
+            } catch (NullPointerException erro) {
+
+            }
+            
+            
+            
             funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
             chave = selecionado;
             editar = true;
@@ -307,7 +377,7 @@ public class DoacaoJPanel extends FabricaTela {
     private void generojComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_generojComboBoxItemStateChanged
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
-            filmejComboBox = super.setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
+            filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
             
         } else {
             LimpaComboFilme();
@@ -317,6 +387,7 @@ public class DoacaoJPanel extends FabricaTela {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cadastrarjButton;
+    private javax.swing.JFormattedTextField datajFormattedTextField;
     private javax.swing.JTable doacaojTable;
     private javax.swing.JButton editarjButton;
     private javax.swing.JLabel emailjLabel;
@@ -327,6 +398,7 @@ public class DoacaoJPanel extends FabricaTela {
     private javax.swing.JComboBox generojComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limparjButton;
+    private javax.swing.JLabel nacionalidadejLabel1;
     private javax.swing.JLabel nomejLabel;
     private javax.swing.JLabel nomejLabel1;
     private javax.swing.JLabel telefonejLabel;

@@ -24,6 +24,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,8 +57,7 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
         for (int i = doacoes.size()-1; i >=0 ; i--) {
             if (doacoes.get(i).getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
                 if (doacoes.get(i).getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
-                    doacoes.remove(doacao);
-                    return;
+                    doacoes.remove(i);
                 }
             }
         }
@@ -84,11 +84,20 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
                 String data = "";
                 try {
                     data = sdf.format(doacao.getDataDoacao());
+
+                } catch (NullPointerException err) {
+
+                    System.out.println("Null ao inserir Data");
+                }
+                
+                
+                
+                try {
+                    data = sdf.format(doacao.getDataDoacao());
                 } catch (NullPointerException err) {
 
                 }
                 arq.println(doacao.getFilme().getExemplar().getNome()
-                        + delimitador + doacao.getFilme().getExemplar().getGenero()
                         + delimitador + doacao.getEntidade().getCnpj()
                         + delimitador + doacao.getResponsavel().getCpf()
                         + delimitador + data
@@ -127,11 +136,16 @@ public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
                 Funcionario funcionario = FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]);
                 doacao.setResponsavel(funcionario);
                 
+                
+                Date data = new Date("11/11/1111");
                 try{
-                    doacao.setDataDoacao(sdf.parse(fatiado[3]));
-                } catch (ParseException | NullPointerException err){
+                    data = sdf.parse(fatiado[3]);
+                } catch (NullPointerException | ParseException err){
                     
                 }
+                
+                doacao.setDataDoacao(data);
+                
                 
                 doacoes.add(doacao);
                 

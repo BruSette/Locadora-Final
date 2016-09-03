@@ -6,10 +6,13 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
+import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -86,6 +89,32 @@ public class UsuarioDAOImplArq implements UsuarioDAO {
 
     public Map<String, Usuario> listar() {
         Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
+        try {
+            BufferedReader arq = new BufferedReader(new FileReader(dir));
+            String linha;
+            linha = arq.readLine();
+            while (linha != null) {
+                String[] fatiado = linha.split(delimitador, -2);
+
+                Usuario usuario = new Usuario();
+                usuario.setUsuario(fatiado[0]);
+                usuario.setSenha(fatiado[1]);
+                
+                usuarios.put(usuario.getUsuario(), usuario);
+                linha = arq.readLine();
+            }
+            arq.close();
+        } catch (FileNotFoundException erro) {
+            try {
+                PrintWriter arq = new PrintWriter(dir);
+            } catch (FileNotFoundException ex) {
+                System.out.println("Erro ao abrir o arquivo");
+            }
+
+        } catch (IOException ex) {
+            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
+        }
+
         return usuarios;
     }
 

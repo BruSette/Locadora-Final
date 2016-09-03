@@ -108,6 +108,11 @@ public class PontoJPanel extends FabricaTela {
         }
 
         excluirjButton.setText("Excluir");
+        excluirjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirjButtonActionPerformed(evt);
+            }
+        });
 
         pontojTable.setModel(tableModel);
         jScrollPane1.setViewportView(pontojTable);
@@ -200,7 +205,14 @@ public class PontoJPanel extends FabricaTela {
             }
             
             tipoPontojComboBox.setSelectedItem(selecionado.getTipoPonto());
-            funcionariojComboBox.setSelectedItem(selecionado.getFuncionario());
+            for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
+               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
+               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
+                   funcionariojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            
             
             chave = selecionado;
             editar = true;
@@ -273,6 +285,22 @@ public class PontoJPanel extends FabricaTela {
         tipoPontojComboBox.setSelectedIndex(0);
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
+
+    private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
+        // TODO add your handling code here:
+        if (pontojTable.getSelectedRowCount() > 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(pontojTable, "Confirma a exclusão?");
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                linhaSelecionada = pontojTable.getSelectedRow();
+                Ponto selecionado = tableModel.getPonto(linhaSelecionada);
+                dao.remover(selecionado);
+                tableModel.remover(linhaSelecionada, selecionado);
+                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
+        }
+    }//GEN-LAST:event_excluirjButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

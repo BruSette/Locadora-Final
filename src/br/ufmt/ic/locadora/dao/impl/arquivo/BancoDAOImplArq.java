@@ -43,7 +43,6 @@ public class BancoDAOImplArq implements BancoDAO {
         for (int i = bancos.size()-1; i >=0 ; i--) {
             if (bancos.get(i).getNome().equals(banco.getNome())) {
                 bancos.remove(i);
-                break;
             }
         }
         salvarArquivo(bancos);

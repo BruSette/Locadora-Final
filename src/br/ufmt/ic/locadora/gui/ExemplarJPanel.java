@@ -188,7 +188,17 @@ public class ExemplarJPanel extends FabricaTela {
             linhaSelecionada = exemplarjTable.getSelectedRow();
             Exemplar selecionado = tableModel.getExemplar(linhaSelecionada);
             nomejTextField.setText(selecionado.getNome());
-            generojComboBox.setSelectedItem(selecionado.getGenero());
+            
+            
+             
+            for (int i = 1; i <  generojComboBox.getItemCount(); i++) {
+               Genero genero = (Genero) generojComboBox.getItemAt(i);
+               if (genero.getNome().equals(selecionado.getGenero().getNome())){
+                   generojComboBox.setSelectedIndex(i);
+               }
+            }
+            
+            
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             try {
