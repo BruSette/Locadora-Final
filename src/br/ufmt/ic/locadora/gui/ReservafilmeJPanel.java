@@ -38,10 +38,11 @@ public class ReservafilmeJPanel extends FabricaTela {
         tableModel = new ReservaFilmeTableModel(dao.listar());
 
         initComponents();
+        LimpaComboFilme();
         funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
         generojComboBox = super.setComboGenero(generojComboBox);
         clientejComboBox = super.setComboCliente(clientejComboBox);
-        LimpaComboFilme();
+        
     }
 
     private void LimpaComboFilme() {
@@ -399,9 +400,13 @@ public class ReservafilmeJPanel extends FabricaTela {
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
             filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
-
+            if (filmejComboBox.getItemCount() < 2){
+                filmejComboBox.removeAllItems();
+                filmejComboBox.addItem("Sem Dados ...");
+            }
         } else {
             LimpaComboFilme();
+            
         }
     }//GEN-LAST:event_generojComboBoxItemStateChanged
 

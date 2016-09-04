@@ -15,7 +15,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +29,7 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
 
     private static final String dir = BancoArqu.getCaminho() + "reservafilme/reservafilme.bd";
     private String delimitador = ";";
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
    
     public void inserir(ReservaFilme reserva) throws RegistroException {
         List<ReservaFilme> reservas = listar();
@@ -52,10 +56,23 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
         try {
             PrintWriter arq = new PrintWriter(dir);
             for (ReservaFilme reserva : reservas) {
+                String datadevolucao = "";
+                String dataemprestimo = "";
+                try {
+                    datadevolucao = sdf.format(reserva.getDataDevolucao());
+                } catch (NullPointerException err) {
+
+                }
+                try {
+                    dataemprestimo = sdf.format(reserva.getDataReserva());
+                } catch (NullPointerException err) {
+
+                }
                 arq.println(reserva.getCliente().getCpf()
                         + delimitador + reserva.getFilme().getExemplar().getNome()
                         + delimitador + reserva.getFuncionario().getCpf()
-                        + delimitador + Double.toString(reserva.getValorCompra())
+                        + delimitador + datadevolucao
+                        + delimitador + dataemprestimo
                        
                 );
             }
@@ -124,8 +141,24 @@ public class ReservaFilmeDAOImplArq implements ReservaFilmeDAO {
                 reserva.setCliente(FabricaDAO.CriarClienteDAO().consultar(fatiado[0]));
                 reserva.setFilme(FabricaDAO.CriarFilmeDAO().consultar(fatiado[1]));
                 reserva.setFuncionario(FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]));
-                reserva.setValorCompra(Double.parseDouble(fatiado[3]));
                 
+                
+                Date data = new Date("11/11/1111");
+                try{
+                    data = sdf.parse(fatiado[3]);
+                } catch (NullPointerException | ParseException err){
+                    
+                }
+                reserva.setDataDevolucao(data);
+                
+                try{
+                    data = sdf.parse("11/11/1111");
+                    data = sdf.parse(fatiado[4]);
+                } catch (NullPointerException | ParseException err){
+                    
+                }
+                
+                reserva.setDataDevolucao(data);
                 
                 reservas.add(reserva);
 

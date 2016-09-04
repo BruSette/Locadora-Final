@@ -378,7 +378,10 @@ public class DoacaoJPanel extends FabricaTela {
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
             filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
-            
+            if (filmejComboBox.getItemCount() < 2){
+                filmejComboBox.removeAllItems();
+                filmejComboBox.addItem("Sem Dados ...");
+            }
         } else {
             LimpaComboFilme();
         }

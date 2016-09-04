@@ -14,8 +14,8 @@ import java.util.List;
  * @author bruno
  */
 public class BancoArqu {
-    //private static final String caminho = "/home/bruno/bdlocadora/";
-    private static final String caminho = "/Users/brunosette/bdlocadora/";
+    private static final String caminho = "/home/bruno/bdlocadora/";
+    //private static final String caminho = "/Users/brunosette/bdlocadora/";
     
     
     public static String getCaminho() {
