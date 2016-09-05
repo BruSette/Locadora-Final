@@ -6,6 +6,7 @@
 package br.ufmt.ic.locadora.entidade;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -20,6 +21,32 @@ public class Filme {
     private Fornecedor fornecedor;
     private Funcionario funcionario;
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.exemplar);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Filme other = (Filme) obj;
+        if (!Objects.equals(this.exemplar, other.exemplar)) {
+            return false;
+        }
+        return true;
+    }
+
+    
     public Exemplar getExemplar() {
         return exemplar;
     }

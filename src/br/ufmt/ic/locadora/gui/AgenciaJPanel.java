@@ -376,17 +376,9 @@ public class AgenciaJPanel extends FabricaTela {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            System.out.println(selecionado.getBanco());
-            System.out.println(bancojComboBox.getItemCount());
             
-            for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
-               Banco banco = new Banco();  
-               banco = (Banco) bancojComboBox.getItemAt(i);
-               if (banco.getNome().equals(selecionado.getBanco().getNome())){
-                   bancojComboBox.setSelectedIndex(i);
-               }
-            }
-            
+            bancojComboBox.setSelectedItem(selecionado.getBanco());
+          
             
             chave = selecionado;
             editar = true;

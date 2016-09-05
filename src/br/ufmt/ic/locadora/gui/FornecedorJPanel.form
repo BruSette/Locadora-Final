@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
+        <CompoundBorder>
+          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Fornecedor">
+              <Font PropertyName="font" name="Dialog" size="18" style="0"/>
+            </TitledBorder>
+          </Border>
+        </CompoundBorder>
+      </Border>
+    </Property>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -86,17 +102,19 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cadastrarjButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="estadojLabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="ruajLabel1" min="-2" max="-2" attributes="0"/>
                                   <Component id="cidadejLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="cepjLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="numerojTextField" pref="122" max="32767" attributes="0"/>
-                                  <Component id="estadojTextField" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cepjFormattedTextField" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="cidadejTextField" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="estadojTextField" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
+                                  <Component id="numerojTextField" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -110,20 +128,14 @@
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="cidadejTextField" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cepjFormattedTextField" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="bairrojTextField" max="32767" attributes="0"/>
-                                  <Component id="complementojTextField" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="bairrojTextField" pref="120" max="32767" attributes="0"/>
+                          <Component id="complementojTextField" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="643" max="32767" attributes="0"/>
+              <EmptySpace pref="645" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
@@ -208,7 +220,7 @@
                           <Component id="ruajLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="numerojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -228,7 +240,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="112" max="32767" attributes="0"/>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">

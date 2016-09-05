@@ -5,6 +5,8 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
+import java.util.Objects;
+
 /**
  *
  * @author brunosette
@@ -12,6 +14,33 @@ package br.ufmt.ic.locadora.entidade;
 public class Ambiente {
     private String nome;
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Ambiente other = (Ambiente) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
     public String getNome() {
         return nome;
     }

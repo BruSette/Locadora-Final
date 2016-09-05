@@ -159,14 +159,6 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                     System.out.println("Null pointer ao converter bloqueado ou nao");
                 }
                 
-                try {
-                    String limite = fatiado[9];
-                    Integer limiteint = Integer.valueOf(limite);
-                    cliente.setLimiteFilmes(limiteint);
-                    
-                } catch (NumberFormatException err) {
-                    System.out.println("NumberFormatException ao converter Limite");
-                }
 
                 cliente.setCpf(fatiado[1]);
                 cliente.setEmail(fatiado[2]);
@@ -181,12 +173,21 @@ public class ClienteDAOImplArq extends ClienteDAOImplList {
                 
                 Date data = new Date("11/11/1111");
                 try{
-                    data = sdf.parse(fatiado[10]);
+                    data = sdf.parse(fatiado[9]);
                 } catch (NullPointerException | ParseException err){
                     
                 }
                 cliente.setDataNascimento(data);
                 
+                
+                try {
+                    String limite = fatiado[10];
+                    Integer limiteint = Integer.valueOf(limite);
+                    cliente.setLimiteFilmes(limiteint);
+                    
+                } catch (NumberFormatException err) {
+                    System.out.println("NumberFormatException ao converter Limite");
+                }
 
                 Endereco endereco = new Endereco();
                 endereco.setBairro(fatiado[11]);

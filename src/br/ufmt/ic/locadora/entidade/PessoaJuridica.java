@@ -5,6 +5,8 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
+import java.util.Objects;
+
 /**
  *
  * @author brunosette
@@ -14,9 +16,33 @@ public class PessoaJuridica extends Pessoa {
     private String cnpj;
     private String razaoSocial;
 
-    public PessoaJuridica() {
-        super();
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.cnpj);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PessoaJuridica other = (PessoaJuridica) obj;
+        if (!Objects.equals(this.cnpj, other.cnpj)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     public String getCnpj() {
         return cnpj;

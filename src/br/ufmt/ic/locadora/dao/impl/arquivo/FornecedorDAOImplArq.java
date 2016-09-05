@@ -7,10 +7,8 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
-import br.ufmt.ic.locadora.entidade.Ambiente;
 import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.Endereco;
-import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.exception.CNPJException;
 import br.ufmt.ic.locadora.util.BancoArqu;
@@ -20,10 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

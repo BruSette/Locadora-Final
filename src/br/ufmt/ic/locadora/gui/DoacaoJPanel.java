@@ -310,33 +310,12 @@ public class DoacaoJPanel extends FabricaTela {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
             
-            for (int i = 1; i <  generojComboBox.getItemCount(); i++) {
-               Genero genero = (Genero) generojComboBox.getItemAt(i);
-               if (genero.getNome().equals(selecionado.getFilme().getExemplar().getGenero().getNome())){
-                   generojComboBox.setSelectedIndex(i);
-               }
-            }
+            generojComboBox.setSelectedItem(selecionado.getFilme().getExemplar().getGenero());
             
-            for (int i = 1; i <  filmejComboBox.getItemCount(); i++) {
-               Filme filme = (Filme) filmejComboBox.getItemAt(i);
-               if (filme.getExemplar().getNome().equals(selecionado.getFilme().getExemplar().getNome())){
-                   filmejComboBox.setSelectedIndex(i);
-               }
-            }
+            filmejComboBox.setSelectedItem(selecionado.getFilme());
             
-            for (int i = 1; i < entidadejComboBox.getItemCount(); i++) {
-               Entidade entidade = (Entidade) entidadejComboBox.getItemAt(i);
-               if (entidade.getCnpj().equals(selecionado.getEntidade().getCnpj())){
-                   entidadejComboBox.setSelectedIndex(i);
-               }
-            }
-            
-            for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
-               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
-               if (funcionario.getCpf().equals(selecionado.getResponsavel().getCpf())){
-                   funcionariojComboBox.setSelectedIndex(i);
-               }
-            }
+            entidadejComboBox.setSelectedItem(selecionado.getEntidade());
+            funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
             
             
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

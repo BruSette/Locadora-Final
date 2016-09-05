@@ -190,7 +190,7 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
                 
                 Date data = new Date("11/11/1111");
                 try{
-                    data = sdf.parse(fatiado[1]);
+                    data = sdf.parse(fatiado[8]);
                 } catch (NullPointerException | ParseException err){
                     
                 }

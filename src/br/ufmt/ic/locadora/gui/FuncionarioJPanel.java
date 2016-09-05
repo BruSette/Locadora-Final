@@ -698,27 +698,12 @@ public class FuncionarioJPanel extends FabricaTela {
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
 
-            for (int i = 1; i < tipocargojComboBox.getItemCount(); i++) {
-                TipoCargo cargo = (TipoCargo) tipocargojComboBox.getItemAt(i);
-                if (cargo.getNome().equals(selecionado.getCargo().getNome())) {
-                    tipocargojComboBox.setSelectedIndex(i);
-                }
-            }
             
-            for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
-               Banco banco = (Banco)bancojComboBox.getItemAt(i);
-               if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())){
-                   bancojComboBox.setSelectedIndex(i);
-               }
-            }
+            tipocargojComboBox.setSelectedItem(selecionado.getCargo());
+            bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
+            ambientejComboBox.setSelectedItem(selecionado.getAmbiente());
             
-            
-            for (int i = 1; i < ambientejComboBox.getItemCount(); i++) {
-               Ambiente ambiente = (Ambiente)ambientejComboBox.getItemAt(i);
-               if (ambiente.getNome().equals(selecionado.getAmbiente().getNome())){
-                   ambientejComboBox.setSelectedIndex(i);
-               }
-            }
+            ccjTextField.setText(selecionado.getConta().getContaNumero());
             
             chave = selecionado;
             editar = true;

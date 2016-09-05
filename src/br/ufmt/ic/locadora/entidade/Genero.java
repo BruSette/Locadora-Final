@@ -5,6 +5,8 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
+import java.util.Objects;
+
 /**
  *
  * @author brunosette
@@ -16,6 +18,31 @@ public class Genero {
         return nome;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Genero other = (Genero) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
+    
     public void setNome(String nome) {
         this.nome = nome;
     }

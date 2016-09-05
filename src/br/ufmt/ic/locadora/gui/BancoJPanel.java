@@ -53,6 +53,8 @@ public class BancoJPanel extends javax.swing.JPanel {
         cidadejLabel = new javax.swing.JLabel();
         nomejTextField = new javax.swing.JTextField();
 
+        setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createTitledBorder(null, "Banco", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 18)))); // NOI18N
+
         bancojTable.setModel(tableModel);
         jScrollPane1.setViewportView(bancojTable);
 

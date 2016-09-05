@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.entidade;
 
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -19,12 +20,45 @@ public class DoacaoFilmes {
     private Date dataDoacao;
     private Funcionario responsavel;
 
-    public DoacaoFilmes(Funcionario responsavel) {
-        this.responsavel = responsavel;
-    }
+    
     public DoacaoFilmes() {
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.filme);
+        hash = 97 * hash + Objects.hashCode(this.entidade);
+        hash = 97 * hash + Objects.hashCode(this.dataDoacao);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DoacaoFilmes other = (DoacaoFilmes) obj;
+        if (!Objects.equals(this.filme, other.filme)) {
+            return false;
+        }
+        if (!Objects.equals(this.entidade, other.entidade)) {
+            return false;
+        }
+        if (!Objects.equals(this.dataDoacao, other.dataDoacao)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     public Filme getFilme() {
         return filme;

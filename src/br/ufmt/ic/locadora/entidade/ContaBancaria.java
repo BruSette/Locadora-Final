@@ -6,6 +6,7 @@
 package br.ufmt.ic.locadora.entidade;
 
 import br.ufmt.ic.locadora.entidade.Agencia;
+import java.util.Objects;
 
 /**
  *
@@ -19,6 +20,37 @@ public class ContaBancaria {
     public Banco getBanco() {
         return banco;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.banco);
+        hash = 47 * hash + Objects.hashCode(this.contaNumero);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ContaBancaria other = (ContaBancaria) obj;
+        if (!Objects.equals(this.contaNumero, other.contaNumero)) {
+            return false;
+        }
+        if (!Objects.equals(this.banco, other.banco)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     public void setBanco(Banco banco) {
         this.banco = banco;
