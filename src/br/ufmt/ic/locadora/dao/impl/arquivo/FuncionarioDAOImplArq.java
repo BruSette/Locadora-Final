@@ -44,11 +44,12 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
 
     public void inserir(Funcionario funcionario) throws CPFException, UsuarioException {
         Map<String, Funcionario> funcionarios = listar();
+        
+        daousuario.inserir(funcionario.getUsuario());
+        
         if (funcionarios.containsKey(funcionario.getCpf())) {
             throw new CPFException();
         }
-        
-        
         
         if (funcionario.getCpf().equals("   .   .   -  ")) {
             throw new CPFException("Erro no CPF");
@@ -59,7 +60,6 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
         }
 
         funcionarios.put(funcionario.getCpf(), funcionario);
-        daousuario.inserir(funcionario.getUsuario());
         salvarArquivo(funcionarios);
         
         
@@ -148,16 +148,15 @@ public class FuncionarioDAOImplArq implements FuncionarioDAO {
     }
 
     public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException {
-        this.remover(chave.getCpf());
+        remover(chave.getCpf());
         try{
             this.inserir(funcionario);
         }catch (CPFException erro){
+            daousuario.remover(chave.getUsuario().getUsuario());
             this.inserir(chave);
-            
             throw new CPFException();
-        }catch (UsuarioException erro){
+        }catch (UsuarioException err){
             this.inserir(chave);
-            
             throw new UsuarioException();
         }
     }
