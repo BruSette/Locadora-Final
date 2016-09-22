@@ -13,15 +13,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface ClienteDAO {
+public interface ClienteDAO extends GenericaDAO {
     
-    public void inserir(Cliente cliente) throws CPFException;
-
-    public void remover(String cpf);
-
-    public void alterar(Cliente cliente, Cliente chave) throws CPFException;
-
-    public Cliente consultar(String cpf);
-
-    public Map<String, Cliente> listar();
+    
 }

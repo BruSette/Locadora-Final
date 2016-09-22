@@ -9,7 +9,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class PagamentoFuncionarios extends Pagamento {
+public class PagamentoFuncionarios extends Pagamento implements Generica {
     private Funcionario funcionarios[];
     
     
@@ -32,5 +32,13 @@ public class PagamentoFuncionarios extends Pagamento {
 		return "PagamentoFuncionarios []";
 	}
 	
-	
+     @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

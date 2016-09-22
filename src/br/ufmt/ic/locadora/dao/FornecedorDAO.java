@@ -13,14 +13,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface FornecedorDAO {
-    public void inserir(Fornecedor fornecedor) throws CNPJException;
-
-    public void remover(String cpf);
-
-    public void alterar(Fornecedor fornecedor, Fornecedor chave) throws CNPJException;
-
-    public Fornecedor consultar(String cpf);
-
-    public Map<String,Fornecedor> listar();
+public interface FornecedorDAO extends GenericaDAO {
+    
 }

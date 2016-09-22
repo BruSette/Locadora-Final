@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class TipoCargo {
+public class TipoCargo implements Generica {
     
     private String nome;
 
@@ -52,6 +52,16 @@ public class TipoCargo {
     @Override
     public String toString(){
         return getNome();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

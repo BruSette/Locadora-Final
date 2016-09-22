@@ -10,7 +10,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class Entidade extends PessoaJuridica{
+public class Entidade extends PessoaJuridica implements Generica{
     private String obs;
 
     public String getObs() {
@@ -23,6 +23,16 @@ public class Entidade extends PessoaJuridica{
     
     public String toString(){
         return  getNome() + " - " + getCnpj() ;
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

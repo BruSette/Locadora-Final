@@ -14,14 +14,6 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface DoacaoFilmesDAO {
-    public void inserir(DoacaoFilmes doacao) throws RegistroException;
-
-    public void remover(DoacaoFilmes doacao);
-
-    public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException;
-
-    public DoacaoFilmes consultar(DoacaoFilmes doacao);
-
-    public List<DoacaoFilmes> listar();
+public interface DoacaoFilmesDAO extends GenericaDAO {
+    
 }

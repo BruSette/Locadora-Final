@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class Genero {
+public class Genero implements Generica {
     private String nome;
 
     public String getNome() {
@@ -50,5 +50,15 @@ public class Genero {
     @Override
     public String toString(){
         return getNome();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

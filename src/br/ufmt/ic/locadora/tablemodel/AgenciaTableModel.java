@@ -46,7 +46,7 @@ public class AgenciaTableModel extends AbstractTableModel {
         Agencia selecionado = agencias.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                valor = selecionado.getCodigo();
+                valor = selecionado.getCodigoAgencia();
                 break;
             case 1:
                 valor = selecionado.getTelefone();

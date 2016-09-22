@@ -9,7 +9,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class Pagamento {
+public class Pagamento implements Generica {
 	
     private ContaBancaria conta;
 
@@ -29,5 +29,15 @@ public class Pagamento {
     
 	
     //Definir a chamada das classes de pagamento compra ou pagamento de funcionarios
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -13,15 +13,7 @@ import java.util.Map;
  *
  * @author bruno
  */
-public interface UsuarioDAO {
+public interface UsuarioDAO extends GenericaDAO {
     
-    public void inserir(Usuario usuario) throws UsuarioException;
-
-    public void remover(String usuario);
-
-    public void alterar(Usuario usuario, Usuario chave) throws UsuarioException;
-
-    public Usuario consultar(String usuario);
-
-    public Map<String, Usuario> listar();
+    
 }

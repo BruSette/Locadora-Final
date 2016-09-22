@@ -13,11 +13,8 @@ import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.tablemodel.AgenciaTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
-import br.ufmt.ic.locadora.dao.BancoDAO;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.util.FabricaTela;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  *
@@ -310,7 +307,7 @@ public class AgenciaJPanel extends FabricaTela {
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
         Agencia novo = new Agencia();
-        novo.setCodigo(agenciajTextField.getText());
+        novo.setCodigoAgencia(agenciajTextField.getText());
         novo.setTelefone(telefonejFormattedTextField.getText());
 
         Endereco end = new Endereco();
@@ -366,7 +363,7 @@ public class AgenciaJPanel extends FabricaTela {
             linhaSelecionada = agenciajTable.getSelectedRow();
             Agencia selecionado = tableModel.getAgencia(linhaSelecionada);
 
-            agenciajTextField.setText(selecionado.getCodigo());
+            agenciajTextField.setText(selecionado.getCodigoAgencia());
             gerentejTextField.setText(selecionado.getGerente().getNome());
             telefonejFormattedTextField.setText(selecionado.getTelefone());
             cepjFormattedTextField.setText(selecionado.getEndereco().getCep());

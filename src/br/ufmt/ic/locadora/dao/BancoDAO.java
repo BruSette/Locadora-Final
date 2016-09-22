@@ -13,16 +13,7 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface BancoDAO {
-    public void inserir(Banco banco) throws RegistroException;
+public interface BancoDAO extends GenericaDAO {
+  
 
-    public void remover(Banco banco);
-
-    public void alterar(Banco banco,Banco chave) throws RegistroException;
-
-    public Banco consultar(String nome);
-
-    public List<Banco> listar();
 }
-
-

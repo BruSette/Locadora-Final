@@ -9,7 +9,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class PagamentoCompra extends Pagamento {
+public class PagamentoCompra extends Pagamento implements Generica {
     
     double ValorPagar;
     
@@ -17,7 +17,14 @@ public class PagamentoCompra extends Pagamento {
     public String toString() {
         return "PagamentoCompra []";
     }
-	
-	
-	
+    
+     @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

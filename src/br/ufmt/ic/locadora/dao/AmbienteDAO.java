@@ -14,14 +14,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface AmbienteDAO {
-    public void inserir(Ambiente ambiente) throws RegistroException;
-
-    public void remover(String nome);
-
-    public void alterar(Ambiente ambiente, Ambiente chave) throws RegistroException;
-
-    public Ambiente consultar(String nome);
-
-    public Map<String, Ambiente> listar();
+public interface AmbienteDAO extends GenericaDAO {
+    
 }

@@ -1,7 +1,7 @@
 package br.ufmt.ic.locadora.entidade;
 
 
-public class Endereco {
+public class Endereco implements Generica {
 
     private String rua;
     private String numero;
@@ -70,6 +70,16 @@ public class Endereco {
     @Override
     public String toString() {
         return getCidade() + " - "  + getRua() + " - "  + getNumero();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

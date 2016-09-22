@@ -14,15 +14,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface ExemplarDAO {
+public interface ExemplarDAO extends GenericaDAO {
     
-    public void inserir(Exemplar exemplar) throws RegistroException;
-
-    public void remover(String nome);
-
-    public void alterar(Exemplar exemplar, Exemplar chave) throws RegistroException;
-
-    public Exemplar consultar(String nome);
-
-    public Map<String, Exemplar> listar();
+    
 }

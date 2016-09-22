@@ -15,16 +15,8 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface EntidadeDAO {
+public interface EntidadeDAO extends GenericaDAO{
     
-    public void inserir(Entidade entidade) throws CNPJException;
-
-    public void remover(String nome);
-
-    public void alterar(Entidade entidade, Entidade chave) throws CNPJException;
-
-    public Entidade consultar(String nome);
-
-    public Map<String, Entidade> listar();
+    
     
 }

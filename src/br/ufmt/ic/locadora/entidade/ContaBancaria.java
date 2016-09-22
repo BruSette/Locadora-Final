@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class ContaBancaria {
+public class ContaBancaria implements Generica {
 
     private Banco banco;
     private String contaNumero;
@@ -70,5 +70,15 @@ public class ContaBancaria {
     @Override
     public String toString(){
         return getContaNumero() + " - "  + getBanco();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

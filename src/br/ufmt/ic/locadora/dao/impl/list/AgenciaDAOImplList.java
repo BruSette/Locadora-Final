@@ -5,11 +5,8 @@
  */
 package br.ufmt.ic.locadora.dao.impl.list;
 
-import br.ufmt.ic.locadora.dao.impl.*;
 import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.HashMap;
-import java.util.Map;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +22,7 @@ public class AgenciaDAOImplList implements AgenciaDAO {
     public void inserir(Agencia agencia) throws RegistroException {
 
         for (Agencia agencialist : agencias) {
-            if (agencialist.getCodigo().equals(agencia.getCodigo())) {
+            if (agencialist.getCodigoAgencia().equals(agencia.getCodigoAgencia())) {
                 throw new RegistroException();
             }
         }
@@ -35,7 +32,7 @@ public class AgenciaDAOImplList implements AgenciaDAO {
 
     public void remover(Agencia agencia) {
         for (Agencia agencialist : agencias) {
-            if (agencialist.getCodigo().equals(agencia.getCodigo())) {
+            if (agencialist.getCodigoAgencia().equals(agencia.getCodigoAgencia())) {
                 agencias.remove(agencia);
             }
         }

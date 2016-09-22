@@ -14,14 +14,6 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface PontoDAO {
-    public void inserir(Ponto ponto) throws RegistroException;
-
-    public void remover(Ponto ponto);
+public interface PontoDAO extends GenericaDAO {
     
-    public void alterar(Ponto ponto,Ponto chave ) throws RegistroException;
-
-    public List<Ponto> consultar(String cpf, Date dataponto, String tipoponto);
-
-    public List<Ponto> listar();
 }

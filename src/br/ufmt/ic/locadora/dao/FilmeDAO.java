@@ -13,16 +13,8 @@ import java.util.List;
  *
  * @author bruno
  */
-public interface FilmeDAO {
+public interface FilmeDAO extends GenericaDAO {
     
-    public void inserir(Filme filme) throws RegistroException;
-
-    public void remover(Filme filme);
-
-    public void alterar(Filme filme, Filme chave) throws RegistroException;
-
-    public Filme consultar(String nome);
-
-    public List<Filme> listar();
+    
     
 }

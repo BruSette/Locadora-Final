@@ -5,14 +5,13 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
  *
  * @author brunosette
  */
-public class Filme {
+public class Filme implements Generica {
 
     private Exemplar exemplar;
     private Boolean disponibilidade;
@@ -104,5 +103,15 @@ public class Filme {
     @Override
     public String toString(){
         return getExemplar().getNome();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -15,14 +15,6 @@ import java.util.Map;
  *
  * @author bruno
  */
-public interface FuncionarioDAO {
-    public void inserir(Funcionario funcionario) throws CPFException,UsuarioException;
-
-    public void remover(String cpf);
-
-    public void alterar(Funcionario funcionario, Funcionario chave) throws CPFException,UsuarioException;
-
-    public Funcionario consultar(String cpf);
-
-    public Map<String, Funcionario> listar();
+public interface FuncionarioDAO extends GenericaDAO {
+    
 }

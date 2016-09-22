@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class ReservaFilme {
+public class ReservaFilme implements Generica {
 
     private Cliente cliente;
     private Funcionario funcionario;
@@ -111,6 +111,16 @@ public class ReservaFilme {
     @Override
    public String toString(){
         return getCliente().getNome() +" - "+ getFilme().getExemplar().getNome();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

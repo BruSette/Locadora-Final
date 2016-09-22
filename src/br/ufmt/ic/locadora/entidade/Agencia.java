@@ -10,9 +10,18 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public class Agencia {
+public class Agencia implements Generica {
     
-    private String codigo;
+    private int codigo;
+    private String codigoAgencia;
+
+    public String getCodigoAgencia() {
+        return codigoAgencia;
+    }
+
+    public void setCodigoAgencia(String codigoAgencia) {
+        this.codigoAgencia = codigoAgencia;
+    }
     private Endereco endereco;
     private PessoaFisica gerente;
     private Banco banco;
@@ -33,7 +42,6 @@ public class Agencia {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
     
     public PessoaFisica getGerente() {
         return gerente;
@@ -41,14 +49,6 @@ public class Agencia {
     
     public void setGerente(PessoaFisica gerente) {
         this.gerente = gerente;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-    
-    public void setCodigo(String nome) {
-        this.codigo = nome;
     }
 
     public Endereco getEndereco() {
@@ -60,7 +60,17 @@ public class Agencia {
     }
     
     public String toString(){
-        return getCodigo();
+        return getCodigoAgencia();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

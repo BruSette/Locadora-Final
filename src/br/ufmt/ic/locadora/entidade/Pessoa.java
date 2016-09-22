@@ -9,7 +9,7 @@ package br.ufmt.ic.locadora.entidade;
  *
  * @author brunosette
  */
-public abstract class Pessoa {
+public abstract class Pessoa implements Generica {
 
     private String nome;
     private String telefone;
@@ -79,4 +79,13 @@ public abstract class Pessoa {
         return "Pessoa []";
     }
 
+     @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }    
 }

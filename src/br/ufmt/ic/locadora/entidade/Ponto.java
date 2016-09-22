@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class Ponto {
+public class Ponto implements Generica {
     private Funcionario funcionario;
     private Date dataPonto;
     private String TipoPonto;
@@ -77,6 +77,16 @@ public class Ponto {
     
     public String toString(){
         return getFuncionario() +" - "+ getTipoPonto();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

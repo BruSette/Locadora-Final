@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author brunosette
  */
-public class Fornecedor extends PessoaJuridica {
+public class Fornecedor extends PessoaJuridica implements Generica {
     private String obs;
     private Date datacadastro;
 
@@ -33,5 +33,15 @@ public class Fornecedor extends PessoaJuridica {
     
     public String toString(){
         return getNome() + " - " + getCnpj();
+    }
+
+    @Override
+    public void setCodigo(int codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getCodigo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
