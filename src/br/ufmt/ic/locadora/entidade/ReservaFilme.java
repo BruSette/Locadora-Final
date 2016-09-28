@@ -21,6 +21,7 @@ public class ReservaFilme implements Generica {
     private Date dataDevolucao;
     private Double valorCompra;
     private PagamentoCompra pagamento;
+    private int codigo;
 
     @Override
     public int hashCode() {
@@ -55,7 +56,6 @@ public class ReservaFilme implements Generica {
         return true;
     }
 
-    
     public Double getValorCompra() {
         return valorCompra;
     }
@@ -109,18 +109,24 @@ public class ReservaFilme implements Generica {
     }
 
     @Override
-   public String toString(){
-        return getCliente().getNome() +" - "+ getFilme().getExemplar().getNome();
+    public String toString() {
+        return getCliente().getNome() + " - " + getFilme().getExemplar().getNome();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PagamentoCompra getPagamento() {
+        return pagamento;
     }
 
-    @Override
+    public void setPagamento(PagamentoCompra pagamento) {
+        this.pagamento = pagamento;
+    }
+
     public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 }

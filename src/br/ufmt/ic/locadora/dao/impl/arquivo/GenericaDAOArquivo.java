@@ -24,31 +24,33 @@ public abstract class GenericaDAOArquivo<T extends Generica> implements Generica
     protected final String delimitador = ";";
 
     @Override
-    public void inserir(Generica generica) throws RegistroException {
-        List<Generica> lista = listar();
-        for (Generica elemento : lista) {
-            if (generica.getCodigo() == elemento.getCodigo()) {
+    public void inserir(T t) throws RegistroException {
+        List<T> lista = listar();
+        for (T elemento : lista) {
+            if (t.getCodigo() == elemento.getCodigo()) {
                 throw new RegistroException();
             }
         }
-        for (Generica elemento : lista) {
+        for (T elemento : lista) {
             if (codigo < elemento.getCodigo()) {
                 codigo = elemento.getCodigo();
             }
         }
         codigo++;
-        generica.setCodigo(codigo);
-        lista.add(generica);
+        t.setCodigo(codigo);
+        
+        System.out.println(t.getCodigo());
+        lista.add(t);
         salvarArquivo(lista);
         System.out.println("Inserido com Sucesso!");
     }
 
     @Override
     public void remover(int codigo) {
-        List<Generica> lista = listar();
+        List<T> lista = listar();
         for (int i = 0; i < lista.size(); i++) {
-            Generica generica = lista.get(i);
-            if(generica.getCodigo() == codigo){
+            T t = lista.get(i);
+            if(t.getCodigo() == codigo){
                 lista.remove(i);
             }
         }
@@ -56,31 +58,31 @@ public abstract class GenericaDAOArquivo<T extends Generica> implements Generica
     }
 
     @Override
-    public void alterar(Generica generica) {
-        List<Generica> lista = listar();
+    public void alterar(T t) {
+        List<T> lista = listar();
         for (int i = 0; i < lista.size(); i++) {
-            Generica elemento = lista.get(i);
-            if(elemento.getCodigo() == generica.getCodigo()){
-                lista.set(i,generica);
+            T elemento = lista.get(i);
+            if(elemento.getCodigo() == t.getCodigo()){
+                lista.set(i,t);
             }
         }
         salvarArquivo(lista);
     }
 
     @Override
-    public Generica consultar(int codigo) {
-        List<Generica> lista = listar();
+    public T consultar(int codigo) {
+        List<T> lista = listar();
         for (int i = 0; i < lista.size(); i++) {
-            Generica generica = lista.get(i);
-            if(generica.getCodigo() == codigo){
-                return generica;
+            T t = lista.get(i);
+            if(t.getCodigo() == codigo){
+                return t;
             }
         }
         return null;
     }
 
     @Override
-    public List<Generica> listar() {
+    public List<T> listar() {
         List lista = new ArrayList();
         try {
             BufferedReader arq =
@@ -100,12 +102,12 @@ public abstract class GenericaDAOArquivo<T extends Generica> implements Generica
         }
         return lista;
     }
-    public abstract Generica converteParaObjeto(String[] fatiado);
+    public abstract T converteParaObjeto(String[] fatiado);
 
-    private void salvarArquivo(List<Generica> lista) {
+    private void salvarArquivo(List<T> lista) {
         try {
             PrintWriter arq = new PrintWriter(getDiretorio());
-            for (Generica generica : lista) {
+            for (T generica : lista) {
                 arq.println(converteParaString(generica));
             }
             arq.close();
@@ -116,6 +118,6 @@ public abstract class GenericaDAOArquivo<T extends Generica> implements Generica
 
     public abstract String getDiretorio();
     
-    public abstract String converteParaString(Generica objeto);
+    public abstract String converteParaString(T objeto);
     
 }

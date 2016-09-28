@@ -6,7 +6,6 @@
 
 package br.ufmt.ic.locadora.dao;
 
-import br.ufmt.ic.locadora.entidade.Generica;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import java.util.List;
 
@@ -16,14 +15,14 @@ import java.util.List;
  */
 public interface GenericaDAO<T> {
     
-    public void inserir(T t) throws RegistroException;
+    public void inserir(T generica) throws RegistroException;
     
     public void remover(int codigo);
     
-    public void alterar(T t);
+    public void alterar(T generica);
     
-    public Generica consultar(int codigo);
+    public T consultar(int codigo);
     
-    public List<Generica> listar();
+    public List<T> listar();
     
 }

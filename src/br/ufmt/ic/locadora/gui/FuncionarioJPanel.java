@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.TipoCargo;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.FuncionarioTableModel;
 import br.ufmt.ic.locadora.util.FabricaTela;
 
@@ -642,7 +643,7 @@ public class FuncionarioJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(funcionario, chave);
+                dao.alterar(funcionario);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, funcionario);
             } else {
@@ -651,12 +652,9 @@ public class FuncionarioJPanel extends FabricaTela {
                 tableModel.adicionar(funcionario);
             }
             limparjButtonActionPerformed(null);
-        } catch (CPFException erro) {
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
-        } catch (UsuarioException erro) {
-            JOptionPane.showMessageDialog(this, erro.getMessage());
-            usuariojTextField.grabFocus();
         }
 
 
@@ -720,7 +718,7 @@ public class FuncionarioJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = funcionariojTable.getSelectedRow();
                 Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
-                dao.remover(selecionado.getCpf());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

@@ -13,7 +13,6 @@ package br.ufmt.ic.locadora.entidade;
 public interface Generica {
     
     public void setCodigo(int codigo);
-    
     public int getCodigo();
     
 }

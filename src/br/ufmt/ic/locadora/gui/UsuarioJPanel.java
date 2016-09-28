@@ -9,6 +9,7 @@ import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.UsuarioTableModel;
 import javax.swing.JOptionPane;
 
@@ -164,7 +165,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(usuario, chave);
+                dao.alterar(usuario);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, usuario);
             } else {
@@ -173,7 +174,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
                 tableModel.adicionar(usuario);
             }
             limparjButtonActionPerformed(null);
-        } catch (UsuarioException erro) {
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             usuariojTextField.grabFocus();
         }
@@ -203,7 +204,7 @@ public class UsuarioJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = usuariojTable.getSelectedRow();
                 Usuario selecionado = tableModel.getUsuario(linhaSelecionada);
-                dao.remover(selecionado.getUsuario());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

@@ -10,6 +10,7 @@ import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.ClienteTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -494,7 +495,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(cliente, chave);
+                dao.alterar(cliente);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, cliente);
             } else {
@@ -503,7 +504,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
                 tableModel.adicionar(cliente);
             }
             limparjButtonActionPerformed(null);
-        } catch (CPFException erro) {
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
         }
@@ -568,7 +569,7 @@ public class ClienteJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = clientejTable.getSelectedRow();
                 Cliente selecionado = tableModel.getCliente(linhaSelecionada);
-                dao.remover(selecionado.getCpf());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

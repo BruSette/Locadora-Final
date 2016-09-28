@@ -19,6 +19,7 @@ public class DoacaoFilmes implements Generica {
     private Entidade entidade;
     private Date dataDoacao;
     private Funcionario responsavel;
+    private int codigo;
 
     
     public DoacaoFilmes() {
@@ -97,14 +98,14 @@ public class DoacaoFilmes implements Generica {
         return getEntidade().toString() + " - "  + getFilme().getExemplar().getNome();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
+
+   
 
 }

@@ -286,7 +286,7 @@ public class DoacaoJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -343,7 +343,7 @@ public class DoacaoJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = doacaojTable.getSelectedRow();
                 DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
                 limparjButtonActionPerformed(null);

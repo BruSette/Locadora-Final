@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface ExemplarDAO extends GenericaDAO {
+public interface ExemplarDAO extends GenericaDAO<Exemplar> {
     
     
 }

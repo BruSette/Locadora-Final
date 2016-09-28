@@ -11,20 +11,28 @@ package br.ufmt.ic.locadora.entidade;
  */
 public class PagamentoCompra extends Pagamento implements Generica {
     
-    double ValorPagar;
-    
+    private double ValorPagar;
+    private int codigo;
     @Override
     public String toString() {
         return "PagamentoCompra []";
     }
-    
-     @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    public double getValorPagar() {
+        return ValorPagar;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setValorPagar(double ValorPagar) {
+        this.ValorPagar = ValorPagar;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
+    
 }

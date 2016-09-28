@@ -308,7 +308,7 @@ public class ReservafilmeJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(reserva, chave);
+                dao.alterar(reserva);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, reserva);
             } else {
@@ -387,7 +387,7 @@ public class ReservafilmeJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = reservaFilmejTable.getSelectedRow();
                 ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

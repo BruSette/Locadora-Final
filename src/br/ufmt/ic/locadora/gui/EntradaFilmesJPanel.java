@@ -37,11 +37,9 @@ public class EntradaFilmesJPanel extends FabricaTela {
         funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
         fornecedorjComboBox = super.setComboFornecedor(fornecedorjComboBox);
         exemplarjComboBox = super.setComboExemplar(exemplarjComboBox);
-        
+
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,10 +217,10 @@ public class EntradaFilmesJPanel extends FabricaTela {
         exemplarjComboBox.setSelectedIndex(0);
         funcionariojComboBox.setSelectedIndex(0);
         fornecedorjComboBox.setSelectedIndex(0);
-        
+
         datajFormattedTextField.setText("");
         datajFormattedTextField.setText("");
-        
+
         quantidadejFormattedTextField.setText("");
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
@@ -230,31 +228,31 @@ public class EntradaFilmesJPanel extends FabricaTela {
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
         // TODO add your handling code here:
         Filme novo = new Filme();
-        if (ValidaCombo(fornecedorjComboBox)){
+        if (ValidaCombo(fornecedorjComboBox)) {
             novo.setFornecedor((Fornecedor) fornecedorjComboBox.getSelectedItem());
-        }else{
+        } else {
             fornecedorjComboBox.grabFocus();
             return;
         }
-        
-        if (ValidaCombo(funcionariojComboBox)){
+
+        if (ValidaCombo(funcionariojComboBox)) {
             novo.setFuncionario((Funcionario) funcionariojComboBox.getSelectedItem());
-        }else{
+        } else {
             funcionariojComboBox.grabFocus();
             return;
         }
-        
-        if (ValidaCombo(exemplarjComboBox)){
+
+        if (ValidaCombo(exemplarjComboBox)) {
             novo.setExemplar((Exemplar) exemplarjComboBox.getSelectedItem());
-        }else{
+        } else {
             exemplarjComboBox.grabFocus();
             return;
         }
-        
+
         Integer quant;
         try {
             quant = Integer.parseInt(quantidadejFormattedTextField.getText());
-            if (quant == 0){
+            if (quant == 0) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException erro) {
@@ -265,12 +263,18 @@ public class EntradaFilmesJPanel extends FabricaTela {
 
         novo.setQuantidade(quant);
         
-
         try {
-            dao.inserir(novo);
-            JOptionPane.showMessageDialog(this, "Cadastrado!");
+            if (editar) {
+                dao.alterar(novo);
+                JOptionPane.showMessageDialog(this, "Alterado!");
+                tableModel.alterar(linhaSelecionada, novo);
+            } else {
+                dao.inserir(novo);
+                JOptionPane.showMessageDialog(this, "Cadastrado!");
+                limparjButtonActionPerformed(null);
+                tableModel.adicionar(novo);
+            }
             limparjButtonActionPerformed(null);
-            tableModel.adicionar(novo);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             exemplarjComboBox.grabFocus();
@@ -285,30 +289,28 @@ public class EntradaFilmesJPanel extends FabricaTela {
         if (entradafilmesjTable.getSelectedRowCount() == 1) {
             linhaSelecionada = entradafilmesjTable.getSelectedRow();
             Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-            
-            
-            for (int i = 1; i <  exemplarjComboBox.getItemCount(); i++) {
-               Exemplar exemplar = (Exemplar)  exemplarjComboBox.getItemAt(i);
-               if (exemplar.getNome().equals(selecionado.getExemplar().getNome())){
-                   exemplarjComboBox.setSelectedIndex(i);
-               }
+
+            for (int i = 1; i < exemplarjComboBox.getItemCount(); i++) {
+                Exemplar exemplar = (Exemplar) exemplarjComboBox.getItemAt(i);
+                if (exemplar.getNome().equals(selecionado.getExemplar().getNome())) {
+                    exemplarjComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             for (int i = 1; i < fornecedorjComboBox.getItemCount(); i++) {
-               Fornecedor fornecedor  = (Fornecedor) fornecedorjComboBox.getItemAt(i);
-               if (fornecedor.getCnpj().equals(selecionado.getFornecedor().getCnpj())){
-                   fornecedorjComboBox.setSelectedIndex(i);
-               }
+                Fornecedor fornecedor = (Fornecedor) fornecedorjComboBox.getItemAt(i);
+                if (fornecedor.getCnpj().equals(selecionado.getFornecedor().getCnpj())) {
+                    fornecedorjComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
-               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
-               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
-                   funcionariojComboBox.setSelectedIndex(i);
-               }
+                Funcionario funcionario = (Funcionario) funcionariojComboBox.getItemAt(i);
+                if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())) {
+                    funcionariojComboBox.setSelectedIndex(i);
+                }
             }
-            
-            
+
             quantidadejFormattedTextField.setText(String.valueOf(selecionado.getQuantidade()));
 
             editar = true;
@@ -325,7 +327,7 @@ public class EntradaFilmesJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entradafilmesjTable.getSelectedRow();
                 Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

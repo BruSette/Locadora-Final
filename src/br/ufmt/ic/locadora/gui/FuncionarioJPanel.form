@@ -86,10 +86,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="sexojComboBox" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="sexojComboBox" min="-2" max="-2" attributes="0"/>
                                           <Component id="nacionalidadejTextField" max="32767" attributes="0"/>
                                           <Component id="tipocargojComboBox" max="32767" attributes="0"/>
                                           <Component id="ambientejComboBox" max="32767" attributes="0"/>

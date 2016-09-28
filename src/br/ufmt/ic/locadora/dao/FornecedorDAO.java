@@ -13,6 +13,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface FornecedorDAO extends GenericaDAO {
+public interface FornecedorDAO extends GenericaDAO<Fornecedor> {
     
 }

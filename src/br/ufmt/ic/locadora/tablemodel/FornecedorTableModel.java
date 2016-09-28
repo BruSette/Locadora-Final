@@ -20,8 +20,8 @@ public class FornecedorTableModel extends AbstractTableModel {
     private List<Fornecedor> dornecedores;
     private String[] header = new String[]{"CNPJ", "Nome", "Telefone"};
 
-    public FornecedorTableModel(Map<String , Fornecedor> map) {
-        dornecedores = new ArrayList<>(map.values());
+    public FornecedorTableModel(List<Fornecedor> List) {
+        dornecedores = new ArrayList<>(List);
     }
     
     

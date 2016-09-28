@@ -18,7 +18,6 @@ import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
-import br.ufmt.ic.locadora.dao.impl.list.*;
 import br.ufmt.ic.locadora.dao.impl.arquivo.*;
 import br.ufmt.ic.locadora.dao.*;
 

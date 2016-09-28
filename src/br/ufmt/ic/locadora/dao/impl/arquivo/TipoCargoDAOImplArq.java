@@ -22,93 +22,23 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class TipoCargoDAOImplArq implements TipoCargoDAO {
-    
-   private static final String dir = BancoArqu.getCaminho() + "tipocargo/tipocargo.bd";
-    private String delimitador = ";";
+public class TipoCargoDAOImplArq extends GenericaDAOArquivo<TipoCargo> implements TipoCargoDAO {
 
-    public void inserir(TipoCargo tipocargo) throws RegistroException {
-        Map<String, TipoCargo> tipocargos = listar();
-        if (tipocargos.containsKey(tipocargo.getNome())) {
-            throw new RegistroException();
-        }
-        tipocargos.put(tipocargo.getNome(), tipocargo);
-        salvarArquivo(tipocargos);
-
-    }
-    
-    private void salvarArquivo(Map<String, TipoCargo> tipocargos) {
-        try {
-            PrintWriter arq = new PrintWriter(dir);
-
-            Collection<TipoCargo> colecao = tipocargos.values();
-            for (TipoCargo tipocargo : colecao) {
-                arq.println(tipocargo.getNome());
-            }
-
-            arq.close();
-
-        } catch (IOException ex) {
-            System.out.println("Arquivo ou diretório Inexistente!");
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex1) {
-                System.out.println("Arquivo Inexistente!");
-            }
-        }
+    @Override
+    public TipoCargo converteParaObjeto(String[] fatiado) {
+        TipoCargo cargo = new TipoCargo();
+        cargo.setNome(fatiado[0]);
+        return cargo;
     }
 
-    public void remover(String nome) {
-        Map<String, TipoCargo> tipocargos = listar();
-        tipocargos.remove(nome);
-        salvarArquivo(tipocargos);
+    @Override
+    public String getDiretorio() {
+        return BancoArqu.getCaminho() + "tipocargo/tipocargo.bd";
     }
 
-    public void alterar(TipoCargo tipocargo, TipoCargo chave) throws RegistroException {
-        this.remover(chave.getNome());
-        try{
-            this.inserir(tipocargo);
-        }catch (RegistroException erro){
-            this.inserir(chave);
-            throw new RegistroException();
-        }
+    @Override
+    public String converteParaString(TipoCargo tipocargo) {
+        return tipocargo.getNome();
     }
 
-    public TipoCargo consultar(String nome) {
-        Map<String, TipoCargo> tipocargos = listar();
-        return tipocargos.get(nome);
-    }
-
-    public Map<String, TipoCargo> listar() {
-        Map<String, TipoCargo> tipocargos = new HashMap<String, TipoCargo>();
-        
-        try {
-            BufferedReader arq = new BufferedReader(new FileReader(dir));
-            String linha;
-            linha = arq.readLine();
-            while (linha != null) {
-                String[] fatiado = linha.split(delimitador, -2);
-
-                TipoCargo cargo = new TipoCargo();
-                cargo.setNome(fatiado[0]);
-                
-                tipocargos.put(cargo.getNome(), cargo);
-                linha = arq.readLine();
-            }
-            arq.close();
-        } catch (FileNotFoundException erro) {
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex) {
-                System.out.println("Erro ao abrir o arquivo");
-            }
-
-        } catch (IOException ex) {
-            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
-        }
-
-        return tipocargos;
-    }
-
-    
 }

@@ -6,14 +6,12 @@
 package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Agencia;
-import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.List;
 
 /**
  *
  * @author brunosette
  */
-public interface AgenciaDAO extends GenericaDAO {
+public interface AgenciaDAO extends GenericaDAO<Agencia> {
     
     
     

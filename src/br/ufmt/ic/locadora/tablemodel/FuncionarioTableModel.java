@@ -20,8 +20,8 @@ public class FuncionarioTableModel extends AbstractTableModel {
     private List<Funcionario> funcionarios;
     private String[] header = new String[]{"CPF", "Nome", "Telefone"};
 
-    public FuncionarioTableModel(Map<String , Funcionario> map) {
-        funcionarios = new ArrayList<>(map.values());
+    public FuncionarioTableModel(List<Funcionario> List) {
+        funcionarios = new ArrayList<>(List);
     }
     
     

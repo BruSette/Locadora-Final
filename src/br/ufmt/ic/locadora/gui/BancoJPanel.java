@@ -174,7 +174,7 @@ public class BancoJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = bancojTable.getSelectedRow();
                 Banco selecionado = tableModel.getBanco(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }
@@ -204,7 +204,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         
         try {
             if (editar) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {

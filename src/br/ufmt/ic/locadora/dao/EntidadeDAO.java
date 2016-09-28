@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface EntidadeDAO extends GenericaDAO{
+public interface EntidadeDAO extends GenericaDAO<Entidade>{
     
     
     

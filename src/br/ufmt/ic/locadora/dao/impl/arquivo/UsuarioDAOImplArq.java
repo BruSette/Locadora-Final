@@ -6,7 +6,6 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
-import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.util.BancoArqu;
@@ -23,99 +22,26 @@ import java.util.Map;
  *
  * @author bruno
  */
-public class UsuarioDAOImplArq implements UsuarioDAO {
+public class UsuarioDAOImplArq extends GenericaDAOArquivo<Usuario> implements UsuarioDAO{
 
-    private static final String dir = BancoArqu.getCaminho() + "usuario/usuario.bd";
-    private String delimitador = ";";
+    @Override
+    public Usuario converteParaObjeto(String[] fatiado) {
+        Usuario usuario = new Usuario();
+        usuario.setUsuario(fatiado[0]);
+        usuario.setSenha(fatiado[1]);
 
-    public void inserir(Usuario usuario) throws UsuarioException {
-        Map<String, Usuario> usuarios = listar();
-        if (usuarios.containsKey(usuario.getUsuario())) {
-            throw new UsuarioException();
-        }
-        if (usuario.getUsuario().equals("") || usuario.getSenha().equals("")) {
-            throw new UsuarioException("Usuario ou senha invalidos!");
-        }
-        
-        usuarios.put(usuario.getUsuario(), usuario);
-        salvarArquivo(usuarios);
-    }
-    
-     public void salvarArquivo(Map<String, Usuario> usuarios) {
-        try {
-            PrintWriter arq = new PrintWriter(dir);
-
-            Collection<Usuario> colecao = usuarios.values();
-            for (Usuario usuario : colecao) {
-                arq.println(usuario.getUsuario()
-                + delimitador + usuario.getSenha()
-                );
-            }
-            
-            arq.close();
-
-        } catch (IOException ex) {
-            System.out.println("Arquivo ou diretório Inexistente!");
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex1) {
-                System.out.println("Arquivo Inexistente!");
-            }
-        }
+        return usuario;
     }
 
-    public void remover(String usuario) {
-        Map<String, Usuario> usuarios = listar();
-        System.out.println("Removeu " + usuario);
-        usuarios.remove(usuario);  
-        salvarArquivo(usuarios);
+    @Override
+    public String getDiretorio() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void alterar(Usuario usuario, Usuario chave) throws UsuarioException {
-        this.remover(chave.getUsuario());
-        try{
-            this.inserir(usuario);
-        }catch (UsuarioException erro){
-            this.inserir(chave);
-            throw new UsuarioException();
-            
-        }
-    }
-
-    public Usuario consultar(String usuario) {
-        Map<String, Usuario> usuarios = listar();
-        return usuarios.get(usuario);
-    }
-
-    public Map<String, Usuario> listar() {
-        Map<String, Usuario> usuarios = new HashMap<String, Usuario>();
-        try {
-            BufferedReader arq = new BufferedReader(new FileReader(dir));
-            String linha;
-            linha = arq.readLine();
-            while (linha != null) {
-                String[] fatiado = linha.split(delimitador, -2);
-
-                Usuario usuario = new Usuario();
-                usuario.setUsuario(fatiado[0]);
-                usuario.setSenha(fatiado[1]);
-                
-                usuarios.put(usuario.getUsuario(), usuario);
-                linha = arq.readLine();
-            }
-            arq.close();
-        } catch (FileNotFoundException erro) {
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex) {
-                System.out.println("Erro ao abrir o arquivo");
-            }
-
-        } catch (IOException ex) {
-            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
-        }
-
-        return usuarios;
+    @Override
+    public String converteParaString(Usuario usuario) {
+        return usuario.getUsuario()
+                + delimitador + usuario.getSenha();
     }
 
 }

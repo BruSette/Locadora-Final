@@ -20,8 +20,8 @@ public class TipoCargoTableModel extends AbstractTableModel {
     private List<TipoCargo> tipopontos;
     private String[] header = new String[]{"Nome"};
     
-    public TipoCargoTableModel(Map<String, TipoCargo> map) {
-        tipopontos = new ArrayList<>(map.values());
+    public TipoCargoTableModel(List<TipoCargo> List) {
+        tipopontos = new ArrayList<>(List);
     }
     
     @Override

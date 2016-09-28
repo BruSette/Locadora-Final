@@ -10,34 +10,32 @@ package br.ufmt.ic.locadora.entidade;
  * @author brunosette
  */
 public class Pagamento implements Generica {
-	
+
     private ContaBancaria conta;
-
-	public ContaBancaria getConta() {
-		return conta;
-	}
-
-	public void setConta(ContaBancaria conta) {
-		this.conta = conta;
-	}
-
-	@Override
-	public String toString() {
-		return "Pagamento []";
-	}
+    private int codigo;
     
-    
-	
+    public ContaBancaria getConta() {
+        return conta;
+    }
+
+    public void setConta(ContaBancaria conta) {
+        this.conta = conta;
+    }
+
+    @Override
+    public String toString() {
+        return "Pagamento []";
+    }
+
     //Definir a chamada das classes de pagamento compra ou pagamento de funcionarios
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
+
 }

@@ -20,8 +20,8 @@ public class GeneroTableModel extends AbstractTableModel {
     private List<Genero> generos;
     private String[] header = new String[]{"Nome"};
     
-    public GeneroTableModel(Map<String, Genero> map) {
-        generos = new ArrayList<>(map.values());
+    public GeneroTableModel(List<Genero> List) {
+        generos = new ArrayList<>(List);
     }
     
     @Override

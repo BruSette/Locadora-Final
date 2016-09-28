@@ -5,18 +5,20 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import br.ufmt.ic.locadora.dao.AgenciaDAO;
 import br.ufmt.ic.locadora.entidade.Agencia;
+import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.entidade.Endereco;
-import br.ufmt.ic.locadora.entidade.Generica;
 import br.ufmt.ic.locadora.entidade.PessoaFisica;
 import br.ufmt.ic.locadora.util.BancoArqu;
+import br.ufmt.ic.locadora.util.FabricaDAO;
 import java.text.SimpleDateFormat;
 
 /**
  *
  * @author bruno
  */
-public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> {
+public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> implements AgenciaDAO{
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
@@ -27,7 +29,8 @@ public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> {
 
     public String converteParaString(Agencia objeto) {
         Agencia agencia = (Agencia) objeto;
-        return (agencia.getCodigoAgencia()
+        return (agencia.getCodigo()
+                + delimitador + agencia.getCodigoAgencia()
                 + delimitador + agencia.getTelefone()
                 + delimitador + agencia.getEndereco().getBairro()
                 + delimitador + agencia.getEndereco().getCep()
@@ -36,30 +39,32 @@ public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> {
                 + delimitador + agencia.getEndereco().getEstado()
                 + delimitador + agencia.getEndereco().getNumero()
                 + delimitador + agencia.getEndereco().getRua()
-                + delimitador + agencia.getBanco().getCod()
-                + delimitador + agencia.getBanco().getNome()
+                + delimitador + agencia.getBanco().getCodigo()
                 + delimitador + agencia.getGerente().getNome());
     }
 
     @Override
     public Agencia converteParaObjeto(String[] fatiado) {
         Agencia agencia = new Agencia();
-        agencia.setCodigoAgencia(fatiado[0]);
-        agencia.setTelefone(fatiado[1]);
+        System.out.println(fatiado[0]);
+        agencia.setCodigo(Integer.parseInt(fatiado[0]));
+        agencia.setCodigoAgencia(fatiado[1]);
+        agencia.setTelefone(fatiado[2]);
         Endereco endereco = new Endereco();
-        endereco.setBairro(fatiado[2]);
-        endereco.setCep(fatiado[3]);
-        endereco.setCidade(fatiado[4]);
-        endereco.setComplemento(fatiado[5]);
-        endereco.setEstado(fatiado[6]);
-        endereco.setNumero(fatiado[7]);
-        endereco.setRua(fatiado[8]);
+        endereco.setBairro(fatiado[3]);
+        endereco.setCep(fatiado[4]);
+        endereco.setCidade(fatiado[5]);
+        endereco.setComplemento(fatiado[6]);
+        endereco.setEstado(fatiado[7]);
+        endereco.setNumero(fatiado[8]);
+        endereco.setRua(fatiado[9]);
         agencia.setEndereco(endereco);
-
-        //sagencia.setBanco(FabricaDAO.CriarBancoDAO().consultar(fatiado[10]));
-
+        
+        //ARRUMAR DEPOIS
+        Banco banco;
+        banco = FabricaDAO.CriarBancoDAO().consultar(Integer.parseInt(fatiado[10]));
+        agencia.setBanco(banco);
         System.out.println(agencia.getBanco().getNome());
-
         PessoaFisica gerente = new PessoaFisica();
         gerente.setNome(fatiado[11]);
         agencia.setGerente(gerente);
@@ -67,8 +72,7 @@ public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> {
         return agencia;
     }
 
-    @Override
-    public String converteParaString(Generica objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
+
+   
 }

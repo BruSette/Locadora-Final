@@ -18,6 +18,7 @@ public class Funcionario extends PessoaFisica implements Generica {
     private TipoCargo cargo;
     private Ambiente ambiente;
     private Usuario usuario;
+    private int codigo;
 
     public Ambiente getAmbiente() {
         return ambiente;
@@ -66,14 +67,14 @@ public class Funcionario extends PessoaFisica implements Generica {
         return getNome() + " - " + getCpf();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
+
+    
 
 }

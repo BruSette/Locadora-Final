@@ -222,7 +222,7 @@ public class ExemplarJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = exemplarjTable.getSelectedRow();
                 Exemplar selecionado = tableModel.getExemplar(linhaSelecionada);
-                dao.remover(selecionado.getNome());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }
@@ -259,7 +259,7 @@ public class ExemplarJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {

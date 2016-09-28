@@ -262,7 +262,7 @@ public class PontoJPanel extends FabricaTela {
 
         try {
             if (editar == true) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -293,7 +293,7 @@ public class PontoJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = pontojTable.getSelectedRow();
                 Ponto selecionado = tableModel.getPonto(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

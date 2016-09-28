@@ -21,8 +21,8 @@ public class ClienteTableModel extends AbstractTableModel {
     private List<Cliente> clientes;
     private String[] header = new String[]{"Nome", "Telefone", "LimiteFilmes", "Bloqueado","CPF"};
     
-    public ClienteTableModel(Map<String, Cliente> map) {
-        clientes = new ArrayList<>(map.values());
+    public ClienteTableModel(List<Cliente> List) {
+        clientes = new ArrayList<>(List);
     }
     
     @Override

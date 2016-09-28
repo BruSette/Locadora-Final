@@ -19,8 +19,8 @@ public class FilmeTableModel extends AbstractTableModel {
     private List<Filme> filmes;
     private String[] header = new String[]{"Nome", "Genero", "Lançamento","Disponibilidade"};
 
-    public FilmeTableModel(Map<String, Filme> map) {
-        filmes= new ArrayList<>(map.values());
+    public FilmeTableModel(List<Filme> List) {
+        filmes= new ArrayList<>(List);
     }
 
     @Override

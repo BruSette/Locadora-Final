@@ -14,6 +14,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface AmbienteDAO extends GenericaDAO {
+public interface AmbienteDAO extends GenericaDAO<Ambiente> {
     
 }

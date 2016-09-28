@@ -17,6 +17,7 @@ public class Exemplar implements Generica {
     private String nome;
     private Genero genero;
     private Date datalancamento;
+    private int codigo;
 
     @Override
     public int hashCode() {
@@ -74,14 +75,13 @@ public class Exemplar implements Generica {
         return getNome() + " - " + getGenero();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
-    
+
+   
 }

@@ -15,6 +15,6 @@ import java.util.Map;
  *
  * @author bruno
  */
-public interface FuncionarioDAO extends GenericaDAO {
+public interface FuncionarioDAO extends GenericaDAO<Funcionario> {
     
 }

@@ -14,6 +14,6 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface PontoDAO extends GenericaDAO {
+public interface PontoDAO extends GenericaDAO<Ponto> {
     
 }

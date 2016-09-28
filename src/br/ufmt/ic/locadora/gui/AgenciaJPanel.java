@@ -38,11 +38,6 @@ public class AgenciaJPanel extends FabricaTela {
         bancojComboBox = super.setComboBanco(bancojComboBox);
         
     }
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -335,7 +330,7 @@ public class AgenciaJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -391,7 +386,7 @@ public class AgenciaJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = agenciajTable.getSelectedRow();
                 Agencia selecionado = tableModel.getAgencia(linhaSelecionada);
-                dao.remover(selecionado);
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

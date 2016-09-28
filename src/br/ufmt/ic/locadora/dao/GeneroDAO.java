@@ -14,6 +14,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface GeneroDAO extends GenericaDAO {
+public interface GeneroDAO extends GenericaDAO<Genero> {
     
 }

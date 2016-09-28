@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author bruno
  */
-public interface FilmeDAO extends GenericaDAO {
+public interface FilmeDAO extends GenericaDAO<Filme> {
     
     
     

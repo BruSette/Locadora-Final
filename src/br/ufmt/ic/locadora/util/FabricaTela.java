@@ -35,10 +35,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboFuncionario(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, Funcionario> funcionarios = funcionarioDAO.listar();
-        Collection<Funcionario> colecao = funcionarios.values();
-        for (Funcionario funcionario : colecao) {
-            jComboBox.addItem(funcionario);
+        List<Funcionario> funcionarios = funcionarioDAO.listar();
+        for (Iterator<Funcionario> iterator = funcionarios.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Funcionario next = iterator.next();
+            
         }
         jComboBox.setName("Funcionario");
         return jComboBox;
@@ -47,10 +48,10 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboAmbiente(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, Ambiente> ambientes = ambienteDAO.listar();
-        Collection<Ambiente> colecao = ambientes.values();
-        for (Ambiente ambiente : colecao) {
-            jComboBox.addItem(ambiente);
+        List<Ambiente> ambientes = ambienteDAO.listar();
+        for (Iterator<Ambiente> iterator = ambientes.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            
         }
         jComboBox.setName("Ambiente");
         return jComboBox;
@@ -60,10 +61,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboFornecedor(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, Fornecedor> fornecedores = fornecedorDAO.listar();
-        Collection<Fornecedor> colecao = fornecedores.values();
-        for (Fornecedor fornecedore : colecao) {
-            jComboBox.addItem(fornecedore);
+        List<Fornecedor> fornecedores = fornecedorDAO.listar();
+        for (Iterator<Fornecedor> iterator = fornecedores.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Fornecedor next = iterator.next();
+            
         }
         jComboBox.setName("Fornecedor");
         return jComboBox;
@@ -74,10 +76,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
 
-        Map<String, Cliente> clientes = clienteDAO.listar();
-        Collection<Cliente> colecao = clientes.values();
-        for (Cliente cliente : colecao) {
-            jComboBox.addItem(cliente);
+        List<Cliente> clientes = clienteDAO.listar();
+        for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Cliente next = iterator.next();
+            
         }
         jComboBox.setName("Cliente");
         return jComboBox;
@@ -85,13 +88,12 @@ public abstract class FabricaTela extends javax.swing.JPanel {
 
     public JComboBox setComboExemplar(JComboBox jComboBox) {
         jComboBox.removeAllItems();
-
         jComboBox.addItem("Selecione");
-
-        Map<String, Exemplar> exemplares = exemplarDAO.listar();
-        Collection<Exemplar> colecao = exemplares.values();
-        for (Exemplar exemplar : colecao) {
-            jComboBox.addItem(exemplar);
+        List<Exemplar> exemplares = exemplarDAO.listar();
+        for (Iterator<Exemplar> iterator = exemplares.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Exemplar next = iterator.next();
+            
         }
         jComboBox.setName("Exemplar");
         return jComboBox;
@@ -129,10 +131,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
 
-        Map<String, Genero> generos = generoDAO.listar();
-        Collection<Genero> colecao = generos.values();
-        for (Genero genero : colecao) {
-            jComboBox.addItem(genero);
+        List<Genero> generos = generoDAO.listar();
+        for (Iterator<Genero> iterator = generos.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Genero next = iterator.next();
+            
         }
         jComboBox.setName("Genero");
         return jComboBox;
@@ -142,10 +145,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboEntidade(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, Entidade> entidades = entidadeDAO.listar();
-        Collection<Entidade> colecao = entidades.values();
-        for (Entidade entidade : colecao) {
-            jComboBox.addItem(entidade);
+        List<Entidade> entidades = entidadeDAO.listar();
+        for (Iterator<Entidade> iterator = entidades.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            Entidade next = iterator.next();
+            
         }
         jComboBox.setName("Entidade");
         return jComboBox;
@@ -154,10 +158,11 @@ public abstract class FabricaTela extends javax.swing.JPanel {
     public JComboBox setComboTipoCargo(JComboBox jComboBox) {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
-        Map<String, TipoCargo> tipocargos = tipocargoDAO.listar();
-        Collection<TipoCargo> colecao = tipocargos.values();
-        for (TipoCargo tipocargo : colecao) {
-            jComboBox.addItem(tipocargo);
+        List<TipoCargo> tipocargos = tipocargoDAO.listar();
+        for (Iterator<TipoCargo> iterator = tipocargos.iterator(); iterator.hasNext();) {
+            jComboBox.addItem(iterator);
+            TipoCargo next = iterator.next();
+            
         }
         jComboBox.setName("Cargo");
         return jComboBox;

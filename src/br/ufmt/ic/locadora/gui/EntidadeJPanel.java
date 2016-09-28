@@ -11,6 +11,7 @@ import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.exception.CNPJException;
+import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.EntidadeTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.util.FabricaDAO;
@@ -441,7 +442,7 @@ public class EntidadeJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entidadejTable.getSelectedRow();
                 Entidade selecionado = tableModel.getEntidade(linhaSelecionada);
-                dao.remover(selecionado.getCnpj());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }
@@ -508,7 +509,7 @@ public class EntidadeJPanel extends FabricaTela {
 
         try {
             if (editar) {
-                dao.alterar(entidade, chave);
+                dao.alterar(entidade);
                 JOptionPane.showMessageDialog(this, "Alterado!");
                 tableModel.alterar(linhaSelecionada, entidade);
             } else {
@@ -517,7 +518,7 @@ public class EntidadeJPanel extends FabricaTela {
                 tableModel.adicionar(entidade);
             }
             limparjButtonActionPerformed(null);
-        } catch (CNPJException erro) {
+        } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cnpjjFormattedTextField.grabFocus();
         }

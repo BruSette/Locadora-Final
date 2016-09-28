@@ -6,8 +6,6 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
-import br.ufmt.ic.locadora.entidade.Ambiente;
-import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Exemplar;
 import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.exception.RegistroException;
@@ -29,119 +27,46 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public class ExemplarDAOImplArq implements ExemplarDAO {
-    private static final String dir = BancoArqu.getCaminho() + "exemplar/exemplar.bd";
-    private String delimitador = ";";
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+public class ExemplarDAOImplArq extends GenericaDAOArquivo<Exemplar> implements ExemplarDAO {
 
-    public void inserir(Exemplar exemplar) throws RegistroException {
-        Map<String, Exemplar> exemplares =listar();
-        if (exemplares.containsKey(exemplar.getNome())) {
-            throw new RegistroException();
-        }
-        exemplares.put(exemplar.getNome(), exemplar);
-        salvarArquivo(exemplares);
-    }
-    private void salvarArquivo(Map<String, Exemplar> exemplares) {
+    @Override
+    public Exemplar converteParaObjeto(String[] fatiado) {
+        Exemplar exemplar = new Exemplar();
+
+        exemplar.setNome(fatiado[0]);
+
+        Date data = new Date("11/11/1111");
         try {
-            PrintWriter arq = new PrintWriter(dir);
-            
-            Collection<Exemplar> colecao = exemplares.values();
-            for (Exemplar exemplar : colecao) {
-                
-                String data = "";
-                try{
-                    data = sdf.format(exemplar.getDatalancamento());
-                }catch (NullPointerException err){
-                    
-                }
-                
-                arq.println(exemplar.getNome()
+            data = sdf.parse(fatiado[1]);
+        } catch (NullPointerException | ParseException err) {
+
+        }
+        exemplar.setDatalancamento(data);
+        //Arrumar
+        Genero genero = (Genero) FabricaDAO.CriarGeneroDAO().consultar(Integer.parseInt(fatiado[2]));
+        exemplar.setGenero(genero);
+        return exemplar;
+    }
+
+    @Override
+    public String getDiretorio() {
+        return BancoArqu.getCaminho() + "exemplar/exemplar.bd";
+    }
+
+    @Override
+    public String converteParaString(Exemplar exemplar) {
+        String data = "";
+        try {
+            data = sdf.format(exemplar.getDatalancamento());
+        } catch (NullPointerException err) {
+
+        }
+
+        return exemplar.getNome()
                 + delimitador + data
-                + delimitador + exemplar.getGenero().getNome()
-                        
-                
-                );
-            }
-
-            arq.close();
-
-        } catch (IOException ex) {
-            System.out.println("Arquivo ou diretório Inexistente!");
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException er) {
-                System.out.println("Arquivo Inexistente!");
-            }
-        }
-    }
-    
-    
-    public void remover(String nome) {
-        Map<String, Exemplar> exemplares =listar();
-        exemplares.remove(nome);
-        salvarArquivo(exemplares);
-        
+                + delimitador + exemplar.getGenero().getNome();
     }
 
-    public void alterar(Exemplar exemplar, Exemplar chave) throws RegistroException {
-        
-        this.remover(chave.getNome());
-        try{
-            this.inserir(exemplar);
-        }catch (RegistroException erro){
-            this.inserir(chave);
-            throw new RegistroException();
-        }
-    }
-
-    public Exemplar consultar(String nome) {
-        Map<String, Exemplar> exemplares =listar();
-        return exemplares.get(nome);
-    }
-
-    public Map<String, Exemplar> listar() {
-        Map<String, Exemplar> exemplares = new HashMap<String, Exemplar>();
-        try {
-            BufferedReader arq = new BufferedReader(new FileReader(dir));
-            String linha;
-            linha = arq.readLine();
-            while (linha != null) {
-                String[] fatiado = linha.split(delimitador, -2);
-                
-                Exemplar exemplar = new Exemplar();
-                
-                exemplar.setNome(fatiado[0]);
-                
-                Date data = new Date("11/11/1111");
-                try{
-                    data = sdf.parse(fatiado[1]);
-                } catch (NullPointerException | ParseException err){
-                    
-                }
-                exemplar.setDatalancamento(data);
-                Genero genero = FabricaDAO.CriarGeneroDAO().consultar(fatiado[2]);
-                exemplar.setGenero(genero);
-                
-                exemplares.put(exemplar.getNome(), exemplar);
-                linha = arq.readLine();
-            }
-            arq.close();
-        } catch (FileNotFoundException erro) {
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex) {
-                System.out.println("Erro ao abrir o arquivo");
-            }
-
-        } catch (IOException ex) {
-            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
-        }
-
-        
-        
-        
-        return exemplares;
-    }
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 }

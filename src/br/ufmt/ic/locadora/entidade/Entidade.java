@@ -12,6 +12,7 @@ package br.ufmt.ic.locadora.entidade;
  */
 public class Entidade extends PessoaJuridica implements Generica{
     private String obs;
+    private int codigo;
 
     public String getObs() {
         return obs;
@@ -25,14 +26,14 @@ public class Entidade extends PessoaJuridica implements Generica{
         return  getNome() + " - " + getCnpj() ;
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
+
+    
     
 }

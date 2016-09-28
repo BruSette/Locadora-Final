@@ -20,8 +20,8 @@ public class EntidadeTableModel extends AbstractTableModel {
     private List<Entidade> entidades;
     private String[] header = new String[]{"CPF", "Nome", "Telefone"};
 
-    public EntidadeTableModel(Map<String , Entidade> map) {
-        entidades = new ArrayList<>(map.values());
+    public EntidadeTableModel(List<Entidade> List) {
+        entidades = new ArrayList<>(List);
     }
     
     

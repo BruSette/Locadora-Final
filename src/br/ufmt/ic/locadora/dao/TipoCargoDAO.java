@@ -12,6 +12,6 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface TipoCargoDAO extends GenericaDAO {
+public interface TipoCargoDAO extends GenericaDAO<TipoCargo> {
    
 }

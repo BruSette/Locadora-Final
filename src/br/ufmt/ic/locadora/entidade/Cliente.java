@@ -13,7 +13,8 @@ public class Cliente extends PessoaFisica implements Generica {
 
     private Boolean bloqueado;
     private int limiteFilmes;
-
+    private int codigo;
+    
     public Cliente(String nome) {
         this.setNome(nome);
     }
@@ -43,14 +44,13 @@ public class Cliente extends PessoaFisica implements Generica {
         return getNome() + " - "  + getCpf();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return codigo;
     }
 
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    
 }

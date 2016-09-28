@@ -14,6 +14,6 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface DoacaoFilmesDAO extends GenericaDAO {
+public interface DoacaoFilmesDAO extends GenericaDAO<DoacaoFilmes> {
     
 }

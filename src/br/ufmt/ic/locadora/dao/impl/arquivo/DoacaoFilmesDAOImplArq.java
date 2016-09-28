@@ -6,13 +6,10 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.DoacaoFilmesDAO;
-import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.entidade.DoacaoFilmes;
-import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.Entidade;
 import br.ufmt.ic.locadora.entidade.Filme;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.entidade.PessoaFisica;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
 import br.ufmt.ic.locadora.util.FabricaDAO;
@@ -31,140 +28,57 @@ import java.util.List;
  *
  * @author brunosette
  */
-public class DoacaoFilmesDAOImplArq implements DoacaoFilmesDAO {
+public class DoacaoFilmesDAOImplArq extends GenericaDAOArquivo<DoacaoFilmes> implements DoacaoFilmesDAO {
 
-    private static final String dir = BancoArqu.getCaminho() + "doacaofilmes/doacaofilmes.bd";
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    private String delimitador = ";";
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    public void inserir(DoacaoFilmes doacao) throws RegistroException {
-        List<DoacaoFilmes> doacoes = listar();
-        for (int i = doacoes.size()-1; i >=0 ; i--) {
-            if (doacoes.get(i).getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacoes.get(i).getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
-                    throw new RegistroException();
-                }
-            }
+    @Override
+    public DoacaoFilmes converteParaObjeto(String[] fatiado) {
+        DoacaoFilmes doacao = new DoacaoFilmes();
+        //ARRUMAR DEPOIS
+        Filme filme = (Filme) FabricaDAO.CriarFilmeDAO().consultar(Integer.parseInt(fatiado[0]));
+        doacao.setFilme(filme);
+        Entidade entidade = (Entidade) FabricaDAO.CriarEntidadeDAO().consultar(Integer.parseInt(fatiado[1]));
+        doacao.setEntidade(entidade);
+        Funcionario funcionario = (Funcionario) FabricaDAO.CriarFuncionarioDAO().consultar(Integer.parseInt(fatiado[2]));
+        doacao.setResponsavel(funcionario);
 
-        }
-        doacoes.add(doacao);
-        salvarArquivo(doacoes);
-
-    }
-
-    public void remover(DoacaoFilmes doacao) {
-        List<DoacaoFilmes> doacoes = listar();
-        for (int i = doacoes.size()-1; i >=0 ; i--) {
-            if (doacoes.get(i).getFilme().getExemplar().getNome().equals(doacao.getFilme().getExemplar().getNome())) {
-                if (doacoes.get(i).getEntidade().getCnpj().equals(doacao.getEntidade().getCnpj())) {
-                    doacoes.remove(i);
-                }
-            }
-        }
-        salvarArquivo(doacoes);
-    }
-
-    public void alterar(DoacaoFilmes doacao, DoacaoFilmes chave) throws RegistroException {
-        List<DoacaoFilmes> doacoes = listar();
-        doacoes.remove(chave);
+        Date data = new Date("11/11/1111");
         try {
-            inserir(doacao);
-        } catch (RegistroException erro) {
-            inserir(chave);
-            throw new RegistroException();
+            data = sdf.parse(fatiado[3]);
+        } catch (NullPointerException | ParseException err) {
+
         }
-        
+
+        doacao.setDataDoacao(data);
+        return doacao;
     }
 
-    private void salvarArquivo(List<DoacaoFilmes> doacoes) {
+    @Override
+    public String getDiretorio() {
+        return BancoArqu.getCaminho() + "doacaofilmes/doacaofilmes.bd";
+    }
+
+    @Override
+    public String converteParaString(DoacaoFilmes doacao) {
+        String data = "";
         try {
-            PrintWriter arq = new PrintWriter(dir);
+            data = sdf.format(doacao.getDataDoacao());
 
-            for (DoacaoFilmes doacao : doacoes) {
-                String data = "";
-                try {
-                    data = sdf.format(doacao.getDataDoacao());
+        } catch (NullPointerException err) {
 
-                } catch (NullPointerException err) {
-
-                    System.out.println("Null ao inserir Data");
-                }
-                
-                
-                
-                try {
-                    data = sdf.format(doacao.getDataDoacao());
-                } catch (NullPointerException err) {
-
-                }
-                arq.println(doacao.getFilme().getExemplar().getNome()
-                        + delimitador + doacao.getEntidade().getCnpj()
-                        + delimitador + doacao.getResponsavel().getCpf()
-                        + delimitador + data
-                );
-            }
-            arq.close();
-
-        } catch (IOException ex) {
-            System.out.println("Arquivo ou diretório Inexistente!");
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException er) {
-                System.out.println("Arquivo Inexistente!");
-            }
+            System.out.println("Null ao inserir Data");
         }
-    }
 
-    public DoacaoFilmes consultar(DoacaoFilmes doacao) {
-        List<DoacaoFilmes> doacoes = listar();
-        return null;
-    }
-
-    public List<DoacaoFilmes> listar() {
-        List<DoacaoFilmes> doacoes = new ArrayList<DoacaoFilmes>();
         try {
-            BufferedReader arq = new BufferedReader(new FileReader(dir));
-            String linha;
-            linha = arq.readLine();
-            while (linha != null) {
-                String[] fatiado = linha.split(delimitador, -2);
-                DoacaoFilmes doacao = new DoacaoFilmes();
-                Filme filme =  FabricaDAO.CriarFilmeDAO().consultar(fatiado[0]);
-                doacao.setFilme(filme);
-                Entidade entidade = FabricaDAO.CriarEntidadeDAO().consultar(fatiado[1]);
-                doacao.setEntidade(entidade);
-                Funcionario funcionario = FabricaDAO.CriarFuncionarioDAO().consultar(fatiado[2]);
-                doacao.setResponsavel(funcionario);
-                
-                
-                Date data = new Date("11/11/1111");
-                try{
-                    data = sdf.parse(fatiado[3]);
-                } catch (NullPointerException | ParseException err){
-                    
-                }
-                
-                doacao.setDataDoacao(data);
-                
-                
-                doacoes.add(doacao);
-                
-                
-                linha = arq.readLine();
-            }
-            arq.close();
-        } catch (FileNotFoundException erro) {
-            try {
-                PrintWriter arq = new PrintWriter(dir);
-            } catch (FileNotFoundException ex) {
-                System.out.println("Erro ao abrir o arquivo");
-            }
+            data = sdf.format(doacao.getDataDoacao());
+        } catch (NullPointerException err) {
 
-        } catch (IOException ex) {
-            System.out.println("Erro ao abrir o arquivo ou ao acessar o diretório");
         }
-
-        return doacoes;
+        return doacao.getFilme().getExemplar().getNome()
+                + delimitador + doacao.getEntidade().getCnpj()
+                + delimitador + doacao.getResponsavel().getCpf()
+                + delimitador + data;
     }
 
 }

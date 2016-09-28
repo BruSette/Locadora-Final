@@ -16,6 +16,7 @@ public class ContaBancaria implements Generica {
 
     private Banco banco;
     private String contaNumero;
+    private int codigo;
 
     public Banco getBanco() {
         return banco;
@@ -72,13 +73,13 @@ public class ContaBancaria implements Generica {
         return getContaNumero() + " - "  + getBanco();
     }
 
-    @Override
-    public void setCodigo(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getCodigo() {
+        return codigo;
     }
 
-    @Override
-    public int getCodigo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
+
+   
 }

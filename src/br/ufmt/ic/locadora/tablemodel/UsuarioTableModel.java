@@ -19,8 +19,8 @@ public class UsuarioTableModel extends AbstractTableModel {
     private List<Usuario> usuarios;
     private String[] header = new String[]{"Nome", "Senha"};
 
-    public UsuarioTableModel(Map<String ,Usuario> map) {
-        usuarios = new ArrayList<>(map.values());
+    public UsuarioTableModel(List<Usuario> List) {
+        usuarios = new ArrayList<>(List);
     }
 
     @Override

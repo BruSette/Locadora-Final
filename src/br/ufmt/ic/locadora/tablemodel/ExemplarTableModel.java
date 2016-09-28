@@ -20,8 +20,8 @@ public class ExemplarTableModel extends AbstractTableModel {
     private List<Exemplar> exemplares;
     private String[] header = new String[]{"Nome","Genero", "Lançamento"};
     
-    public ExemplarTableModel(Map<String, Exemplar> map) {
-        exemplares = new ArrayList<>(map.values());
+    public ExemplarTableModel(List<Exemplar> List) {
+        exemplares = new ArrayList<>(List);
     }
     
     @Override

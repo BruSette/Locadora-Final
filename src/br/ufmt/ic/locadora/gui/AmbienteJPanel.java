@@ -157,7 +157,7 @@ public class AmbienteJPanel extends javax.swing.JPanel {
 
         try {
             if (editar) {
-                dao.alterar(novo, chave);
+                dao.alterar(novo);
                 JOptionPane.showMessageDialog(this, "Alterado com Sucesso!");
                 tableModel.alterar(linhaSelecionada, novo);
             } else {
@@ -195,7 +195,7 @@ public class AmbienteJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = ambientejTable.getSelectedRow();
                 Ambiente selecionado = tableModel.getAmbiente(linhaSelecionada);
-                dao.remover(selecionado.getNome());
+                dao.remover(selecionado.getCodigo());
                 tableModel.remover(linhaSelecionada, selecionado);
                 JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
             }

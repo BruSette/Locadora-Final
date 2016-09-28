@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author brunosette
  */
-public interface BancoDAO extends GenericaDAO {
+public interface BancoDAO extends GenericaDAO<Banco> {
   
 
 }

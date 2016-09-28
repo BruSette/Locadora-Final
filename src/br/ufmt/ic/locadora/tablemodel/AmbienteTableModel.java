@@ -21,8 +21,8 @@ public class AmbienteTableModel extends AbstractTableModel {
     private List<Ambiente> ambientes;
     private String[] header = new String[]{"Nome"};
     
-    public AmbienteTableModel(Map<String, Ambiente> map) {
-        ambientes = new ArrayList<>(map.values());
+    public AmbienteTableModel(List<Ambiente> List) {
+        ambientes = new ArrayList<>(List);
     }
     
     @Override

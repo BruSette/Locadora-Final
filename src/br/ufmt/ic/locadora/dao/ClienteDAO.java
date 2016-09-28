@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author brunosette
  */
-public interface ClienteDAO extends GenericaDAO {
+public interface ClienteDAO extends GenericaDAO<Cliente> {
     
     
 }
