@@ -27,7 +27,8 @@ public class GeneroDAOImplArq extends GenericaDAOArquivo<Genero> implements Gene
     @Override
     public Genero converteParaObjeto(String[] fatiado) {
         Genero genero = new Genero();
-        genero.setNome(fatiado[0]);
+        genero.setCodigo(Integer.parseInt(fatiado[0]));
+        genero.setNome(fatiado[1]);
         return genero;
     }
 
@@ -38,7 +39,8 @@ public class GeneroDAOImplArq extends GenericaDAOArquivo<Genero> implements Gene
 
     @Override
     public String converteParaString(Genero genero) {
-        return genero.getNome();
+        return genero.getCodigo() 
+                + delimitador +genero.getNome();
     }
 
 }

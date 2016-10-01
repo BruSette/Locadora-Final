@@ -5,9 +5,7 @@
  */
 package br.ufmt.ic.locadora.dao;
 
-import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.entidade.Filme;
-import java.util.List;
 
 /**
  *

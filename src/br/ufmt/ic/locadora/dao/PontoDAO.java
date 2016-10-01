@@ -6,9 +6,6 @@
 package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Ponto;
-import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.Date;
-import java.util.List;
 
 /**
  *

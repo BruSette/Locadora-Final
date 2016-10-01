@@ -27,6 +27,7 @@ public class AgenciaDAOImplArq extends GenericaDAOArquivo<Agencia> implements Ag
         return BancoArqu.getCaminho() + "agencia/agencia.bd";
     }
 
+    @Override
     public String converteParaString(Agencia objeto) {
         Agencia agencia = (Agencia) objeto;
         return (agencia.getCodigo()

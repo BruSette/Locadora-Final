@@ -20,6 +20,7 @@ import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
 import br.ufmt.ic.locadora.dao.impl.arquivo.*;
 import br.ufmt.ic.locadora.dao.*;
+import br.ufmt.ic.locadora.dao.impl.postgres.AgenciaDAOImplPostgres;
 
 /**
  *
@@ -96,7 +97,7 @@ public class FabricaDAO {
     
     public static AgenciaDAO CriarAgenciaDAO() {
         if (agenciadao == null) {
-            agenciadao = new AgenciaDAOImplArq();
+            agenciadao = new AgenciaDAOImplPostgres();
         }
         return agenciadao;
     }
@@ -155,6 +156,10 @@ public class FabricaDAO {
             usuariodaoarq =  new UsuarioDAOImplArq();
         }
         return usuariodaoarq;
+    }
+
+    public static Object criarPacienteDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

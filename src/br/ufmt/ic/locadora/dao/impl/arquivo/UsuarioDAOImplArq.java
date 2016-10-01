@@ -7,16 +7,7 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.util.BancoArqu;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -27,20 +18,21 @@ public class UsuarioDAOImplArq extends GenericaDAOArquivo<Usuario> implements Us
     @Override
     public Usuario converteParaObjeto(String[] fatiado) {
         Usuario usuario = new Usuario();
-        usuario.setUsuario(fatiado[0]);
-        usuario.setSenha(fatiado[1]);
-
+        usuario.setCodigo(Integer.parseInt(fatiado[0]));
+        usuario.setUsuario(fatiado[1]);
+        usuario.setSenha(fatiado[2]);
         return usuario;
     }
 
     @Override
     public String getDiretorio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return BancoArqu.getCaminho() + "usuario/usuario.bd";
     }
 
     @Override
     public String converteParaString(Usuario usuario) {
-        return usuario.getUsuario()
+        return  usuario.getCodigo()
+                + delimitador + usuario.getUsuario()
                 + delimitador + usuario.getSenha();
     }
 

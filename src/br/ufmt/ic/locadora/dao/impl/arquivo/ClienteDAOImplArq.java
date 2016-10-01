@@ -23,35 +23,35 @@ public class ClienteDAOImplArq extends GenericaDAOArquivo<Cliente> implements Cl
     @Override
     public Cliente converteParaObjeto(String[] fatiado) {
         Cliente cliente = new Cliente();
-
-        System.out.println(fatiado[0]);
+        cliente.setCodigo(Integer.parseInt(fatiado[0]));
+        System.out.println(fatiado[1]);
 
         try {
-            cliente.setBloqueado(Boolean.getBoolean(fatiado[0]));
+            cliente.setBloqueado(Boolean.getBoolean(fatiado[1]));
 
         } catch (NullPointerException err) {
             System.out.println("Null pointer ao converter bloqueado ou nao");
         }
 
-        cliente.setCpf(fatiado[1]);
-        cliente.setEmail(fatiado[2]);
-        cliente.setNacionalidade(fatiado[3]);
-        cliente.setNome(fatiado[4]);
-        cliente.setRg(fatiado[5]);
-        cliente.setSexo(fatiado[6]);
-        cliente.setTelefone(fatiado[7]);
-        cliente.setCelular(fatiado[8]);
+        cliente.setCpf(fatiado[2]);
+        cliente.setEmail(fatiado[3]);
+        cliente.setNacionalidade(fatiado[4]);
+        cliente.setNome(fatiado[5]);
+        cliente.setRg(fatiado[6]);
+        cliente.setSexo(fatiado[7]);
+        cliente.setTelefone(fatiado[8]);
+        cliente.setCelular(fatiado[9]);
 
         Date data = new Date("11/11/1111");
         try {
-            data = sdf.parse(fatiado[9]);
+            data = sdf.parse(fatiado[10]);
         } catch (NullPointerException | ParseException err) {
 
         }
         cliente.setDataNascimento(data);
 
         try {
-            String limite = fatiado[10];
+            String limite = fatiado[11];
             Integer limiteint = Integer.valueOf(limite);
             cliente.setLimiteFilmes(limiteint);
 
@@ -60,13 +60,13 @@ public class ClienteDAOImplArq extends GenericaDAOArquivo<Cliente> implements Cl
         }
 
         Endereco endereco = new Endereco();
-        endereco.setBairro(fatiado[11]);
-        endereco.setCep(fatiado[12]);
-        endereco.setCidade(fatiado[13]);
-        endereco.setComplemento(fatiado[14]);
-        endereco.setEstado(fatiado[15]);
-        endereco.setNumero(fatiado[16]);
-        endereco.setRua(fatiado[17]);
+        endereco.setBairro(fatiado[12]);
+        endereco.setCep(fatiado[13]);
+        endereco.setCidade(fatiado[14]);
+        endereco.setComplemento(fatiado[15]);
+        endereco.setEstado(fatiado[16]);
+        endereco.setNumero(fatiado[17]);
+        endereco.setRua(fatiado[18]);
         cliente.setEndereco(endereco);
         return cliente;
     }
@@ -106,7 +106,8 @@ public class ClienteDAOImplArq extends GenericaDAOArquivo<Cliente> implements Cl
             System.out.println("Null ao inserir Data");
         }
 
-        return Boolean.toString(cliente.getBloqueado())
+        return cliente.getCodigo() + delimitador +
+                Boolean.toString(cliente.getBloqueado())
                 + delimitador + cliente.getCpf()
                 + delimitador + cliente.getEmail()
                 + delimitador + cliente.getNacionalidade()

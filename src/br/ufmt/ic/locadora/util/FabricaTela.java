@@ -37,8 +37,8 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.addItem("Selecione");
         List<Funcionario> funcionarios = funcionarioDAO.listar();
         for (Iterator<Funcionario> iterator = funcionarios.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
-            Funcionario next = iterator.next();
+            Funcionario funcionario = iterator.next();
+            jComboBox.addItem(funcionario);
             
         }
         jComboBox.setName("Funcionario");
@@ -49,8 +49,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.removeAllItems();
         jComboBox.addItem("Selecione");
         List<Ambiente> ambientes = ambienteDAO.listar();
-        for (Iterator<Ambiente> iterator = ambientes.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
+        for (Iterator<Ambiente> it = ambientes.iterator(); it.hasNext();) {
+            Ambiente ambiente = it.next();
+            jComboBox.addItem(ambiente);
             
         }
         jComboBox.setName("Ambiente");
@@ -63,8 +64,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.addItem("Selecione");
         List<Fornecedor> fornecedores = fornecedorDAO.listar();
         for (Iterator<Fornecedor> iterator = fornecedores.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             Fornecedor next = iterator.next();
+            jComboBox.addItem(next);
+           
             
         }
         jComboBox.setName("Fornecedor");
@@ -78,8 +80,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
 
         List<Cliente> clientes = clienteDAO.listar();
         for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             Cliente next = iterator.next();
+            jComboBox.addItem(next);
+            
             
         }
         jComboBox.setName("Cliente");
@@ -91,8 +94,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.addItem("Selecione");
         List<Exemplar> exemplares = exemplarDAO.listar();
         for (Iterator<Exemplar> iterator = exemplares.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             Exemplar next = iterator.next();
+            jComboBox.addItem(next);
+            
             
         }
         jComboBox.setName("Exemplar");
@@ -133,8 +137,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
 
         List<Genero> generos = generoDAO.listar();
         for (Iterator<Genero> iterator = generos.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             Genero next = iterator.next();
+            jComboBox.addItem(next);
+            
             
         }
         jComboBox.setName("Genero");
@@ -147,8 +152,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.addItem("Selecione");
         List<Entidade> entidades = entidadeDAO.listar();
         for (Iterator<Entidade> iterator = entidades.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             Entidade next = iterator.next();
+            jComboBox.addItem(next);
+            
             
         }
         jComboBox.setName("Entidade");
@@ -160,8 +166,9 @@ public abstract class FabricaTela extends javax.swing.JPanel {
         jComboBox.addItem("Selecione");
         List<TipoCargo> tipocargos = tipocargoDAO.listar();
         for (Iterator<TipoCargo> iterator = tipocargos.iterator(); iterator.hasNext();) {
-            jComboBox.addItem(iterator);
             TipoCargo next = iterator.next();
+            jComboBox.addItem(next);
+            
             
         }
         jComboBox.setName("Cargo");

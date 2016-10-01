@@ -7,29 +7,18 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.dao.FuncionarioDAO;
-import br.ufmt.ic.locadora.dao.UsuarioDAO;
 import br.ufmt.ic.locadora.entidade.Ambiente;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.Endereco;
-import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.entidade.Usuario;
 import br.ufmt.ic.locadora.exception.RegistroException;
-import br.ufmt.ic.locadora.exception.UsuarioException;
 import br.ufmt.ic.locadora.util.BancoArqu;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,20 +34,20 @@ public class FuncionarioDAOImplArq extends GenericaDAOArquivo<Funcionario> imple
     @Override
     public Funcionario converteParaObjeto(String[] fatiado) {
         Funcionario funcionario = new Funcionario();
-        funcionario.setCpf(fatiado[0]);
-        funcionario.setEmail(fatiado[1]);
-        funcionario.setNacionalidade(fatiado[2]);
-        funcionario.setNome(fatiado[3]);
-        funcionario.setRg(fatiado[4]);
-        funcionario.setSexo(fatiado[5]);
-        funcionario.setTelefone(fatiado[6]);
-        funcionario.setCelular(fatiado[7]);
+        funcionario.setCpf(fatiado[1]);
+        funcionario.setEmail(fatiado[2]);
+        funcionario.setNacionalidade(fatiado[3]);
+        funcionario.setNome(fatiado[4]);
+        funcionario.setRg(fatiado[5]);
+        funcionario.setSexo(fatiado[6]);
+        funcionario.setTelefone(fatiado[7]);
+        funcionario.setCelular(fatiado[8]);
 
-        String sdata = fatiado[8];
+        String sdata = fatiado[9];
 
         Date data = new Date("11/11/1111");
         try {
-            data = sdf.parse(fatiado[8]);
+            data = sdf.parse(fatiado[9]);
         } catch (NullPointerException | ParseException err) {
 
         }
@@ -71,7 +60,7 @@ public class FuncionarioDAOImplArq extends GenericaDAOArquivo<Funcionario> imple
             Logger.getLogger(FuncionarioDAOImplArq.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            data = sdf.parse(fatiado[9]);
+            data = sdf.parse(fatiado[10]);
         } catch (NullPointerException | ParseException err) {
 
         }
@@ -83,31 +72,31 @@ public class FuncionarioDAOImplArq extends GenericaDAOArquivo<Funcionario> imple
             Logger.getLogger(FuncionarioDAOImplArq.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            data = sdf.parse(fatiado[10]);
+            data = sdf.parse(fatiado[11]);
         } catch (NullPointerException | ParseException err) {
 
         }
         funcionario.setDataDemiss(data);
 
         Endereco endereco = new Endereco();
-        endereco.setBairro(fatiado[11]);
-        endereco.setCep(fatiado[12]);
-        endereco.setCidade(fatiado[13]);
-        endereco.setComplemento(fatiado[14]);
-        endereco.setEstado(fatiado[15]);
-        endereco.setNumero(fatiado[16]);
-        endereco.setRua(fatiado[17]);
+        endereco.setBairro(fatiado[12]);
+        endereco.setCep(fatiado[13]);
+        endereco.setCidade(fatiado[14]);
+        endereco.setComplemento(fatiado[15]);
+        endereco.setEstado(fatiado[16]);
+        endereco.setNumero(fatiado[17]);
+        endereco.setRua(fatiado[18]);
         funcionario.setEndereco(endereco);
 
-        Ambiente ambiente = (Ambiente) FabricaDAO.CriarAmbienteDAO().consultar(Integer.parseInt(fatiado[18]));
+        Ambiente ambiente = (Ambiente) FabricaDAO.CriarAmbienteDAO().consultar(Integer.parseInt(fatiado[19]));
         funcionario.setAmbiente(ambiente);
-        TipoCargo cargo = (TipoCargo) FabricaDAO.CriarTipoCargoDAO().consultar(Integer.parseInt(fatiado[19]));
+        TipoCargo cargo = (TipoCargo) FabricaDAO.CriarTipoCargoDAO().consultar(Integer.parseInt(fatiado[20]));
         funcionario.setCargo(cargo);
-        Usuario usuario = (Usuario) FabricaDAO.CriarUsuarioDAO().consultar(Integer.parseInt(fatiado[20]));
+        Usuario usuario = (Usuario) FabricaDAO.CriarUsuarioDAO().consultar(Integer.parseInt(fatiado[21]));
         funcionario.setUsuario(usuario);
         ContaBancaria conta = new ContaBancaria();
-        conta.setContaNumero(fatiado[21]);
-        conta.setBanco((Banco) FabricaDAO.CriarBancoDAO().consultar(Integer.parseInt(fatiado[22])));
+        conta.setContaNumero(fatiado[22]);
+        conta.setBanco((Banco) FabricaDAO.CriarBancoDAO().consultar(Integer.parseInt(fatiado[23])));
         funcionario.setConta(conta);
         return funcionario;
     }
@@ -150,7 +139,8 @@ public class FuncionarioDAOImplArq extends GenericaDAOArquivo<Funcionario> imple
             System.out.println("Null ao inserir Data");
         }
 
-        return funcionario.getCpf()
+        return funcionario.getCodigo() 
+                + delimitador +funcionario.getCpf()
                 + delimitador + funcionario.getEmail()
                 + delimitador + funcionario.getNacionalidade()
                 + delimitador + funcionario.getNome()

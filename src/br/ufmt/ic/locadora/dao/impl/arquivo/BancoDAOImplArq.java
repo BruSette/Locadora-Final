@@ -31,6 +31,6 @@ public class BancoDAOImplArq extends GenericaDAOArquivo<Banco> implements BancoD
 
     @Override
     public String converteParaString(Banco objeto) {
-        return String.valueOf(objeto.getCodigo()) + delimitador+ objeto.getCod() + delimitador + objeto.getNome();
+        return objeto.getCodigo() + delimitador+ objeto.getCod() + delimitador + objeto.getNome();
     }
 }

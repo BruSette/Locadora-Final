@@ -6,8 +6,6 @@
 package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Usuario;
-import br.ufmt.ic.locadora.exception.UsuarioException;
-import java.util.Map;
 
 /**
  *

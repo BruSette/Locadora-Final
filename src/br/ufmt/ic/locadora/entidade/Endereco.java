@@ -1,7 +1,7 @@
 package br.ufmt.ic.locadora.entidade;
 
 
-public class Endereco implements Generica {
+public class Endereco {
 
     private String rua;
     private String numero;
@@ -10,7 +10,6 @@ public class Endereco implements Generica {
     private String cep;
     private String cidade;
     private String estado;
-    private int codigo;
 
     public String getRua() {
         return rua;
@@ -73,13 +72,7 @@ public class Endereco implements Generica {
         return getCidade() + " - "  + getRua() + " - "  + getNumero();
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
+   
 
 
 }

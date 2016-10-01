@@ -6,8 +6,6 @@
 package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.entidade.Fornecedor;
-import br.ufmt.ic.locadora.exception.CNPJException;
-import java.util.Map;
 
 /**
  *

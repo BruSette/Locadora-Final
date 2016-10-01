@@ -59,6 +59,7 @@ public class Agencia implements Generica {
         this.endereco = endereco;
     }
     
+    @Override
     public String toString(){
         return getCodigoAgencia();
     }
@@ -71,6 +72,6 @@ public class Agencia implements Generica {
         this.codigo = codigo;
     }
 
-    
+   
     
 }

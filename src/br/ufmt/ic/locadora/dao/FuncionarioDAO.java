@@ -5,11 +5,7 @@
  */
 package br.ufmt.ic.locadora.dao;
 
-import br.ufmt.ic.locadora.entidade.Agencia;
-import br.ufmt.ic.locadora.exception.CPFException;
 import br.ufmt.ic.locadora.entidade.Funcionario;
-import br.ufmt.ic.locadora.exception.UsuarioException;
-import java.util.Map;
 
 /**
  *

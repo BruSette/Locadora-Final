@@ -6,21 +6,12 @@
 package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.entidade.Filme;
-import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
-import br.ufmt.ic.locadora.dao.GenericaDAO;
 import br.ufmt.ic.locadora.entidade.Exemplar;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.entidade.Funcionario;
 import br.ufmt.ic.locadora.util.BancoArqu;
 import br.ufmt.ic.locadora.util.FabricaDAO;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -31,14 +22,15 @@ public class FilmeDAOImplArq extends GenericaDAOArquivo<Filme> implements FilmeD
     @Override
     public Filme converteParaObjeto(String[] fatiado) {
         Filme filme = new Filme();
-        Exemplar exemplar = (Exemplar) FabricaDAO.CriarExemplarDAO().consultar(Integer.parseInt(fatiado[0]));
+        filme.setCodigo(Integer.parseInt(fatiado[0]));
+        Exemplar exemplar = (Exemplar) FabricaDAO.CriarExemplarDAO().consultar(Integer.parseInt(fatiado[1]));
         filme.setExemplar(exemplar);
-        Fornecedor fornecedor = (Fornecedor) FabricaDAO.CriarForncedorDAO().consultar(Integer.parseInt(fatiado[1]));
+        Fornecedor fornecedor = (Fornecedor) FabricaDAO.CriarForncedorDAO().consultar(Integer.parseInt(fatiado[2]));
         System.out.println(fornecedor.getNome());
         filme.setFornecedor(fornecedor);
-        Funcionario funcionario = (Funcionario) FabricaDAO.CriarFuncionarioDAO().consultar(Integer.parseInt(fatiado[2]));
+        Funcionario funcionario = (Funcionario) FabricaDAO.CriarFuncionarioDAO().consultar(Integer.parseInt(fatiado[3]));
         filme.setFuncionario(funcionario);
-        filme.setQuantidade(Integer.parseInt(fatiado[3]));
+        filme.setQuantidade(Integer.parseInt(fatiado[4]));
         return filme;
     }
 
@@ -49,9 +41,10 @@ public class FilmeDAOImplArq extends GenericaDAOArquivo<Filme> implements FilmeD
 
     @Override
     public String converteParaString(Filme filme) {
-        return filme.getExemplar().getNome()
-                + delimitador + filme.getFornecedor().getCnpj()
-                + delimitador + filme.getFuncionario().getCpf()
+        return filme.getCodigo() 
+                + delimitador +filme.getExemplar().getCodigo()
+                + delimitador + filme.getFornecedor().getCodigo()
+                + delimitador + filme.getFuncionario().getCodigo()
                 + delimitador + String.valueOf(filme.getQuantidade());
     }
 

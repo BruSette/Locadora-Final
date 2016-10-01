@@ -5,8 +5,6 @@
  */
 package br.ufmt.ic.locadora.dao;
 import br.ufmt.ic.locadora.entidade.Banco;
-import br.ufmt.ic.locadora.exception.RegistroException;
-import java.util.List;
 
 
 /**

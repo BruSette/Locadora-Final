@@ -35,13 +35,14 @@ public class ReservaFilmeDAOImplArq extends GenericaDAOArquivo<ReservaFilme> imp
     @Override
     public ReservaFilme converteParaObjeto(String[] fatiado) {
         ReservaFilme reserva = new ReservaFilme();
-        reserva.setCliente((Cliente) FabricaDAO.CriarClienteDAO().consultar(Integer.parseInt(fatiado[0])));
-        reserva.setFilme((Filme) FabricaDAO.CriarFilmeDAO().consultar(Integer.parseInt(fatiado[1])));
-        reserva.setFuncionario((Funcionario) FabricaDAO.CriarFuncionarioDAO().consultar(Integer.parseInt(fatiado[2])));
+        reserva.setCodigo(Integer.parseInt(fatiado[0]));
+        reserva.setCliente((Cliente) FabricaDAO.CriarClienteDAO().consultar(Integer.parseInt(fatiado[1])));
+        reserva.setFilme((Filme) FabricaDAO.CriarFilmeDAO().consultar(Integer.parseInt(fatiado[2])));
+        reserva.setFuncionario((Funcionario) FabricaDAO.CriarFuncionarioDAO().consultar(Integer.parseInt(fatiado[3])));
 
         Date data = new Date("11/11/1111");
         try {
-            data = sdf.parse(fatiado[3]);
+            data = sdf.parse(fatiado[4]);
         } catch (NullPointerException | ParseException err) {
 
         }
@@ -49,7 +50,7 @@ public class ReservaFilmeDAOImplArq extends GenericaDAOArquivo<ReservaFilme> imp
 
         try {
             data = sdf.parse("11/11/1111");
-            data = sdf.parse(fatiado[4]);
+            data = sdf.parse(fatiado[5]);
         } catch (NullPointerException | ParseException err) {
 
         }
@@ -77,7 +78,8 @@ public class ReservaFilmeDAOImplArq extends GenericaDAOArquivo<ReservaFilme> imp
         } catch (NullPointerException err) {
 
         }
-        return reserva.getCliente().getCpf()
+        return  reserva.getCodigo()
+                + delimitador + reserva.getCliente().getCpf()
                 + delimitador + reserva.getFilme().getExemplar().getNome()
                 + delimitador + reserva.getFuncionario().getCpf()
                 + delimitador + datadevolucao

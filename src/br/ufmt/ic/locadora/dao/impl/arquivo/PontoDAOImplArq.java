@@ -7,19 +7,10 @@ package br.ufmt.ic.locadora.dao.impl.arquivo;
 
 import br.ufmt.ic.locadora.dao.PontoDAO;
 import br.ufmt.ic.locadora.entidade.Ponto;
-import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.util.BancoArqu;
-import br.ufmt.ic.locadora.util.FabricaDAO;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -31,7 +22,18 @@ public class PontoDAOImplArq extends GenericaDAOArquivo<Ponto> implements PontoD
 
     @Override
     public Ponto converteParaObjeto(String[] fatiado) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Ponto ponto = new Ponto();
+        ponto.setCodigo(Integer.parseInt(fatiado[0]));
+        ponto.setTipoPonto(fatiado[1]);
+        
+        Date data = new Date("11/11/1111");
+        try {
+            data = sdf.parse(fatiado[2]);
+        } catch (NullPointerException | ParseException err) {
+
+        }
+        ponto.setDataPonto(data);
+        return ponto;
     }
 
     @Override
@@ -51,7 +53,8 @@ public class PontoDAOImplArq extends GenericaDAOArquivo<Ponto> implements PontoD
             System.out.println("Null ao inserir Data");
         }
 
-        return ponto.getFuncionario().getCpf()
+        return ponto.getCodigo()
+                + delimitador + ponto.getFuncionario().getCpf()
                 + delimitador + ponto.getTipoPonto()
                 + delimitador + data;
     }

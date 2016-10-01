@@ -25,26 +25,27 @@ public class FornecedorDAOImplArq extends GenericaDAOArquivo<Fornecedor> impleme
     @Override
     public Fornecedor converteParaObjeto(String[] fatiado) {
         Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setCnpj(fatiado[0]);
-        fornecedor.setEmail(fatiado[1]);
-        fornecedor.setNome(fatiado[2]);
-        fornecedor.setRazaoSocial(fatiado[3]);
-        fornecedor.setTelefone(fatiado[4]);
-        fornecedor.setCelular(fatiado[5]);
-        fornecedor.setObs(fatiado[6]);
+        fornecedor.setCodigo(Integer.parseInt(fatiado[0]));
+        fornecedor.setCnpj(fatiado[1]);
+        fornecedor.setEmail(fatiado[2]);
+        fornecedor.setNome(fatiado[3]);
+        fornecedor.setRazaoSocial(fatiado[4]);
+        fornecedor.setTelefone(fatiado[5]);
+        fornecedor.setCelular(fatiado[6]);
+        fornecedor.setObs(fatiado[7]);
 
         ContaBancaria conta = new ContaBancaria();
-        conta.setBanco((Banco) FabricaDAO.CriarBancoDAO().consultar(Integer.parseInt(fatiado[7])));
-        conta.setContaNumero(fatiado[8]);
+        conta.setBanco((Banco) FabricaDAO.CriarBancoDAO().consultar(Integer.parseInt(fatiado[8])));
+        conta.setContaNumero(fatiado[9]);
         fornecedor.setConta(conta);
         Endereco endereco = new Endereco();
-        endereco.setBairro(fatiado[9]);
-        endereco.setCep(fatiado[10]);
-        endereco.setCidade(fatiado[11]);
-        endereco.setComplemento(fatiado[12]);
-        endereco.setEstado(fatiado[13]);
-        endereco.setNumero(fatiado[14]);
-        endereco.setRua(fatiado[15]);
+        endereco.setBairro(fatiado[10]);
+        endereco.setCep(fatiado[11]);
+        endereco.setCidade(fatiado[12]);
+        endereco.setComplemento(fatiado[13]);
+        endereco.setEstado(fatiado[14]);
+        endereco.setNumero(fatiado[15]);
+        endereco.setRua(fatiado[16]);
         fornecedor.setEndereco(endereco);
         return fornecedor;
 
@@ -65,7 +66,8 @@ public class FornecedorDAOImplArq extends GenericaDAOArquivo<Fornecedor> impleme
 
         }
 
-        return fornecedor.getCnpj()
+        return fornecedor.getCodigo() 
+                + delimitador +fornecedor.getCnpj()
                 + delimitador + fornecedor.getEmail()
                 + delimitador + fornecedor.getNome()
                 + delimitador + fornecedor.getRazaoSocial()

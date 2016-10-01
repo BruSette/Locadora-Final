@@ -27,7 +27,8 @@ public class TipoCargoDAOImplArq extends GenericaDAOArquivo<TipoCargo> implement
     @Override
     public TipoCargo converteParaObjeto(String[] fatiado) {
         TipoCargo cargo = new TipoCargo();
-        cargo.setNome(fatiado[0]);
+        cargo.setCodigo(Integer.parseInt(fatiado[0]));
+        cargo.setNome(fatiado[1]);
         return cargo;
     }
 
@@ -38,7 +39,8 @@ public class TipoCargoDAOImplArq extends GenericaDAOArquivo<TipoCargo> implement
 
     @Override
     public String converteParaString(TipoCargo tipocargo) {
-        return tipocargo.getNome();
+        return tipocargo.getCodigo() 
+               + delimitador +tipocargo.getNome();
     }
 
 }

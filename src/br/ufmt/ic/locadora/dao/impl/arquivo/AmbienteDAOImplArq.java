@@ -24,14 +24,15 @@ public class AmbienteDAOImplArq extends GenericaDAOArquivo<Ambiente> implements 
     @Override
     public Ambiente converteParaObjeto(String[] fatiado) {
         Ambiente ambiente = new Ambiente();
-        ambiente.setNome(fatiado[0]);
+        ambiente.setCodigo(Integer.parseInt(fatiado[0]));
+        ambiente.setNome(fatiado[1]);
 
         return ambiente;
     }
 
     @Override
     public String converteParaString(Ambiente objeto) {
-        return objeto.getNome();
+        return objeto.getCodigo() + delimitador +objeto.getNome();
     }
 
 }
