@@ -7,6 +7,7 @@ package br.ufmt.ic.locadora.dao.impl.mysql;
  */
 import br.ufmt.ic.locadora.dao.impl.postgres.*;
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
+import br.ufmt.ic.locadora.dao.generic.GenericaDAOMysql;
 import br.ufmt.ic.locadora.dao.generic.GenericaDAOPostgres;
 import br.ufmt.ic.locadora.entidade.ContaBancaria;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class FornecedorDAOImplMysql extends GenericaDAOPostgres<Fornecedor> implements FornecedorDAO {
+public class FornecedorDAOImplMysql extends GenericaDAOMysql<Fornecedor> implements FornecedorDAO {
 
     @Override
     public String getInsert(Fornecedor objeto) {

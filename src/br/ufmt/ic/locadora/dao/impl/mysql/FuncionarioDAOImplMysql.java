@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class FuncionarioDAOImplMysql extends GenericaDAOPostgres<Funcionario> implements FuncionarioDAO {
+public class FuncionarioDAOImplMysql extends GenericaDAOMysql<Funcionario> implements FuncionarioDAO {
 
     @Override
     public String getInsert(Funcionario objeto) {

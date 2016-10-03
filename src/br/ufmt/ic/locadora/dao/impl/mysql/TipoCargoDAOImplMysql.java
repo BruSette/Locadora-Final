@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class TipoCargoDAOImplMysql extends GenericaDAOPostgres<TipoCargo> implements TipoCargoDAO {
+public class TipoCargoDAOImplMysql extends GenericaDAOMysql<TipoCargo> implements TipoCargoDAO {
 
   @Override
     public String getInsert(TipoCargo objeto) {

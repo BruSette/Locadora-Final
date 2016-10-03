@@ -6,6 +6,7 @@ package br.ufmt.ic.locadora.dao.impl.mysql;
  * and open the template in the editor.
  */
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
+import br.ufmt.ic.locadora.dao.generic.GenericaDAOMysql;
 import br.ufmt.ic.locadora.dao.generic.GenericaDAOPostgres;
 import br.ufmt.ic.locadora.entidade.Exemplar;
 import br.ufmt.ic.locadora.util.FabricaDAO;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class ExemplarDAOImplMysql extends GenericaDAOPostgres<Exemplar> implements ExemplarDAO {
+public class ExemplarDAOImplMysql extends GenericaDAOMysql<Exemplar> implements ExemplarDAO {
 
   @Override
     public String getInsert(Exemplar objeto) {

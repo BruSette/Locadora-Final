@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class FilmeDAOImplMysql extends GenericaDAOPostgres<Filme> implements FilmeDAO {
+public class FilmeDAOImplMysql extends GenericaDAOMysql<Filme> implements FilmeDAO {
 
     @Override
     public String getInsert(Filme objeto) {

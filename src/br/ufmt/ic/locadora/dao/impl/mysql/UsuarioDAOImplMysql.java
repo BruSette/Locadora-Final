@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class UsuarioDAOImplMysql extends GenericaDAOPostgres<Usuario> implements UsuarioDAO {
+public class UsuarioDAOImplMysql extends GenericaDAOMysql<Usuario> implements UsuarioDAO {
 
     @Override
     public String getInsert(Usuario objeto) {

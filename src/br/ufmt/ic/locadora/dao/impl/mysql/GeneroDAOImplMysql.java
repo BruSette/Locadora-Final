@@ -25,7 +25,7 @@ import org.postgresql.util.PSQLException;
  *
  * @author bruno
  */
-public class GeneroDAOImplMysql extends GenericaDAOPostgres<Genero> implements GeneroDAO {
+public class GeneroDAOImplMysql extends GenericaDAOMysql<Genero> implements GeneroDAO {
 
   @Override
     public String getInsert(Genero objeto) {

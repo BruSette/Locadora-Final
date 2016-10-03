@@ -21,13 +21,13 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDAO<T>   {
-    
+public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDAO<T> {
+
     protected final BancoDados banco = getBanco();
-    
+
     protected T t = getObjeto();
     protected String nome = t.getClass().getSimpleName().toLowerCase();
-    
+
     @Override
     public void inserir(T t) throws RegistroException, SQLException {
         String sql = "INSERT INTO " + nome;
@@ -37,13 +37,10 @@ public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDA
         try {
             pstm.execute();
             ResultSet resultado = getUltimo();
-            try {
-                if (resultado.next()) {
-                    t.setCodigo(resultado.getInt("ultimo"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(GenericaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            if (resultado.next()) {
+                t.setCodigo(resultado.getInt("ultimo"));
             }
+
         } catch (SQLException ex) {
             throw new SQLException();
         }
@@ -62,8 +59,8 @@ public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDA
 
     @Override
     public void alterar(T t) throws SQLException {
-        
-        String sql = "UPDATE" + nome +  "SET  ";
+
+        String sql = "UPDATE" + nome + "SET  ";
         sql += getUpdate(t);
         PreparedStatement pstm = banco.prepareStatement(sql);
         pstm = PreparaUpdate(pstm, t);
@@ -72,7 +69,7 @@ public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDA
         } catch (SQLException ex) {
             throw new SQLException();
         }
-        
+
     }
 
     @Override
@@ -110,12 +107,19 @@ public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDA
     }
 
     public abstract ResultSet getUltimo();
+
     public abstract String getInsert(T objeto);
+
     public abstract String getUpdate(T objeto);
+
     public abstract T setObjeto(ResultSet resultado);
+
     public abstract T getObjeto();
+
     public abstract PreparedStatement PreparaInserir(PreparedStatement pstm, T t);
+
     public abstract PreparedStatement PreparaUpdate(PreparedStatement pstm, T t);
-    public abstract BancoDados getBanco ();
-            
+
+    public abstract BancoDados getBanco();
+
 }

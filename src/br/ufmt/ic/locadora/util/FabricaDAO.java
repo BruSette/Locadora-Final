@@ -22,6 +22,7 @@ import br.ufmt.ic.locadora.dao.*;
 import br.ufmt.ic.locadora.dao.impl.mysql.AgenciaDAOImplMysql;
 import br.ufmt.ic.locadora.dao.impl.mysql.AmbienteDAOImplMysql;
 import br.ufmt.ic.locadora.dao.impl.mysql.BancoDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.FornecedorDAOImplMysql;
 import br.ufmt.ic.locadora.dao.impl.mysql.FuncionarioDAOImplMysql;
 import br.ufmt.ic.locadora.dao.impl.mysql.TipoCargoDAOImplMysql;
 import br.ufmt.ic.locadora.dao.impl.mysql.UsuarioDAOImplMysql;
@@ -94,7 +95,7 @@ public class FabricaDAO {
     
      public static FornecedorDAO CriarForncedorDAO() {
         if (fornecedordao == null) {
-            fornecedordao = new FornecedorDAOImplPostgres();
+            fornecedordao = new FornecedorDAOImplMysql();
         }
         return fornecedordao;
     }

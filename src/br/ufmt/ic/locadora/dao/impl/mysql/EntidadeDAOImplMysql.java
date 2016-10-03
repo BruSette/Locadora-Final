@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class EntidadeDAOImplMysql extends GenericaDAOPostgres<Entidade> implements EntidadeDAO {
+public class EntidadeDAOImplMysql extends GenericaDAOMysql<Entidade> implements EntidadeDAO {
 
     @Override
     public String getInsert(Entidade objeto) {

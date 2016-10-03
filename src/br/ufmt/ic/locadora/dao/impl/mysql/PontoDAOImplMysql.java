@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class PontoDAOImplMysql extends GenericaDAOPostgres<Ponto> implements PontoDAO {
+public class PontoDAOImplMysql extends GenericaDAOMysql<Ponto> implements PontoDAO {
 
   @Override
     public String getInsert(Ponto objeto) {
