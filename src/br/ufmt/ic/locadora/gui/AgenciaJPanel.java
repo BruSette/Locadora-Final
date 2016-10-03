@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -342,6 +345,9 @@ public class AgenciaJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             agenciajTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            agenciajTextField.grabFocus();
         }
 
 
@@ -386,9 +392,15 @@ public class AgenciaJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = agenciajTable.getSelectedRow();
                 Agencia selecionado = tableModel.getAgencia(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+                    Logger.getLogger(AgenciaJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

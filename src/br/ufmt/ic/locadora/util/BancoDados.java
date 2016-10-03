@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl.postgres;
+package br.ufmt.ic.locadora.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,22 +17,10 @@ import java.util.logging.Logger;
  *
  * @author raphael
  */
-public class Banco {
+public class BancoDados {
 
     protected Connection conexao;
-
-    public Banco(boolean postgresql) {
-        try {
-            if (postgresql) {
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/bdlocadora", "postgres", "123");
-            } else {
-                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdlocadora", "root", "123");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Banco.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     public void executar(String sql) {
         try {
             conexao.createStatement().execute(sql);

@@ -22,8 +22,11 @@ import br.ufmt.ic.locadora.dao.FilmeDAO;
 import br.ufmt.ic.locadora.dao.GeneroDAO;
 import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,14 +58,10 @@ public class DoacaoJPanel extends FabricaTela {
         LimpaComboFilme();
     }
 
-    
-
     private void LimpaComboFilme() {
         filmejComboBox.removeAllItems();
         filmejComboBox.addItem("Esperando ...");
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -263,13 +262,12 @@ public class DoacaoJPanel extends FabricaTela {
             return;
         }
 
-        if (ValidaCombo(filmejComboBox)){
+        if (ValidaCombo(filmejComboBox)) {
             novo.setFilme((Filme) filmejComboBox.getSelectedItem());
-        }else{
+        } else {
             filmejComboBox.grabFocus();
         }
-        
-        
+
         String sData = (String) datajFormattedTextField.getText();
 
         if (sData != null) {
@@ -282,7 +280,6 @@ public class DoacaoJPanel extends FabricaTela {
                 return;
             }
         }
-        
 
         try {
             if (editar) {
@@ -298,6 +295,9 @@ public class DoacaoJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             entidadejComboBox.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            entidadejComboBox.grabFocus();
         }
 
 
@@ -309,15 +309,14 @@ public class DoacaoJPanel extends FabricaTela {
         if (doacaojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = doacaojTable.getSelectedRow();
             DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-            
+
             generojComboBox.setSelectedItem(selecionado.getFilme().getExemplar().getGenero());
-            
+
             filmejComboBox.setSelectedItem(selecionado.getFilme());
-            
+
             entidadejComboBox.setSelectedItem(selecionado.getEntidade());
             funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
-            
-            
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             try {
@@ -325,9 +324,7 @@ public class DoacaoJPanel extends FabricaTela {
             } catch (NullPointerException erro) {
 
             }
-            
-            
-            
+
             funcionariojComboBox.setSelectedItem(selecionado.getResponsavel());
             chave = selecionado;
             editar = true;
@@ -343,10 +340,17 @@ public class DoacaoJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = doacaojTable.getSelectedRow();
                 DoacaoFilmes selecionado = tableModel.getDoacao(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
-                limparjButtonActionPerformed(null);
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                    
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(DoacaoJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
@@ -357,7 +361,7 @@ public class DoacaoJPanel extends FabricaTela {
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
             filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
-            if (filmejComboBox.getItemCount() < 2){
+            if (filmejComboBox.getItemCount() < 2) {
                 filmejComboBox.removeAllItems();
                 filmejComboBox.addItem("Sem Dados ...");
             }

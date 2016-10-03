@@ -18,9 +18,14 @@ import br.ufmt.ic.locadora.dao.EntidadeDAO;
 import br.ufmt.ic.locadora.dao.ExemplarDAO;
 import br.ufmt.ic.locadora.dao.FornecedorDAO;
 import br.ufmt.ic.locadora.dao.TipoCargoDAO;
-import br.ufmt.ic.locadora.dao.impl.arquivo.*;
 import br.ufmt.ic.locadora.dao.*;
-import br.ufmt.ic.locadora.dao.impl.postgres.AgenciaDAOImplPostgres;
+import br.ufmt.ic.locadora.dao.impl.mysql.AgenciaDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.AmbienteDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.BancoDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.FuncionarioDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.TipoCargoDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.mysql.UsuarioDAOImplMysql;
+import br.ufmt.ic.locadora.dao.impl.postgres.*;
 
 /**
  *
@@ -35,7 +40,6 @@ public class FabricaDAO {
     private static FuncionarioDAO funcionariodao;
     private static ReservaFilmeDAO reservafilmedao;
     private static UsuarioDAO usuariodao;
-    private static UsuarioDAOImplArq usuariodaoarq;
     private static PontoDAO pontodao;
     private static BancoDAO bancodao;
     private static TipoCargoDAO tipocargodao;
@@ -48,118 +52,108 @@ public class FabricaDAO {
     
     public static TipoCargoDAO CriarTipoCargoDAO() {
         if (tipocargodao == null) {
-            tipocargodao = new TipoCargoDAOImplArq();
+            tipocargodao = new TipoCargoDAOImplMysql();
         }
         return tipocargodao;
     }
     
     public static GeneroDAO CriarGeneroDAO() {
         if (generodao == null) {
-            generodao = new GeneroDAOImplArq();
+            generodao = new GeneroDAOImplPostgres();
         }
         return generodao;
     }
     
     public static EntidadeDAO CriarEntidadeDAO() {
         if (entidadedao == null) {
-            entidadedao = new EntidadeDAOImplArq();
+            entidadedao = new EntidadeDAOImplPostgres();
         }
         return entidadedao;
     }
     
     public static ExemplarDAO CriarExemplarDAO() {
         if (exemplardao == null) {
-            exemplardao = new ExemplarDAOImplArq();
+            exemplardao = new ExemplarDAOImplPostgres();
         }
         return exemplardao;
     }
     
      public static AmbienteDAO CriarAmbienteDAO() {
         if (ambientedao == null) {
-            ambientedao = new AmbienteDAOImplArq();
+            ambientedao = new AmbienteDAOImplMysql();
         }
         return ambientedao;
     }
     
     public static BancoDAO CriarBancoDAO() {
         if (bancodao == null) {
-            bancodao = new BancoDAOImplArq();
+            bancodao = new BancoDAOImplMysql();
         }
         return bancodao;
     }
     
      public static FornecedorDAO CriarForncedorDAO() {
         if (fornecedordao == null) {
-            fornecedordao = new FornecedorDAOImplArq();
+            fornecedordao = new FornecedorDAOImplPostgres();
         }
         return fornecedordao;
     }
     
     public static AgenciaDAO CriarAgenciaDAO() {
         if (agenciadao == null) {
-            agenciadao = new AgenciaDAOImplPostgres();
+            agenciadao = new AgenciaDAOImplMysql();
         }
         return agenciadao;
     }
     
     public static PontoDAO CriarPontoDAO() {
         if (pontodao == null) {
-            pontodao = new PontoDAOImplArq();
+            pontodao = new PontoDAOImplPostgres();
         }
         return pontodao;
     }
 
     public static ClienteDAO CriarClienteDAO() {
         if (clientedao == null){
-            clientedao =new ClienteDAOImplArq();
+            clientedao =new ClienteDAOImplPostgres();
         }
         return clientedao;
     }
 
     public static DoacaoFilmesDAO CriarDoacaoFilmesDAO() {
         if (doacaofilmesdao == null){
-            doacaofilmesdao = new DoacaoFilmesDAOImplArq();
+            doacaofilmesdao = new DoacaoFilmesDAOImplPostgres();
         }
         return doacaofilmesdao;
     }
 
     public static FilmeDAO CriarFilmeDAO() {
         if (filmesdao == null){
-            filmesdao =  new FilmeDAOImplArq();
+            filmesdao =  new FilmeDAOImplPostgres();
         }
         return filmesdao;
     }
 
     public static FuncionarioDAO CriarFuncionarioDAO() {
         if (funcionariodao == null){
-            funcionariodao =  new FuncionarioDAOImplArq();
+            funcionariodao =  new FuncionarioDAOImplMysql();
         }
         return funcionariodao;
     }
 
     public static ReservaFilmeDAO CriarReservaFilmeDAO() {
         if (reservafilmedao == null){
-            reservafilmedao = new ReservaFilmeDAOImplArq();
+            reservafilmedao = new ReservaFilmeDAOImplPostgres();
         }
         return reservafilmedao;
     }
 
     public static UsuarioDAO CriarUsuarioDAO() {
         if(usuariodao == null){
-            usuariodao =  new UsuarioDAOImplArq();
+            usuariodao =  new UsuarioDAOImplMysql();
         }
         return usuariodao;
     }
     
-    public static UsuarioDAOImplArq CriarUsuarioDAOArq() {
-        if(usuariodaoarq == null){
-            usuariodaoarq =  new UsuarioDAOImplArq();
-        }
-        return usuariodaoarq;
-    }
-
-    public static Object criarPacienteDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }

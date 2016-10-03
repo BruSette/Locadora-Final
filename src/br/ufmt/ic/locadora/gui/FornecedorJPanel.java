@@ -16,17 +16,23 @@ import br.ufmt.ic.locadora.tablemodel.FornecedorTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author brunosette
  */
 public class FornecedorJPanel extends FabricaTela {
+
     FornecedorDAO dao = FabricaDAO.CriarForncedorDAO();
     private FornecedorTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
     private Fornecedor chave;
+
     /**
      * Creates new form FornecedorJPanel
      */
@@ -379,16 +385,15 @@ public class FornecedorJPanel extends FabricaTela {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            
-            
+
             for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
-               Banco banco = new Banco();  
-               banco = (Banco)bancojComboBox.getItemAt(i);
-               if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())){
-                   bancojComboBox.setSelectedIndex(i);
-               }
+                Banco banco = new Banco();
+                banco = (Banco) bancojComboBox.getItemAt(i);
+                if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())) {
+                    bancojComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             ccjTextField.setText(selecionado.getConta().getContaNumero());
             bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             chave = selecionado;
@@ -406,9 +411,16 @@ public class FornecedorJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = funcionariojTable.getSelectedRow();
                 Fornecedor selecionado = tableModel.getFornecedor(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(FornecedorJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
@@ -426,15 +438,16 @@ public class FornecedorJPanel extends FabricaTela {
         fornecedor.setEmail(emailjTextField.getText());
         fornecedor.setCnpj(cnpjjFormattedTextField.getText());
         
-        
+        fornecedor.setDatacadastro(new Date(System.currentTimeMillis()));
+
         ContaBancaria conta = new ContaBancaria();
-        if (ValidaCombo(bancojComboBox)){
+        if (ValidaCombo(bancojComboBox)) {
             conta.setBanco((Banco) bancojComboBox.getSelectedItem());
-        }else{
+        } else {
             bancojComboBox.grabFocus();
             return;
         }
-        
+
         conta.setContaNumero(ccjTextField.getText());
 
         fornecedor.setConta(conta);
@@ -464,7 +477,11 @@ public class FornecedorJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cnpjjFormattedTextField.grabFocus();
-        } 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            cnpjjFormattedTextField.grabFocus();
+            Logger.getLogger(FornecedorJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 

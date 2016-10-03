@@ -5,19 +5,16 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import br.ufmt.ic.locadora.entidade.Agencia;
 import java.util.Objects;
 
 /**
  *
  * @author brunosette
  */
-public class ContaBancaria implements Generica {
-
+public class ContaBancaria {
     private Banco banco;
     private String contaNumero;
-    private int codigo;
-
+    
     public Banco getBanco() {
         return banco;
     }
@@ -72,14 +69,5 @@ public class ContaBancaria implements Generica {
     public String toString(){
         return getContaNumero() + " - "  + getBanco();
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
    
 }

@@ -5,7 +5,6 @@
  */
 package br.ufmt.ic.locadora.entidade;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ import java.util.Objects;
  *
  * @author brunosette
  */
-public class PessoaFisica extends Pessoa implements Serializable {
+public class PessoaFisica extends Pessoa {
     
     protected String rg;
     protected String cpf;

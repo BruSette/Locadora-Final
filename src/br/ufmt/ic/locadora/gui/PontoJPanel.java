@@ -13,10 +13,13 @@ import br.ufmt.ic.locadora.entidade.Ponto;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.PontoTableModel;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,8 +30,7 @@ public class PontoJPanel extends FabricaTela {
 
     private PontoDAO dao = FabricaDAO.CriarPontoDAO();
     private FuncionarioDAO funcionarioDAO = FabricaDAO.CriarFuncionarioDAO();
-    
-     
+
     private PontoTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
@@ -43,10 +45,6 @@ public class PontoJPanel extends FabricaTela {
         tipoPontojComboBox = setComboTipoPonto(tipoPontojComboBox);
         funcionariojComboBox = setComboFuncionario(funcionariojComboBox);
     }
-
-    
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,28 +190,26 @@ public class PontoJPanel extends FabricaTela {
 
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
         // TODO add your handling code here:
-        
-         if (pontojTable.getSelectedRowCount() == 1) {
+
+        if (pontojTable.getSelectedRowCount() == 1) {
             linhaSelecionada = pontojTable.getSelectedRow();
             Ponto selecionado = tableModel.getPonto(linhaSelecionada);
 
-            try{
+            try {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 datajFormattedTextField.setText(sdf.format(selecionado.getDataPonto()));
-            }catch (NullPointerException erro){
-                
+            } catch (NullPointerException erro) {
+
             }
-            
+
             tipoPontojComboBox.setSelectedItem(selecionado.getTipoPonto());
             for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
-               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
-               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
-                   funcionariojComboBox.setSelectedIndex(i);
-               }
+                Funcionario funcionario = (Funcionario) funcionariojComboBox.getItemAt(i);
+                if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())) {
+                    funcionariojComboBox.setSelectedIndex(i);
+                }
             }
-            
-            
-            
+
             chave = selecionado;
             editar = true;
         } else {
@@ -226,7 +222,7 @@ public class PontoJPanel extends FabricaTela {
     private void tipoPontojComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPontojComboBoxActionPerformed
         // TODO add your handling code here:
 
-        
+
     }//GEN-LAST:event_tipoPontojComboBoxActionPerformed
 
     private void cadastrarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarjButtonActionPerformed
@@ -273,6 +269,10 @@ public class PontoJPanel extends FabricaTela {
             limparjButtonActionPerformed(null);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+
+            Logger.getLogger(PontoJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -293,9 +293,16 @@ public class PontoJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = pontojTable.getSelectedRow();
                 Ponto selecionado = tableModel.getPonto(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(PontoJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

@@ -15,8 +15,11 @@ import br.ufmt.ic.locadora.dao.ReservaFilmeDAO;
 import br.ufmt.ic.locadora.entidade.Genero;
 import br.ufmt.ic.locadora.tablemodel.ReservaFilmeTableModel;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,7 +45,7 @@ public class ReservafilmeJPanel extends FabricaTela {
         funcionariojComboBox = super.setComboFuncionario(funcionariojComboBox);
         generojComboBox = super.setComboGenero(generojComboBox);
         clientejComboBox = super.setComboCliente(clientejComboBox);
-        
+
     }
 
     private void LimpaComboFilme() {
@@ -320,6 +323,10 @@ public class ReservafilmeJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             filmejComboBox.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            filmejComboBox.grabFocus();
+            Logger.getLogger(ReservafilmeJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -331,35 +338,30 @@ public class ReservafilmeJPanel extends FabricaTela {
         if (reservaFilmejTable.getSelectedRowCount() == 1) {
             linhaSelecionada = reservaFilmejTable.getSelectedRow();
             ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-            
-            
-            
-            for (int i = 1; i <  generojComboBox.getItemCount(); i++) {
-               Genero genero = (Genero)  generojComboBox.getItemAt(i);
-               if (genero.getNome().equals(selecionado.getFilme().getExemplar().getGenero().getNome())){
-                   generojComboBox.setSelectedIndex(i);
-               }
+
+            for (int i = 1; i < generojComboBox.getItemCount(); i++) {
+                Genero genero = (Genero) generojComboBox.getItemAt(i);
+                if (genero.getNome().equals(selecionado.getFilme().getExemplar().getGenero().getNome())) {
+                    generojComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             for (int i = 1; i < clientejComboBox.getItemCount(); i++) {
-               Cliente fornecedor  = (Cliente) clientejComboBox.getItemAt(i);
-               if (fornecedor.getCpf().equals(selecionado.getCliente().getCpf())){
-                   clientejComboBox.setSelectedIndex(i);
-               }
+                Cliente fornecedor = (Cliente) clientejComboBox.getItemAt(i);
+                if (fornecedor.getCpf().equals(selecionado.getCliente().getCpf())) {
+                    clientejComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             for (int i = 1; i < funcionariojComboBox.getItemCount(); i++) {
-               Funcionario funcionario  = (Funcionario) funcionariojComboBox.getItemAt(i);
-               if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())){
-                   funcionariojComboBox.setSelectedIndex(i);
-               }
+                Funcionario funcionario = (Funcionario) funcionariojComboBox.getItemAt(i);
+                if (funcionario.getCpf().equals(selecionado.getFuncionario().getCpf())) {
+                    funcionariojComboBox.setSelectedIndex(i);
+                }
             }
-            
-            
-            
+
             clientejComboBox.setSelectedItem((Cliente) selecionado.getCliente());
             //filmejComboBox.setSelectedItem((Filme) selecionado.getFilme());
-            
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -387,9 +389,16 @@ public class ReservafilmeJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = reservaFilmejTable.getSelectedRow();
                 ReservaFilme selecionado = tableModel.getReservaFilme(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(ReservafilmeJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
@@ -400,13 +409,13 @@ public class ReservafilmeJPanel extends FabricaTela {
         // TODO add your handling code here:
         if (generojComboBox.getSelectedIndex() > 0) {
             filmejComboBox = setComboFilme(filmejComboBox, (Genero) generojComboBox.getSelectedItem());
-            if (filmejComboBox.getItemCount() < 2){
+            if (filmejComboBox.getItemCount() < 2) {
                 filmejComboBox.removeAllItems();
                 filmejComboBox.addItem("Sem Dados ...");
             }
         } else {
             LimpaComboFilme();
-            
+
         }
     }//GEN-LAST:event_generojComboBoxItemStateChanged
 

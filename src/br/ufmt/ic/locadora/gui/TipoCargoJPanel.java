@@ -10,6 +10,9 @@ import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.TipoCargoTableModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,13 +20,13 @@ import javax.swing.JOptionPane;
  * @author brunosette
  */
 public class TipoCargoJPanel extends javax.swing.JPanel {
+
     private TipoCargoDAO dao = FabricaDAO.CriarTipoCargoDAO();
     private TipoCargoTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
     private TipoCargo chave;
-    
-    
+
     /**
      * Creates new form TipoCargoJPanel
      */
@@ -142,7 +145,7 @@ public class TipoCargoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         nomejTextField.setText("");
-        
+
         editar = false;
     }//GEN-LAST:event_limparjButtonActionPerformed
 
@@ -150,7 +153,6 @@ public class TipoCargoJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         TipoCargo novo = new TipoCargo();
         novo.setNome(nomejTextField.getText());
-        
 
         try {
             if (editar) {
@@ -166,6 +168,10 @@ public class TipoCargoJPanel extends javax.swing.JPanel {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            nomejTextField.grabFocus();
+            Logger.getLogger(TipoCargoJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
@@ -177,7 +183,6 @@ public class TipoCargoJPanel extends javax.swing.JPanel {
             TipoCargo selecionado = tableModel.getTipoCargo(linhaSelecionada);
 
             nomejTextField.setText(selecionado.getNome());
-            
 
             chave = selecionado;
             editar = true;
@@ -193,9 +198,16 @@ public class TipoCargoJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = tipocargoJTable.getSelectedRow();
                 TipoCargo selecionado = tableModel.getTipoCargo(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(TipoCargoJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+              
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

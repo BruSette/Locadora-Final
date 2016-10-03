@@ -14,20 +14,22 @@ import br.ufmt.ic.locadora.tablemodel.AmbienteTableModel;
 import br.ufmt.ic.locadora.tablemodel.TipoCargoTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.util.FabricaDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author brunosette
  */
 public class AmbienteJPanel extends javax.swing.JPanel {
-    
+
     private AmbienteDAO dao = FabricaDAO.CriarAmbienteDAO();
     private AmbienteTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
     private Ambiente chave;
-    
-    
+
     /**
      * Creates new form AmbienteJPanel
      */
@@ -169,6 +171,9 @@ public class AmbienteJPanel extends javax.swing.JPanel {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             nomejTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            nomejTextField.grabFocus();
         }
     }//GEN-LAST:event_cadastrarjButtonActionPerformed
 
@@ -195,9 +200,16 @@ public class AmbienteJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = ambientejTable.getSelectedRow();
                 Ambiente selecionado = tableModel.getAmbiente(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(AmbienteJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

@@ -16,18 +16,22 @@ import br.ufmt.ic.locadora.tablemodel.EntidadeTableModel;
 import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author brunosette
  */
 public class EntidadeJPanel extends FabricaTela {
+
     EntidadeDAO dao = FabricaDAO.CriarEntidadeDAO();
     private EntidadeTableModel tableModel;
     private boolean editar = false;
     private int linhaSelecionada;
-    private Entidade chave;    
-    
+    private Entidade chave;
+
     /**
      * Creates new form EntidadeJPanel
      */
@@ -387,13 +391,13 @@ public class EntidadeJPanel extends FabricaTela {
 
     private void editarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButton1ActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_editarjButton1ActionPerformed
 
     private void excluirjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirjButtonActionPerformed
         // TODO add your handling code here:
 
-        
+
     }//GEN-LAST:event_excluirjButtonActionPerformed
 
     private void editarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarjButtonActionPerformed
@@ -416,17 +420,16 @@ public class EntidadeJPanel extends FabricaTela {
             cidadejTextField.setText(selecionado.getEndereco().getCidade());
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
-            
-            
+
             for (int i = 1; i < bancojComboBox.getItemCount(); i++) {
-               Banco banco = (Banco)bancojComboBox.getItemAt(i);
-               if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())){
-                   bancojComboBox.setSelectedIndex(i);
-               }
+                Banco banco = (Banco) bancojComboBox.getItemAt(i);
+                if (banco.getNome().equals(selecionado.getConta().getBanco().getNome())) {
+                    bancojComboBox.setSelectedIndex(i);
+                }
             }
-            
+
             ccjTextField.setText(selecionado.getConta().getContaNumero());
-            
+
             bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             chave = selecionado;
             editar = true;
@@ -442,9 +445,16 @@ public class EntidadeJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entidadejTable.getSelectedRow();
                 Entidade selecionado = tableModel.getEntidade(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(EntidadeJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
@@ -484,16 +494,16 @@ public class EntidadeJPanel extends FabricaTela {
         entidade.setCnpj(cnpjjFormattedTextField.getText());
 
         ContaBancaria conta = new ContaBancaria();
-        
-        if (ValidaCombo(bancojComboBox)){
+
+        if (ValidaCombo(bancojComboBox)) {
             conta.setBanco((Banco) bancojComboBox.getSelectedItem());
-        }else{
+        } else {
             bancojComboBox.grabFocus();
             return;
         }
-        
+
         conta.setContaNumero(ccjTextField.getText());
-        
+
         entidade.setConta(conta);
 
         Endereco end = new Endereco();
@@ -520,6 +530,9 @@ public class EntidadeJPanel extends FabricaTela {
             limparjButtonActionPerformed(null);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
+            cnpjjFormattedTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
             cnpjjFormattedTextField.grabFocus();
         }
     }//GEN-LAST:event_cadastrarjButtonActionPerformed

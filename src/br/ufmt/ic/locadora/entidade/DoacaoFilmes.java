@@ -14,12 +14,12 @@ import java.util.Objects;
  * @author brunosette
  */
 public class DoacaoFilmes implements Generica {
-
+    
+    private int codigo;
     private Filme filme;
     private Entidade entidade;
     private Date dataDoacao;
     private Funcionario responsavel;
-    private int codigo;
 
     
     public DoacaoFilmes() {

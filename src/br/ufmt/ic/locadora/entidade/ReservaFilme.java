@@ -20,7 +20,6 @@ public class ReservaFilme implements Generica {
     private Date dataReserva;
     private Date dataDevolucao;
     private Double valorCompra;
-    private PagamentoCompra pagamento;
     private int codigo;
 
     @Override
@@ -111,14 +110,6 @@ public class ReservaFilme implements Generica {
     @Override
     public String toString() {
         return getCliente().getNome() + " - " + getFilme().getExemplar().getNome();
-    }
-
-    public PagamentoCompra getPagamento() {
-        return pagamento;
-    }
-
-    public void setPagamento(PagamentoCompra pagamento) {
-        this.pagamento = pagamento;
     }
 
     public int getCodigo() {

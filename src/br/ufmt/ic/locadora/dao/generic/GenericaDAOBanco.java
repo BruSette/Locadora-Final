@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufmt.ic.locadora.dao.impl.postgres;
+package br.ufmt.ic.locadora.dao.generic;
 
 import br.ufmt.ic.locadora.dao.GenericaDAO;
 import br.ufmt.ic.locadora.entidade.Generica;
 import br.ufmt.ic.locadora.exception.RegistroException;
+import br.ufmt.ic.locadora.util.BancoDados;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,25 +20,23 @@ import java.util.logging.Logger;
 /**
  *
  * @author bruno
- * @param <T>
  */
-public abstract class GenericaDAOPostgres<T extends Generica> implements GenericaDAO<T> {
-
-    private final Banco banco = new Banco(true);
-    T t = getObjeto();
-    private String nome = t.getClass().getSimpleName().toLowerCase();
+public abstract class GenericaDAOBanco<T extends Generica> implements GenericaDAO<T>   {
+    
+    protected final BancoDados banco = getBanco();
+    
+    protected T t = getObjeto();
+    protected String nome = t.getClass().getSimpleName().toLowerCase();
     
     @Override
-    public void inserir(T t) throws RegistroException {
+    public void inserir(T t) throws RegistroException, SQLException {
         String sql = "INSERT INTO " + nome;
         sql += getInsert(t);
         PreparedStatement pstm = banco.prepareStatement(sql);
         pstm = PreparaInserir(pstm, t);
         try {
             pstm.execute();
-            banco.executar(sql);
-            sql = "select last_value as ultimo from " + nome + "_codigo_seq;";
-            ResultSet resultado = banco.executarQuery(sql);
+            ResultSet resultado = getUltimo();
             try {
                 if (resultado.next()) {
                     t.setCodigo(resultado.getInt("ultimo"));
@@ -46,24 +45,23 @@ public abstract class GenericaDAOPostgres<T extends Generica> implements Generic
                 Logger.getLogger(GenericaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(GenericaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            throw new SQLException();
         }
     }
 
     @Override
-    public void remover(int codigo) {
+    public void remover(int codigo) throws SQLException {
         String sql = "delete from " + nome + " where codigo = " + codigo + ";";
         PreparedStatement pstm = banco.prepareStatement(sql);
         try {
             pstm.execute();
-            banco.executar(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(GenericaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            throw new SQLException();
         }
     }
 
     @Override
-    public void alterar(T t) {
+    public void alterar(T t) throws SQLException {
         
         String sql = "UPDATE" + nome +  "SET  ";
         sql += getUpdate(t);
@@ -71,9 +69,8 @@ public abstract class GenericaDAOPostgres<T extends Generica> implements Generic
         pstm = PreparaUpdate(pstm, t);
         try {
             pstm.execute();
-            banco.executar(sql);
         } catch (SQLException ex) {
-            Logger.getLogger(GenericaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            throw new SQLException();
         }
         
     }
@@ -101,7 +98,6 @@ public abstract class GenericaDAOPostgres<T extends Generica> implements Generic
         List<T> ret = new ArrayList<>();
         String sql = "select * from " + nome + ";";
         ResultSet resultado = banco.executarQuery(sql);
-
         try {
             while (resultado.next()) {
                 T t = setObjeto(resultado);
@@ -113,11 +109,13 @@ public abstract class GenericaDAOPostgres<T extends Generica> implements Generic
         return ret;
     }
 
+    public abstract ResultSet getUltimo();
     public abstract String getInsert(T objeto);
     public abstract String getUpdate(T objeto);
     public abstract T setObjeto(ResultSet resultado);
     public abstract T getObjeto();
     public abstract PreparedStatement PreparaInserir(PreparedStatement pstm, T t);
     public abstract PreparedStatement PreparaUpdate(PreparedStatement pstm, T t);
-    
+    public abstract BancoDados getBanco ();
+            
 }

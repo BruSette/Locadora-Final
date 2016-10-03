@@ -1,4 +1,4 @@
-package br.ufmt.ic.locadora.dao.impl.postgres;
+package br.ufmt.ic.locadora.dao.impl.mysql;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -7,7 +7,6 @@ package br.ufmt.ic.locadora.dao.impl.postgres;
  */
 import br.ufmt.ic.locadora.dao.generic.GenericaDAOMysql;
 import br.ufmt.ic.locadora.dao.AgenciaDAO;
-import br.ufmt.ic.locadora.dao.generic.GenericaDAOPostgres;
 import br.ufmt.ic.locadora.entidade.Agencia;
 import br.ufmt.ic.locadora.entidade.Endereco;
 import br.ufmt.ic.locadora.entidade.PessoaFisica;
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class AgenciaDAOImplPostgres extends GenericaDAOPostgres<Agencia> implements AgenciaDAO {
+public class AgenciaDAOImplMysql extends GenericaDAOMysql<Agencia> implements AgenciaDAO {
 
     @Override
     public String getInsert(Agencia objeto) {
@@ -31,8 +30,8 @@ public class AgenciaDAOImplPostgres extends GenericaDAOPostgres<Agencia> impleme
     
     @Override
     public String getUpdate(Agencia objeto) {
-        return " codigobanco = ?,codigoagencia= ?,gerente= ?,telefone= ?,bairro= ?,cep= ?,cidade= ?,complemento= ?,estado= ?,numero= ?,rua= ?"
-                + " where codigo = ?;";
+        return " (codigobanco = ?,codigoagencia= ?,gerente= ?,telefone= ?,bairro= ?,cep= ?,cidade= ?,complemento= ?,estado= ?,numero= ?,rua= ?"
+                + " where codigo = ?);";
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AgenciaDAOImplPostgres extends GenericaDAOPostgres<Agencia> impleme
             agencia.setEndereco(endereco);
 
         } catch (SQLException ex) {
-            Logger.getLogger(AgenciaDAOImplPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AgenciaDAOImplMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
         return agencia;
 
@@ -81,7 +80,7 @@ public class AgenciaDAOImplPostgres extends GenericaDAOPostgres<Agencia> impleme
             pstm.setString(11, t.getEndereco().getRua());
 
         } catch (SQLException ex) {
-            Logger.getLogger(AgenciaDAOImplPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AgenciaDAOImplMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
         return pstm;
     }
@@ -102,7 +101,7 @@ public class AgenciaDAOImplPostgres extends GenericaDAOPostgres<Agencia> impleme
             pstm.setString(11, t.getEndereco().getRua());
             pstm.setInt(12, t.getCodigo());
         } catch (SQLException ex) {
-            Logger.getLogger(AgenciaDAOImplPostgres.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AgenciaDAOImplMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return pstm;

@@ -12,8 +12,11 @@ import br.ufmt.ic.locadora.entidade.Cliente;
 import br.ufmt.ic.locadora.dao.ClienteDAO;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.ClienteTableModel;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -507,6 +510,9 @@ public class ClienteJPanel extends javax.swing.JPanel {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            cpfjFormattedTextField.grabFocus();
         }
 
 
@@ -569,9 +575,16 @@ public class ClienteJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = clientejTable.getSelectedRow();
                 Cliente selecionado = tableModel.getCliente(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(ClienteJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

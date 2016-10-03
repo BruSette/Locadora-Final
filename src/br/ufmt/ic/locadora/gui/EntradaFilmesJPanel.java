@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import br.ufmt.ic.locadora.dao.FilmeDAO;
 import br.ufmt.ic.locadora.entidade.Fornecedor;
 import br.ufmt.ic.locadora.entidade.Exemplar;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -262,7 +265,7 @@ public class EntradaFilmesJPanel extends FabricaTela {
         }
 
         novo.setQuantidade(quant);
-        
+
         try {
             if (editar) {
                 dao.alterar(novo);
@@ -278,6 +281,10 @@ public class EntradaFilmesJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             exemplarjComboBox.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            exemplarjComboBox.grabFocus();
+            Logger.getLogger(EntradaFilmesJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -327,9 +334,16 @@ public class EntradaFilmesJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = entradafilmesjTable.getSelectedRow();
                 Filme selecionado = tableModel.getEntradaFilmes(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(EntradaFilmesJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

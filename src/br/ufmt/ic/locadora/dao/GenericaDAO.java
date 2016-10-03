@@ -7,6 +7,7 @@
 package br.ufmt.ic.locadora.dao;
 
 import br.ufmt.ic.locadora.exception.RegistroException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,11 +16,11 @@ import java.util.List;
  */
 public interface GenericaDAO<T> {
     
-    public void inserir(T generica) throws RegistroException;
+    public void inserir(T generica) throws RegistroException,SQLException;
     
-    public void remover(int codigo);
+    public void remover(int codigo) throws SQLException;
     
-    public void alterar(T generica);
+    public void alterar(T generica) throws SQLException;
     
     public T consultar(int codigo);
     

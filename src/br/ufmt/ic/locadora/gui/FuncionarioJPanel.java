@@ -22,6 +22,9 @@ import br.ufmt.ic.locadora.entidade.TipoCargo;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.FuncionarioTableModel;
 import br.ufmt.ic.locadora.util.FabricaTela;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +32,7 @@ import br.ufmt.ic.locadora.util.FabricaTela;
  */
 public class FuncionarioJPanel extends FabricaTela {
 
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     FuncionarioDAO dao = FabricaDAO.CriarFuncionarioDAO();
     private FuncionarioTableModel tableModel;
     private boolean editar = false;
@@ -589,7 +593,7 @@ public class FuncionarioJPanel extends FabricaTela {
         sData = (String) dataadmissjFormattedTextField.getText();
 
         if (sData != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
             try {
                 funcionario.setDataAdmiss(sdf.parse(sData));
             } catch (ParseException ex) {
@@ -597,6 +601,12 @@ public class FuncionarioJPanel extends FabricaTela {
                 dataadmissjFormattedTextField.grabFocus();
                 return;
             }
+        }
+
+        try {
+            funcionario.setDataDemiss(sdf.parse("11/11/1111"));
+        } catch (ParseException ex) {
+            Logger.getLogger(FuncionarioJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         ContaBancaria conta = new ContaBancaria();
@@ -655,6 +665,10 @@ public class FuncionarioJPanel extends FabricaTela {
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
             cpfjFormattedTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
+            cpfjFormattedTextField.grabFocus();
+            Logger.getLogger(FuncionarioJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -696,13 +710,12 @@ public class FuncionarioJPanel extends FabricaTela {
             numerojTextField.setText(selecionado.getEndereco().getNumero());
             complementojTextField.setText(selecionado.getEndereco().getComplemento());
 
-            
             tipocargojComboBox.setSelectedItem(selecionado.getCargo());
             bancojComboBox.setSelectedItem(selecionado.getConta().getBanco());
             ambientejComboBox.setSelectedItem(selecionado.getAmbiente());
-            
+
             ccjTextField.setText(selecionado.getConta().getContaNumero());
-            
+
             chave = selecionado;
             editar = true;
         } else {
@@ -718,9 +731,15 @@ public class FuncionarioJPanel extends FabricaTela {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = funcionariojTable.getSelectedRow();
                 Funcionario selecionado = tableModel.getFuncionario(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+                    Logger.getLogger(FuncionarioJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");

@@ -10,6 +10,9 @@ import br.ufmt.ic.locadora.util.FabricaDAO;
 import br.ufmt.ic.locadora.entidade.Banco;
 import br.ufmt.ic.locadora.exception.RegistroException;
 import br.ufmt.ic.locadora.tablemodel.BancoTableModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,14 +26,13 @@ public class BancoJPanel extends javax.swing.JPanel {
     private boolean editar = false;
     private int linhaSelecionada;
     private Banco chave;
-    
-    
+
     /**
      * Creates new form BancoJPanel
      */
     public BancoJPanel() {
         initComponents();
-        
+
     }
 
     /**
@@ -159,7 +161,7 @@ public class BancoJPanel extends javax.swing.JPanel {
 
             nomejTextField.setText(selecionado.getNome());
             codjTextField.setText(selecionado.getCod());
-            
+
             chave = selecionado;
             editar = true;
         } else {
@@ -174,9 +176,16 @@ public class BancoJPanel extends javax.swing.JPanel {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 linhaSelecionada = bancojTable.getSelectedRow();
                 Banco selecionado = tableModel.getBanco(linhaSelecionada);
-                dao.remover(selecionado.getCodigo());
-                tableModel.remover(linhaSelecionada, selecionado);
-                JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                try {
+                    dao.remover(selecionado.getCodigo());
+                    tableModel.remover(linhaSelecionada, selecionado);
+                    JOptionPane.showMessageDialog(this, "Excluido com Sucesso!");
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel remover. Outros dados dependem deste");
+
+                    Logger.getLogger(BancoJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione ao menos 1 linha!");
@@ -187,10 +196,9 @@ public class BancoJPanel extends javax.swing.JPanel {
     private void limparjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparjButtonActionPerformed
         // TODO add your handling code here:
 
-       
         nomejTextField.setText("");
         codjTextField.setText("");
-        
+
         editar = false;
 
     }//GEN-LAST:event_limparjButtonActionPerformed
@@ -200,8 +208,7 @@ public class BancoJPanel extends javax.swing.JPanel {
         Banco novo = new Banco();
         novo.setNome(nomejTextField.getText());
         novo.setCod(codjTextField.getText());
-       
-        
+
         try {
             if (editar) {
                 dao.alterar(novo);
@@ -215,6 +222,9 @@ public class BancoJPanel extends javax.swing.JPanel {
             limparjButtonActionPerformed(null);
         } catch (RegistroException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage());
+            nomejTextField.grabFocus();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir, verifique os dados");
             nomejTextField.grabFocus();
         }
 
